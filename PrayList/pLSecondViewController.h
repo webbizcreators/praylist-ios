@@ -7,7 +7,15 @@
 //
 
 #import <UIKit/UIKit.h>
+#import <RestKit/RestKit.h>
 
-@interface pLSecondViewController : UIViewController
+@interface pLSecondViewController : UIViewController <UITableViewDelegate>{
+    
+    IBOutlet UITableView *tableView;
+    
+}
+
+
+
 
 @end

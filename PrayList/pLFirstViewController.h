@@ -7,7 +7,16 @@
 //
 
 #import <UIKit/UIKit.h>
+#import <RestKit/RestKit.h>
 
-@interface pLFirstViewController : UIViewController
+@interface pLFirstViewController : UIViewController <UITableViewDelegate>{
+    
+    IBOutlet UITableView *tableView;
+    IBOutlet UIBarButtonItem *addbutton;
+    IBOutlet UIBarButtonItem *refreshbutton;
+    
+}
+
+@property (nonatomic, strong) NSOperationQueue *imageDownloadingQueue;
 
 @end

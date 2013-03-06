@@ -6,13 +6,31 @@
 //  Copyright (c) 2012 Peter Opheim. All rights reserved.
 //
 
+
 #import "pLAppDelegate.h"
+#import "pLPrayerRequestListItem.h"
+#import "pLLoginRequest.h"
+#import "pLSecurityToken.h"
+#import "pLAppUtils.h"
 
 @implementation pLAppDelegate
 
+
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
-    // Override point for customization after application launch.
+    
+
+    //RKObjectManager *objectManager = [RKObjectManager managerWithBaseURL:[NSURL URLWithString:@"http://praylistws.elasticbeanstalk.com/rest/"]];
+    
+    RKObjectManager *objectManager = [RKObjectManager managerWithBaseURL:[NSURL URLWithString:@"http://127.0.0.1:8080/praylistws/rest/"]];
+    objectManager.requestSerializationMIMEType = RKMIMETypeJSON;
+                                
+    
+    [pLAppUtils registerObjectMappings];
+    
+        
+    
+    
     return YES;
 }
 							

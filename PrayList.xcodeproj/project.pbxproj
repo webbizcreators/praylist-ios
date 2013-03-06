@@ -28,6 +28,32 @@
 		D01E39D51654AABD00C26BF0 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D01E39A51654AABD00C26BF0 /* Foundation.framework */; };
 		D01E39DD1654AABD00C26BF0 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = D01E39DB1654AABD00C26BF0 /* InfoPlist.strings */; };
 		D01E39E01654AABD00C26BF0 /* PrayListTests.m in Sources */ = {isa = PBXBuildFile; fileRef = D01E39DF1654AABD00C26BF0 /* PrayListTests.m */; };
+		D01E3A091654AD2F00C26BF0 /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D01E3A021654AD2F00C26BF0 /* CFNetwork.framework */; };
+		D01E3A0A1654AD2F00C26BF0 /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D01E3A031654AD2F00C26BF0 /* CoreData.framework */; };
+		D01E3A0B1654AD2F00C26BF0 /* libxml2.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = D01E3A041654AD2F00C26BF0 /* libxml2.dylib */; };
+		D01E3A0C1654AD2F00C26BF0 /* MobileCoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D01E3A051654AD2F00C26BF0 /* MobileCoreServices.framework */; };
+		D01E3A0D1654AD2F00C26BF0 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D01E3A061654AD2F00C26BF0 /* QuartzCore.framework */; };
+		D01E3A0E1654AD2F00C26BF0 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D01E3A071654AD2F00C26BF0 /* Security.framework */; };
+		D01E3A0F1654AD2F00C26BF0 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D01E3A081654AD2F00C26BF0 /* SystemConfiguration.framework */; };
+		D01EA2F616C47B4C0050E152 /* pLAppUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = D01EA2F516C47B4C0050E152 /* pLAppUtils.m */; };
+		D01EA2F916C63BF50050E152 /* pLPrayerRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = D01EA2F816C63BF50050E152 /* pLPrayerRequest.m */; };
+		D01EA2FC16C719550050E152 /* pLPrayerRequestCell.m in Sources */ = {isa = PBXBuildFile; fileRef = D01EA2FB16C719550050E152 /* pLPrayerRequestCell.m */; };
+		D01EA2FE16C719BB0050E152 /* PrayerRequestCellView.xib in Resources */ = {isa = PBXBuildFile; fileRef = D01EA2FD16C719BB0050E152 /* PrayerRequestCellView.xib */; };
+		D01EA30116D452E50050E152 /* pLPostRequestController.m in Sources */ = {isa = PBXBuildFile; fileRef = D01EA30016D452E50050E152 /* pLPostRequestController.m */; };
+		D04760161668785D00D13E64 /* me.png in Resources */ = {isa = PBXBuildFile; fileRef = D04760151668785D00D13E64 /* me.png */; };
+		D0544EA516DD5B9B004EDC8C /* pLCircle.m in Sources */ = {isa = PBXBuildFile; fileRef = D0544EA416DD5B9B004EDC8C /* pLCircle.m */; };
+		D0544EA816DD8829004EDC8C /* pLSelectCircleforPostViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D0544EA716DD8829004EDC8C /* pLSelectCircleforPostViewController.m */; };
+		D0544EAA16DD992C004EDC8C /* pLCircleCollectionCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = D0544EA916DD992C004EDC8C /* pLCircleCollectionCell.xib */; };
+		D0544EAD16DEB581004EDC8C /* pLCircleCollectionCell.m in Sources */ = {isa = PBXBuildFile; fileRef = D0544EAC16DEB581004EDC8C /* pLCircleCollectionCell.m */; };
+		D06E202916BA316A0002F17B /* praylisticon.png in Resources */ = {isa = PBXBuildFile; fileRef = D06E202816BA316A0002F17B /* praylisticon.png */; };
+		D06E202C16BA3A590002F17B /* pLLoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D06E202B16BA3A590002F17B /* pLLoginViewController.m */; };
+		D06F475B1655A5EF00C2CD63 /* pLPrayerRequestListItem.m in Sources */ = {isa = PBXBuildFile; fileRef = D06F475A1655A5EF00C2CD63 /* pLPrayerRequestListItem.m */; };
+		D06F475F1656E4D000C2CD63 /* pLPrayerListItemCell.m in Sources */ = {isa = PBXBuildFile; fileRef = D06F475E1656E4D000C2CD63 /* pLPrayerListItemCell.m */; };
+		D06F47611656E5FC00C2CD63 /* PrayerListItemCellView.xib in Resources */ = {isa = PBXBuildFile; fileRef = D06F47601656E5FC00C2CD63 /* PrayerListItemCellView.xib */; };
+		D073270716BC950E00169F24 /* pLSettingsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D073270616BC950E00169F24 /* pLSettingsViewController.m */; };
+		D073270C16BCFB8500169F24 /* pLLoginRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = D073270B16BCFB8500169F24 /* pLLoginRequest.m */; };
+		D0CEC75716C1F3D600B62807 /* libRestKit.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D0EE961116C1EF9A00D8021A /* libRestKit.a */; settings = {ATTRIBUTES = (Required, ); }; };
+		D0EE960516C1E6F100D8021A /* pLSecurityToken.m in Sources */ = {isa = PBXBuildFile; fileRef = D0EE960416C1E6F100D8021A /* pLSecurityToken.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -37,6 +63,41 @@
 			proxyType = 1;
 			remoteGlobalIDString = D01E399E1654AABD00C26BF0;
 			remoteInfo = PrayList;
+		};
+		D0CEC75416C1F3C500B62807 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = D0EE960616C1EF9900D8021A /* RestKit.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = 25160D1514564E810060A5C5;
+			remoteInfo = RestKit;
+		};
+		D0EE961016C1EF9A00D8021A /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = D0EE960616C1EF9900D8021A /* RestKit.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 25160D1614564E810060A5C5;
+			remoteInfo = RestKit;
+		};
+		D0EE961216C1EF9A00D8021A /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = D0EE960616C1EF9900D8021A /* RestKit.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 25160D2614564E820060A5C5;
+			remoteInfo = RestKitTests;
+		};
+		D0EE961416C1EF9A00D8021A /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = D0EE960616C1EF9900D8021A /* RestKit.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 25160E62145651060060A5C5;
+			remoteInfo = RestKitFramework;
+		};
+		D0EE961616C1EF9A00D8021A /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = D0EE960616C1EF9900D8021A /* RestKit.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 25160E78145651060060A5C5;
+			remoteInfo = RestKitFrameworkTests;
 		};
 /* End PBXContainerItemProxy section */
 
@@ -69,6 +130,45 @@
 		D01E39DC1654AABD00C26BF0 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		D01E39DE1654AABD00C26BF0 /* PrayListTests.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PrayListTests.h; sourceTree = "<group>"; };
 		D01E39DF1654AABD00C26BF0 /* PrayListTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PrayListTests.m; sourceTree = "<group>"; };
+		D01E3A021654AD2F00C26BF0 /* CFNetwork.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CFNetwork.framework; path = System/Library/Frameworks/CFNetwork.framework; sourceTree = SDKROOT; };
+		D01E3A031654AD2F00C26BF0 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
+		D01E3A041654AD2F00C26BF0 /* libxml2.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libxml2.dylib; path = usr/lib/libxml2.dylib; sourceTree = SDKROOT; };
+		D01E3A051654AD2F00C26BF0 /* MobileCoreServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MobileCoreServices.framework; path = System/Library/Frameworks/MobileCoreServices.framework; sourceTree = SDKROOT; };
+		D01E3A061654AD2F00C26BF0 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
+		D01E3A071654AD2F00C26BF0 /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
+		D01E3A081654AD2F00C26BF0 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
+		D01EA2F416C47B4C0050E152 /* pLAppUtils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = pLAppUtils.h; sourceTree = "<group>"; };
+		D01EA2F516C47B4C0050E152 /* pLAppUtils.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = pLAppUtils.m; sourceTree = "<group>"; };
+		D01EA2F716C63BF50050E152 /* pLPrayerRequest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = pLPrayerRequest.h; sourceTree = "<group>"; };
+		D01EA2F816C63BF50050E152 /* pLPrayerRequest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = pLPrayerRequest.m; sourceTree = "<group>"; };
+		D01EA2FA16C719540050E152 /* pLPrayerRequestCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = pLPrayerRequestCell.h; sourceTree = "<group>"; };
+		D01EA2FB16C719550050E152 /* pLPrayerRequestCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = pLPrayerRequestCell.m; sourceTree = "<group>"; };
+		D01EA2FD16C719BB0050E152 /* PrayerRequestCellView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PrayerRequestCellView.xib; sourceTree = "<group>"; };
+		D01EA2FF16D452E50050E152 /* pLPostRequestController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = pLPostRequestController.h; sourceTree = "<group>"; };
+		D01EA30016D452E50050E152 /* pLPostRequestController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = pLPostRequestController.m; sourceTree = "<group>"; };
+		D04760151668785D00D13E64 /* me.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = me.png; sourceTree = "<group>"; };
+		D0544EA316DD5B9B004EDC8C /* pLCircle.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = pLCircle.h; sourceTree = "<group>"; };
+		D0544EA416DD5B9B004EDC8C /* pLCircle.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = pLCircle.m; sourceTree = "<group>"; };
+		D0544EA616DD8829004EDC8C /* pLSelectCircleforPostViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = pLSelectCircleforPostViewController.h; sourceTree = "<group>"; };
+		D0544EA716DD8829004EDC8C /* pLSelectCircleforPostViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = pLSelectCircleforPostViewController.m; sourceTree = "<group>"; };
+		D0544EA916DD992C004EDC8C /* pLCircleCollectionCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = pLCircleCollectionCell.xib; sourceTree = "<group>"; };
+		D0544EAB16DEB581004EDC8C /* pLCircleCollectionCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = pLCircleCollectionCell.h; sourceTree = "<group>"; };
+		D0544EAC16DEB581004EDC8C /* pLCircleCollectionCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = pLCircleCollectionCell.m; sourceTree = "<group>"; };
+		D06E202816BA316A0002F17B /* praylisticon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = praylisticon.png; sourceTree = "<group>"; };
+		D06E202A16BA3A590002F17B /* pLLoginViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = pLLoginViewController.h; path = ../pLLoginViewController.h; sourceTree = "<group>"; };
+		D06E202B16BA3A590002F17B /* pLLoginViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = pLLoginViewController.m; path = ../pLLoginViewController.m; sourceTree = "<group>"; };
+		D06F47591655A5EF00C2CD63 /* pLPrayerRequestListItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = pLPrayerRequestListItem.h; sourceTree = "<group>"; };
+		D06F475A1655A5EF00C2CD63 /* pLPrayerRequestListItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = pLPrayerRequestListItem.m; sourceTree = "<group>"; };
+		D06F475D1656E4D000C2CD63 /* pLPrayerListItemCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = pLPrayerListItemCell.h; sourceTree = "<group>"; };
+		D06F475E1656E4D000C2CD63 /* pLPrayerListItemCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = pLPrayerListItemCell.m; sourceTree = "<group>"; };
+		D06F47601656E5FC00C2CD63 /* PrayerListItemCellView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PrayerListItemCellView.xib; sourceTree = "<group>"; };
+		D073270516BC950E00169F24 /* pLSettingsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = pLSettingsViewController.h; sourceTree = "<group>"; };
+		D073270616BC950E00169F24 /* pLSettingsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = pLSettingsViewController.m; sourceTree = "<group>"; };
+		D073270A16BCFB8500169F24 /* pLLoginRequest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = pLLoginRequest.h; sourceTree = "<group>"; };
+		D073270B16BCFB8500169F24 /* pLLoginRequest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = pLLoginRequest.m; sourceTree = "<group>"; };
+		D0EE960316C1E6F100D8021A /* pLSecurityToken.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = pLSecurityToken.h; sourceTree = "<group>"; };
+		D0EE960416C1E6F100D8021A /* pLSecurityToken.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = pLSecurityToken.m; sourceTree = "<group>"; };
+		D0EE960616C1EF9900D8021A /* RestKit.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RestKit.xcodeproj; path = "../../Downloads/RestKit-0.20.0-rc1/RestKit.xcodeproj"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -76,6 +176,14 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D0CEC75716C1F3D600B62807 /* libRestKit.a in Frameworks */,
+				D01E3A091654AD2F00C26BF0 /* CFNetwork.framework in Frameworks */,
+				D01E3A0A1654AD2F00C26BF0 /* CoreData.framework in Frameworks */,
+				D01E3A0B1654AD2F00C26BF0 /* libxml2.dylib in Frameworks */,
+				D01E3A0C1654AD2F00C26BF0 /* MobileCoreServices.framework in Frameworks */,
+				D01E3A0D1654AD2F00C26BF0 /* QuartzCore.framework in Frameworks */,
+				D01E3A0E1654AD2F00C26BF0 /* Security.framework in Frameworks */,
+				D01E3A0F1654AD2F00C26BF0 /* SystemConfiguration.framework in Frameworks */,
 				D01E39A41654AABD00C26BF0 /* UIKit.framework in Frameworks */,
 				D01E39A61654AABD00C26BF0 /* Foundation.framework in Frameworks */,
 				D01E39A81654AABD00C26BF0 /* CoreGraphics.framework in Frameworks */,
@@ -98,6 +206,14 @@
 		D01E39941654AABD00C26BF0 = {
 			isa = PBXGroup;
 			children = (
+				D0EE960616C1EF9900D8021A /* RestKit.xcodeproj */,
+				D01E3A021654AD2F00C26BF0 /* CFNetwork.framework */,
+				D01E3A031654AD2F00C26BF0 /* CoreData.framework */,
+				D01E3A041654AD2F00C26BF0 /* libxml2.dylib */,
+				D01E3A051654AD2F00C26BF0 /* MobileCoreServices.framework */,
+				D01E3A061654AD2F00C26BF0 /* QuartzCore.framework */,
+				D01E3A071654AD2F00C26BF0 /* Security.framework */,
+				D01E3A081654AD2F00C26BF0 /* SystemConfiguration.framework */,
 				D01E39A91654AABD00C26BF0 /* PrayList */,
 				D01E39D81654AABD00C26BF0 /* PrayListTests */,
 				D01E39A21654AABD00C26BF0 /* Frameworks */,
@@ -128,17 +244,14 @@
 		D01E39A91654AABD00C26BF0 /* PrayList */ = {
 			isa = PBXGroup;
 			children = (
+				D01EA2F316C47B240050E152 /* AppObjects */,
+				D073270916BC973900169F24 /* Artwork */,
+				D073270816BC971600169F24 /* View Controllers */,
+				D06F475C1656E43400C2CD63 /* Components */,
+				D06F47581655A58100C2CD63 /* DataObjects */,
 				D01E39B21654AABD00C26BF0 /* pLAppDelegate.h */,
 				D01E39B31654AABD00C26BF0 /* pLAppDelegate.m */,
 				D01E39BB1654AABD00C26BF0 /* MainStoryboard.storyboard */,
-				D01E39BE1654AABD00C26BF0 /* pLFirstViewController.h */,
-				D01E39BF1654AABD00C26BF0 /* pLFirstViewController.m */,
-				D01E39C11654AABD00C26BF0 /* first.png */,
-				D01E39C31654AABD00C26BF0 /* first@2x.png */,
-				D01E39C51654AABD00C26BF0 /* pLSecondViewController.h */,
-				D01E39C61654AABD00C26BF0 /* pLSecondViewController.m */,
-				D01E39C81654AABD00C26BF0 /* second.png */,
-				D01E39CA1654AABD00C26BF0 /* second@2x.png */,
 				D01E39AA1654AABD00C26BF0 /* Supporting Files */,
 			);
 			path = PrayList;
@@ -177,6 +290,91 @@
 			name = "Supporting Files";
 			sourceTree = "<group>";
 		};
+		D01EA2F316C47B240050E152 /* AppObjects */ = {
+			isa = PBXGroup;
+			children = (
+				D01EA2F416C47B4C0050E152 /* pLAppUtils.h */,
+				D01EA2F516C47B4C0050E152 /* pLAppUtils.m */,
+			);
+			name = AppObjects;
+			sourceTree = "<group>";
+		};
+		D06F47581655A58100C2CD63 /* DataObjects */ = {
+			isa = PBXGroup;
+			children = (
+				D06F47591655A5EF00C2CD63 /* pLPrayerRequestListItem.h */,
+				D06F475A1655A5EF00C2CD63 /* pLPrayerRequestListItem.m */,
+				D073270A16BCFB8500169F24 /* pLLoginRequest.h */,
+				D073270B16BCFB8500169F24 /* pLLoginRequest.m */,
+				D0EE960316C1E6F100D8021A /* pLSecurityToken.h */,
+				D0EE960416C1E6F100D8021A /* pLSecurityToken.m */,
+				D01EA2F716C63BF50050E152 /* pLPrayerRequest.h */,
+				D01EA2F816C63BF50050E152 /* pLPrayerRequest.m */,
+				D0544EA316DD5B9B004EDC8C /* pLCircle.h */,
+				D0544EA416DD5B9B004EDC8C /* pLCircle.m */,
+			);
+			name = DataObjects;
+			sourceTree = "<group>";
+		};
+		D06F475C1656E43400C2CD63 /* Components */ = {
+			isa = PBXGroup;
+			children = (
+				D06F475D1656E4D000C2CD63 /* pLPrayerListItemCell.h */,
+				D06F475E1656E4D000C2CD63 /* pLPrayerListItemCell.m */,
+				D06F47601656E5FC00C2CD63 /* PrayerListItemCellView.xib */,
+				D01EA2FA16C719540050E152 /* pLPrayerRequestCell.h */,
+				D01EA2FB16C719550050E152 /* pLPrayerRequestCell.m */,
+				D01EA2FD16C719BB0050E152 /* PrayerRequestCellView.xib */,
+				D0544EA916DD992C004EDC8C /* pLCircleCollectionCell.xib */,
+				D0544EAB16DEB581004EDC8C /* pLCircleCollectionCell.h */,
+				D0544EAC16DEB581004EDC8C /* pLCircleCollectionCell.m */,
+			);
+			name = Components;
+			sourceTree = "<group>";
+		};
+		D073270816BC971600169F24 /* View Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				D01E39BE1654AABD00C26BF0 /* pLFirstViewController.h */,
+				D01E39BF1654AABD00C26BF0 /* pLFirstViewController.m */,
+				D01E39C51654AABD00C26BF0 /* pLSecondViewController.h */,
+				D01E39C61654AABD00C26BF0 /* pLSecondViewController.m */,
+				D073270516BC950E00169F24 /* pLSettingsViewController.h */,
+				D073270616BC950E00169F24 /* pLSettingsViewController.m */,
+				D06E202A16BA3A590002F17B /* pLLoginViewController.h */,
+				D06E202B16BA3A590002F17B /* pLLoginViewController.m */,
+				D01EA2FF16D452E50050E152 /* pLPostRequestController.h */,
+				D01EA30016D452E50050E152 /* pLPostRequestController.m */,
+				D0544EA616DD8829004EDC8C /* pLSelectCircleforPostViewController.h */,
+				D0544EA716DD8829004EDC8C /* pLSelectCircleforPostViewController.m */,
+			);
+			name = "View Controllers";
+			sourceTree = "<group>";
+		};
+		D073270916BC973900169F24 /* Artwork */ = {
+			isa = PBXGroup;
+			children = (
+				D04760151668785D00D13E64 /* me.png */,
+				D01E39C11654AABD00C26BF0 /* first.png */,
+				D01E39C31654AABD00C26BF0 /* first@2x.png */,
+				D01E39C81654AABD00C26BF0 /* second.png */,
+				D01E39CA1654AABD00C26BF0 /* second@2x.png */,
+				D06E202816BA316A0002F17B /* praylisticon.png */,
+			);
+			name = Artwork;
+			sourceTree = "<group>";
+		};
+		D0EE960716C1EF9900D8021A /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				D0EE961116C1EF9A00D8021A /* libRestKit.a */,
+				D0EE961316C1EF9A00D8021A /* RestKitTests.octest */,
+				D0EE961516C1EF9A00D8021A /* RestKit.framework */,
+				D0EE961716C1EF9A00D8021A /* RestKitFrameworkTests.octest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -191,6 +389,7 @@
 			buildRules = (
 			);
 			dependencies = (
+				D0CEC75516C1F3C500B62807 /* PBXTargetDependency */,
 			);
 			name = PrayList;
 			productName = PrayList;
@@ -236,6 +435,12 @@
 			mainGroup = D01E39941654AABD00C26BF0;
 			productRefGroup = D01E39A01654AABD00C26BF0 /* Products */;
 			projectDirPath = "";
+			projectReferences = (
+				{
+					ProductGroup = D0EE960716C1EF9900D8021A /* Products */;
+					ProjectRef = D0EE960616C1EF9900D8021A /* RestKit.xcodeproj */;
+				},
+			);
 			projectRoot = "";
 			targets = (
 				D01E399E1654AABD00C26BF0 /* PrayList */,
@@ -243,6 +448,37 @@
 			);
 		};
 /* End PBXProject section */
+
+/* Begin PBXReferenceProxy section */
+		D0EE961116C1EF9A00D8021A /* libRestKit.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = libRestKit.a;
+			remoteRef = D0EE961016C1EF9A00D8021A /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		D0EE961316C1EF9A00D8021A /* RestKitTests.octest */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.cfbundle;
+			path = RestKitTests.octest;
+			remoteRef = D0EE961216C1EF9A00D8021A /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		D0EE961516C1EF9A00D8021A /* RestKit.framework */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.framework;
+			path = RestKit.framework;
+			remoteRef = D0EE961416C1EF9A00D8021A /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		D0EE961716C1EF9A00D8021A /* RestKitFrameworkTests.octest */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.cfbundle;
+			path = RestKitFrameworkTests.octest;
+			remoteRef = D0EE961616C1EF9A00D8021A /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+/* End PBXReferenceProxy section */
 
 /* Begin PBXResourcesBuildPhase section */
 		D01E399D1654AABD00C26BF0 /* Resources */ = {
@@ -258,6 +494,11 @@
 				D01E39C41654AABD00C26BF0 /* first@2x.png in Resources */,
 				D01E39C91654AABD00C26BF0 /* second.png in Resources */,
 				D01E39CB1654AABD00C26BF0 /* second@2x.png in Resources */,
+				D06F47611656E5FC00C2CD63 /* PrayerListItemCellView.xib in Resources */,
+				D04760161668785D00D13E64 /* me.png in Resources */,
+				D06E202916BA316A0002F17B /* praylisticon.png in Resources */,
+				D01EA2FE16C719BB0050E152 /* PrayerRequestCellView.xib in Resources */,
+				D0544EAA16DD992C004EDC8C /* pLCircleCollectionCell.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -296,6 +537,19 @@
 				D01E39B41654AABD00C26BF0 /* pLAppDelegate.m in Sources */,
 				D01E39C01654AABD00C26BF0 /* pLFirstViewController.m in Sources */,
 				D01E39C71654AABD00C26BF0 /* pLSecondViewController.m in Sources */,
+				D06F475B1655A5EF00C2CD63 /* pLPrayerRequestListItem.m in Sources */,
+				D06F475F1656E4D000C2CD63 /* pLPrayerListItemCell.m in Sources */,
+				D06E202C16BA3A590002F17B /* pLLoginViewController.m in Sources */,
+				D073270716BC950E00169F24 /* pLSettingsViewController.m in Sources */,
+				D073270C16BCFB8500169F24 /* pLLoginRequest.m in Sources */,
+				D0EE960516C1E6F100D8021A /* pLSecurityToken.m in Sources */,
+				D01EA2F616C47B4C0050E152 /* pLAppUtils.m in Sources */,
+				D01EA2F916C63BF50050E152 /* pLPrayerRequest.m in Sources */,
+				D01EA2FC16C719550050E152 /* pLPrayerRequestCell.m in Sources */,
+				D01EA30116D452E50050E152 /* pLPostRequestController.m in Sources */,
+				D0544EA516DD5B9B004EDC8C /* pLCircle.m in Sources */,
+				D0544EA816DD8829004EDC8C /* pLSelectCircleforPostViewController.m in Sources */,
+				D0544EAD16DEB581004EDC8C /* pLCircleCollectionCell.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -314,6 +568,11 @@
 			isa = PBXTargetDependency;
 			target = D01E399E1654AABD00C26BF0 /* PrayList */;
 			targetProxy = D01E39D61654AABD00C26BF0 /* PBXContainerItemProxy */;
+		};
+		D0CEC75516C1F3C500B62807 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = RestKit;
+			targetProxy = D0CEC75416C1F3C500B62807 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
@@ -367,8 +626,10 @@
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNINITIALIZED_AUTOS = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
+				HEADER_SEARCH_PATHS = "\"$(BUILT_PRODUCTS_DIR)/../../Headers\"";
 				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
 				ONLY_ACTIVE_ARCH = YES;
+				OTHER_LDFLAGS = "-ObjC";
 				SDKROOT = iphoneos;
 			};
 			name = Debug;
@@ -388,8 +649,10 @@
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNINITIALIZED_AUTOS = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
+				HEADER_SEARCH_PATHS = "\"$(BUILT_PRODUCTS_DIR)/../../Headers\"";
 				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
 				OTHER_CFLAGS = "-DNS_BLOCK_ASSERTIONS=1";
+				OTHER_LDFLAGS = "-ObjC";
 				SDKROOT = iphoneos;
 				VALIDATE_PRODUCT = YES;
 			};
@@ -400,7 +663,9 @@
 			buildSettings = {
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "PrayList/PrayList-Prefix.pch";
+				HEADER_SEARCH_PATHS = "\"$(BUILT_PRODUCTS_DIR)/../../Headers\"";
 				INFOPLIST_FILE = "PrayList/PrayList-Info.plist";
+				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				WRAPPER_EXTENSION = app;
 			};
@@ -411,7 +676,9 @@
 			buildSettings = {
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "PrayList/PrayList-Prefix.pch";
+				HEADER_SEARCH_PATHS = "\"$(BUILT_PRODUCTS_DIR)/../../Headers\"";
 				INFOPLIST_FILE = "PrayList/PrayList-Info.plist";
+				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				WRAPPER_EXTENSION = app;
 			};
@@ -470,6 +737,7 @@
 				D01E39E51654AABD00C26BF0 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		D01E39E61654AABD00C26BF0 /* Build configuration list for PBXNativeTarget "PrayListTests" */ = {
 			isa = XCConfigurationList;
@@ -478,6 +746,7 @@
 				D01E39E81654AABD00C26BF0 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
