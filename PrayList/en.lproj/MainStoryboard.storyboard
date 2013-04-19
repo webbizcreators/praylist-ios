@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="2.0" toolsVersion="3084" systemVersion="12D78" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" initialViewController="tUg-0J-Ebd">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="2.0" toolsVersion="3084" systemVersion="12C60" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" initialViewController="tUg-0J-Ebd">
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="2083"/>
     </dependencies>
@@ -21,12 +21,7 @@
                             </tableView>
                             <toolbar opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" barStyle="blackOpaque" translatesAutoresizingMaskIntoConstraints="NO" id="B1b-9s-IPA">
                                 <items>
-                                    <barButtonItem style="plain" systemItem="refresh" id="d68-jE-tTQ">
-                                        <connections>
-                                            <action selector="refreshbutton:" destination="2" id="Fx6-7p-TpN"/>
-                                        </connections>
-                                    </barButtonItem>
-                                    <barButtonItem width="246" style="plain" systemItem="fixedSpace" id="yaw-T7-fi0"/>
+                                    <barButtonItem width="277" style="plain" systemItem="fixedSpace" id="yaw-T7-fi0"/>
                                     <barButtonItem style="plain" systemItem="add" id="Wr5-SG-fyg">
                                         <connections>
                                             <action selector="addbutton:" destination="2" id="m3a-9C-5kb"/>
@@ -421,7 +416,7 @@
                         <rect key="frame" x="0.0" y="20" width="320" height="411"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" allowsSelection="NO" rowHeight="121" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="03r-eR-LQ8">
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" allowsSelection="NO" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="03r-eR-LQ8">
                                 <color key="backgroundColor" red="0.74901960784313726" green="0.7803921568627451" blue="0.85098039215686272" alpha="1" colorSpace="calibratedRGB"/>
                                 <connections>
                                     <outlet property="dataSource" destination="3" id="3FH-bQ-3j8"/>

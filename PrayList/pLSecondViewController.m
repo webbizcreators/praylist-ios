@@ -13,8 +13,8 @@
 #import "pLAppUtils.h"
 
 #define FONT_SIZE 11.0f
-#define CELL_CONTENT_WIDTH 320.0f
-#define CELL_CONTENT_MARGIN 10.0f
+#define CELL_CONTENT_WIDTH 297.0f
+#define CELL_CONTENT_MARGIN 24.0f
 
 #define kReleaseToReloadStatus 0
 #define kPullToReloadStatus 1
@@ -152,6 +152,7 @@ UIActivityIndicatorView *spinner;
     cell.requestdate.text = [pLAppUtils formatPostDate:pRequest.requestdate];
     cell.requestid = pRequest.requestid;
     cell.requestoremail = pRequest.requestoremail;
+    cell.requesttext.text = pRequest.requesttext;
     
     NSLog(@"Title Label: %@", [[cell.praybutton titleLabel] text ]);
     
@@ -162,17 +163,17 @@ UIActivityIndicatorView *spinner;
     
     cell.img.image = [pLAppUtils userimgFromEmail: pRequest.requestoremail];
     
-    NSString *text = pRequest.requesttext;
+    //NSString *text = pRequest.requesttext;
     
-    CGSize constraint = CGSizeMake(CELL_CONTENT_WIDTH - (CELL_CONTENT_MARGIN * 2), 20000.0f);
+    //CGSize constraint = CGSizeMake(CELL_CONTENT_WIDTH - (CELL_CONTENT_MARGIN * 2), 20000.0f);
     
-    CGSize size = [text sizeWithFont:[UIFont systemFontOfSize:FONT_SIZE] constrainedToSize:constraint lineBreakMode:UILineBreakModeWordWrap];
+    //CGSize size = [text sizeWithFont:[UIFont systemFontOfSize:FONT_SIZE] constrainedToSize:constraint lineBreakMode:UILineBreakModeWordWrap];
     
-    if (!cell.requesttext)
-        cell.requesttext = (UILabel*)[cell viewWithTag:1];
+    //if (!cell.requesttext)
+    //    cell.requesttext = (UILabel*)[cell viewWithTag:1];
     
-    [cell.requesttext setText:pRequest.requesttext];
-    [cell.requesttext setFrame:CGRectMake(CELL_CONTENT_MARGIN, CELL_CONTENT_MARGIN, CELL_CONTENT_WIDTH - (CELL_CONTENT_MARGIN * 2), MAX(size.height, 44.0f))];
+    //[cell.requesttext setText:pRequest.requesttext];
+    //[cell.requesttext setFrame:CGRectMake(CELL_CONTENT_MARGIN, CELL_CONTENT_MARGIN, CELL_CONTENT_WIDTH - (CELL_CONTENT_MARGIN * 2), MAX(size.height, 44.0f))];
     
     
     return cell;
@@ -188,9 +189,9 @@ UIActivityIndicatorView *spinner;
     
     CGSize size = [text sizeWithFont:[UIFont systemFontOfSize:FONT_SIZE] constrainedToSize:constraint lineBreakMode:UILineBreakModeWordWrap];
     
-    CGFloat height = MAX(size.height, 44.0f);
+    CGFloat height = MAX(size.height, 19.0f);
     
-    return height + (CELL_CONTENT_MARGIN * 2) + 70;
+    return height + 110;
 }
 
 

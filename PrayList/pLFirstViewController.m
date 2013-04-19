@@ -12,8 +12,8 @@
 #import "pLAppUtils.h"
 
 #define FONT_SIZE 11.0f
-#define CELL_CONTENT_WIDTH 320.0f
-#define CELL_CONTENT_MARGIN 10.0f
+#define CELL_CONTENT_WIDTH 297.0f
+#define CELL_CONTENT_MARGIN 24.0f
 
 #define kReleaseToReloadStatus 0
 #define kPullToReloadStatus 1
@@ -182,9 +182,9 @@ UIActivityIndicatorView *spinner;
     
     CGSize size = [text sizeWithFont:[UIFont systemFontOfSize:FONT_SIZE] constrainedToSize:constraint lineBreakMode:UILineBreakModeWordWrap];
     
-    CGFloat height = MAX(size.height, 44.0f);
+    CGFloat height = MAX(size.height, 19.0f);
     
-    return height + (CELL_CONTENT_MARGIN * 2) + 70;
+    return height + 110;
 }
 
 
@@ -204,14 +204,6 @@ UIActivityIndicatorView *spinner;
 
 -(void)didDismissPostViewController {
     [self loadData];
-}
-
-
-
--(IBAction)refreshbutton:(id)sender{
-    
-    [self loadData];
-    
 }
 
 
