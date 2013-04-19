@@ -23,7 +23,7 @@
 @implementation pLSecondViewController
 
 NSArray *prayerrequests2;
-
+UIActivityIndicatorView *spinner;
 
 
 - (void)viewDidLoad
@@ -37,6 +37,8 @@ NSArray *prayerrequests2;
 
 -(void)loadData{
     
+    spinner = [pLAppUtils addspinnertoview:self.view];
+    tableView.hidden = YES;
     NSString *objectpath = @"lists/myprayerlist/";
     NSString *path = [objectpath stringByAppendingString: [pLAppUtils securitytoken].email];
     
@@ -54,8 +56,9 @@ NSArray *prayerrequests2;
                                                                                                    ascending:NO];
                                                       NSArray *sortDescriptors = [NSArray arrayWithObject:sortDescriptor];
                                                       prayerrequests2 = [prayerrequests2 sortedArrayUsingDescriptors:sortDescriptors];
-                                                      
+                                                      [spinner stopAnimating];
                                                       [tableView reloadData];
+                                                      tableView.hidden = NO;
                                                   }
                                                   
                                               }
@@ -98,6 +101,8 @@ NSArray *prayerrequests2;
     
     cell.requesttitle.text= pRequest.requestoremail;
     cell.requestdate.text = [pLAppUtils formatPostDate:pRequest.requestdate];
+    cell.requestid = pRequest.requestid;
+    cell.requestoremail = pRequest.requestoremail;
     
     cell.img.image = [pLAppUtils userimgFromEmail: pRequest.requestoremail];
     

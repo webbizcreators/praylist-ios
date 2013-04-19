@@ -10,13 +10,17 @@
 #import "pLPrayerRequestListItem.h"
 #import "pLPrayerRequest.h"
 #import "pLLoginRequest.h"
+#import "pLLoginResponse.h"
 #import "pLCircle.h"
+#import "pLPerson.h"
+#import "pLResponse.h"
 
 
 @implementation pLAppUtils
 
 pLSecurityToken* st = nil;
 NSMutableDictionary *userImages;
+NSMutableDictionary *contacts;
 
 +(pLSecurityToken*) securitytoken
 {
@@ -169,17 +173,31 @@ NSMutableDictionary *userImages;
     
     
     
-    //pLSecurityToken ******************************************************************
-    responseMapping = [RKObjectMapping mappingForClass:[pLSecurityToken class]];
+    //pLLoginResponse ******************************************************************
     
-    [responseMapping addAttributeMappingsFromDictionary:@{
+    
+    RKObjectMapping* securityTokenMapping = [RKObjectMapping mappingForClass:[pLSecurityToken class]];
+    
+    [securityTokenMapping addAttributeMappingsFromDictionary:@{
      @"tokenId": @"tokenId",
      @"dateCode": @"dateCode",
      @"email": @"email",
      }];
     
+    RKObjectMapping* loginResponseMapping = [RKObjectMapping mappingForClass:[pLLoginResponse class]];
     
-    responseDescriptor = [RKResponseDescriptor responseDescriptorWithMapping:responseMapping
+    [loginResponseMapping addAttributeMappingsFromDictionary:@{
+     @"errordescription": @"errordescription",
+     @"errorcode": @"errorcode",
+     }];
+    
+    
+    [loginResponseMapping addPropertyMapping:[RKRelationshipMapping relationshipMappingFromKeyPath:@"securitytoken"
+                                                                                   toKeyPath:@"securitytoken"
+                                                                                 withMapping:securityTokenMapping]];
+    
+    
+    responseDescriptor = [RKResponseDescriptor responseDescriptorWithMapping:loginResponseMapping
                                                                  pathPattern:@"tokens/getlogintoken"
                                                                      keyPath: nil
                                                                  statusCodes:[NSIndexSet indexSetWithIndex:200]];
@@ -335,9 +353,46 @@ NSMutableDictionary *userImages;
     //******************************************************************
     
 
+    //pLPerson ********************************************
+    responseMapping = [RKObjectMapping mappingForClass:[pLPerson class]];
+    [responseMapping addAttributeMappingsFromDictionary:@{
+     @"email": @"email",
+     @"fullname": @"fullname",
+     @"orgid": @"orgid",
+     }];
+    
+    responseDescriptor = [RKResponseDescriptor responseDescriptorWithMapping:responseMapping
+                                                                 pathPattern:@"lists/mycontacts/:owneremail"
+                                                                     keyPath: @"person"
+                                                                 statusCodes:[NSIndexSet indexSetWithIndex:200]];
+    
+    [objectManager addResponseDescriptor: responseDescriptor];
+    
+    //*****************************************************
     
     
+    //pLResponse ********************************************
+    responseMapping = [RKObjectMapping mappingForClass:[pLResponse class]];
+    [responseMapping addAttributeMappingsFromDictionary:@{
+     @"status": @"status",
+     @"description": @"description",
+     }];
     
+    responseDescriptor = [RKResponseDescriptor responseDescriptorWithMapping:responseMapping
+                                                                 pathPattern:@"prayerrequests/prayfor/:email/:requestid"
+                                                                     keyPath: nil
+                                                                 statusCodes:[NSIndexSet indexSetWithIndex:200]];
+    
+    [objectManager addResponseDescriptor: responseDescriptor];
+    
+    responseDescriptor = [RKResponseDescriptor responseDescriptorWithMapping:responseMapping
+                                                                 pathPattern:@"prayerrequests/unprayfor/:email/:requestid"
+                                                                     keyPath: nil
+                                                                 statusCodes:[NSIndexSet indexSetWithIndex:200]];
+    
+    [objectManager addResponseDescriptor: responseDescriptor];
+    
+    //*****************************************************
     
 }
 
@@ -350,11 +405,29 @@ NSMutableDictionary *userImages;
         NSString *basepath = [RKObjectManager sharedManager].baseURL.absoluteString;
     
         NSString *imagepath = [basepath stringByAppendingString:[@"pictures/userimage/" stringByAppendingString: email]];
-        NSLog(@"Image Path: %@", imagepath);
-        NSURL *url = [NSURL URLWithString:imagepath];
-        NSData *data = [NSData dataWithContentsOfURL:url];
+
+        //NSURL *url = [NSURL URLWithString:imagepath];
+        //NSData *data = [NSData dataWithContentsOfURL:url];
         
-        [userImages setObject:[UIImage imageWithData:data] forKey:email];
+        //[userImages setObject:[UIImage imageWithData:data] forKey:email];
+        
+        
+        NSMutableURLRequest *theRequest=[NSMutableURLRequest
+                                         requestWithURL:[NSURL URLWithString:imagepath]
+                                         cachePolicy:NSURLRequestUseProtocolCachePolicy timeoutInterval:10.0];
+        
+        [theRequest setHTTPMethod:@"GET"];
+        [theRequest setValue:[pLAppUtils securitytoken].tokenId forHTTPHeaderField:@"securitytoken"];
+        [theRequest setValue:[pLAppUtils securitytoken].email forHTTPHeaderField:@"securityemail"];
+        
+        
+        NSData*serverData = [NSURLConnection sendSynchronousRequest:theRequest
+                                           returningResponse:nil error:nil];
+        
+        [userImages setObject:[UIImage imageWithData:serverData] forKey:email];
+        
+        
+        
         
     }
 
@@ -362,4 +435,47 @@ NSMutableDictionary *userImages;
     
 }
 
++(void)loadmycontacts{
+    
+    contacts = [[NSMutableDictionary alloc] init];
+    
+    NSString *objectpath = @"lists/mycontacts/";
+    NSString *path = [objectpath stringByAppendingString: [pLAppUtils securitytoken].email];
+    
+    
+    [[RKObjectManager sharedManager] getObjectsAtPath:path
+                                           parameters:nil
+     
+                                              success:^(RKObjectRequestOperation *operation, RKMappingResult *mappingResult) {
+                                                  
+                                                  NSMutableArray *personarray = [[NSMutableArray alloc] initWithArray:mappingResult.array];
+                                                  
+                                                  if(personarray.count>0){
+                                                      for(pLPerson *u in personarray){
+                                                            [contacts setObject:u forKey:u.email];
+                                                      }
+                                                      
+                                                  }
+                                                  
+                                              }
+                                              failure:^(RKObjectRequestOperation *operation, NSError *error) {
+                                                  NSLog(@"Encountered an error: %@", error);
+                                              }];
+    
+}
+
++(UIActivityIndicatorView*)addspinnertoview:(UIView*)view{
+    
+    UIActivityIndicatorView *spinner;
+    
+    spinner = [[UIActivityIndicatorView alloc]
+               initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
+    spinner.center = CGPointMake(160, 240);
+    spinner.hidesWhenStopped = YES;
+    [view addSubview:spinner];
+    [spinner startAnimating];
+    
+    return spinner;
+    
+}
 @end

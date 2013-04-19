@@ -7,6 +7,7 @@
 //
 
 #import "pLPrayerListItemCell.h"
+#import "pLResponse.h"
 
 @implementation pLPrayerListItemCell
 
@@ -14,6 +15,8 @@
 @synthesize requesttitle;
 @synthesize requesttext;
 @synthesize img;
+@synthesize requestoremail;
+@synthesize requestid;
 
 - (id)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier
 {
@@ -29,6 +32,56 @@
     [super setSelected:selected animated:animated];
 
     // Configure the view for the selected state
+}
+
+-(IBAction)prayFor:(id)sender{
+    
+    if([@"Pray" isEqualToString:praybutton.titleLabel.text]){
+    
+    NSString *objectpath = @"prayerrequests/prayfor/";
+    NSString *path = [objectpath stringByAppendingString: [requestoremail stringByAppendingString:[@"/" stringByAppendingString:requestid]]];
+    
+    
+    [[RKObjectManager sharedManager] getObjectsAtPath:path
+                                           parameters:nil
+                                              success:^(RKObjectRequestOperation *operation, RKMappingResult *mappingResult) {
+                                                  
+                                                  pLResponse *result = mappingResult.firstObject;
+                                                  
+                                                  if([@"Prayed" isEqualToString:result.description]){
+                                                      [praybutton setTitle:@"Prayed" forState:UIControlStateNormal];
+                                                  }
+                                                  
+                                              }
+                                              failure:^(RKObjectRequestOperation *operation, NSError *error) {
+                                                  NSLog(@"Encountered an error: %@", error);
+                                              }];
+    
+    }
+    else
+    {
+        NSString *objectpath = @"prayerrequests/unprayfor/";
+        NSString *path = [objectpath stringByAppendingString: [requestoremail stringByAppendingString:[@"/" stringByAppendingString:requestid]]];
+        
+        
+        [[RKObjectManager sharedManager] getObjectsAtPath:path
+                                               parameters:nil
+                                                  success:^(RKObjectRequestOperation *operation, RKMappingResult *mappingResult) {
+                                                      
+                                                      pLResponse *result = mappingResult.firstObject;
+                                                      
+                                                      if([@"Unprayed" isEqualToString:result.description]){
+                                                          [praybutton setTitle:@"Pray" forState:UIControlStateNormal];
+                                                      }
+                                                      
+                                                  }
+                                                  failure:^(RKObjectRequestOperation *operation, NSError *error) {
+                                                      NSLog(@"Encountered an error: %@", error);
+                                                  }];
+    }
+    
+        
+        
 }
 
 @end

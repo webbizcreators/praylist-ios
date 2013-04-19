@@ -7,6 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
+#import <RestKit/RestKit.h>
 
 @interface pLPrayerListItemCell : UITableViewCell{
     
@@ -15,6 +16,8 @@
     UILabel *requesttext;
     UILabel *requestdate;
     UIImageView *img;
+    IBOutlet UIButton*praybutton;
+
     
 }
 
@@ -22,5 +25,8 @@
 @property (nonatomic, retain) IBOutlet UILabel *requesttext;
 @property (nonatomic, retain) IBOutlet UILabel *requestdate;
 @property (nonatomic, retain) IBOutlet UIImageView *img;
+
+@property (nonatomic, retain) NSString *requestoremail;
+@property (nonatomic, retain) NSString *requestid;
 
 @end

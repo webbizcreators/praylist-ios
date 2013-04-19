@@ -10,6 +10,7 @@
 #import "pLLoginRequest.h"
 #import "pLSecurityToken.h"
 #import "pLAppUtils.h"
+#import "pLLoginResponse.h"
 
 @interface pLLoginViewController ()
 
@@ -65,13 +66,14 @@ UITextField *activeField;
         
         if(mappingResult.array.count>0){
             
+            pLLoginResponse *lr = (pLLoginResponse*)mappingResult.firstObject;
             
-            [pLAppUtils setSecurityToken: mappingResult.firstObject];
+            [pLAppUtils setSecurityToken: lr.securitytoken];
             NSDictionary *headers = [RKObjectManager sharedManager].defaultHeaders;
             [headers setValue:[pLAppUtils securitytoken].tokenId forKey:@"securitytoken"];
+            [headers setValue:[pLAppUtils securitytoken].email forKey:@"securityemail"];
             
-            
-            
+            [pLAppUtils loadmycontacts];
             [self performSegueWithIdentifier: @"loginMainSegue" sender: self];
             
         }

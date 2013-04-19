@@ -15,7 +15,9 @@
 + (pLSecurityToken *) securitytoken;
 + (void)setSecurityToken:(pLSecurityToken *)stt;
 + (void)registerObjectMappings;
++ (void)loadmycontacts;
 +(UIImage*)userimgFromEmail:(NSString*)email;
 +(NSString*)formatPostDate:(NSDate*)date;
++(UIActivityIndicatorView*)addspinnertoview:(UIView*)view;
 
 @end

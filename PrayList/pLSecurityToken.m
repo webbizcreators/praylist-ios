@@ -13,5 +13,6 @@
 @synthesize email;
 @synthesize tokenId;
 @synthesize dateCode;
+@synthesize orgid;
 
 @end

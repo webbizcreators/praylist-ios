@@ -23,16 +23,19 @@
 
 
 NSArray *prayerrequests;
+UIActivityIndicatorView *spinner;
 
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-	
     [self loadData];
     
 }
 
 -(void)loadData{
+    
+    spinner = [pLAppUtils addspinnertoview:self.view];
+    tableView.hidden = YES;
     
     NSString *objectpath = @"prayerrequests/";
     NSString *path = [objectpath stringByAppendingString: [pLAppUtils securitytoken].email];
@@ -52,8 +55,9 @@ NSArray *prayerrequests;
                                                                                                     ascending:NO];
                                                       NSArray *sortDescriptors = [NSArray arrayWithObject:sortDescriptor];
                                                       prayerrequests = [prayerrequests sortedArrayUsingDescriptors:sortDescriptors];
-                                                      
+                                                      [spinner stopAnimating];
                                                       [tableView reloadData];
+                                                      tableView.hidden = NO;
                                                   }
                                                   
                                               }

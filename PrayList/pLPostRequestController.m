@@ -17,12 +17,12 @@
 
 NSMutableArray *sourcecircles;
 NSMutableArray *selectedcircles;
-
+UIActivityIndicatorView *spinner;
 
 - (void)viewDidLoad
 {
     [super viewDidLoad];
- 
+    spinner = [pLAppUtils addspinnertoview:self.view];
     userImage.image = [pLAppUtils userimgFromEmail: [pLAppUtils securitytoken].email];
     selectedcircles = [[NSMutableArray alloc]init];
     [self getcircles];
@@ -57,7 +57,7 @@ NSMutableArray *selectedcircles;
                                                                                                    ascending:YES];
                                                       NSArray *sortDescriptors = [NSArray arrayWithObject:sortDescriptor];
                                                       sourcecircles = [[NSMutableArray alloc] initWithArray:[sourcecircles sortedArrayUsingDescriptors:sortDescriptors]];
-                                                      
+                                                      [spinner stopAnimating];
                                                   }
                                                   
                                               }
@@ -71,6 +71,8 @@ NSMutableArray *selectedcircles;
 
 
 -(IBAction)postbutton:(id)sender{
+    
+    [spinner startAnimating];
     
     NSMutableArray *circlenames = [[NSMutableArray alloc]init];
     
@@ -92,7 +94,7 @@ NSMutableArray *selectedcircles;
             [[NSNotificationCenter defaultCenter] postNotificationName:@"PostViewControllerDismissed"
                                                                 object:nil
                                                               userInfo:nil];
-            
+            [spinner stopAnimating];
             [self dismissModalViewControllerAnimated:YES];
             
         }

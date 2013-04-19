@@ -1,18 +1,17 @@
 //
-//  pLSecurityToken.h
+//  pLPerson.h
 //  PrayList
 //
-//  Created by Peter Opheim on 2/5/13.
+//  Created by Peter Opheim on 3/26/13.
 //  Copyright (c) 2013 Peter Opheim. All rights reserved.
 //
 
 #import <Foundation/Foundation.h>
 
-@interface pLSecurityToken : NSObject
+@interface pLPerson : NSObject
 
 @property (nonatomic, retain) NSString* email;
-@property (nonatomic, retain) NSString* tokenId;
-@property (nonatomic, retain) NSString* dateCode;
+@property (nonatomic, retain) NSString* fullname;
 @property (nonatomic, retain) NSString* orgid;
 
 @end
