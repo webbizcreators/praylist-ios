@@ -8,14 +8,21 @@
 
 #import <UIKit/UIKit.h>
 #import <RestKit/RestKit.h>
+#import "EGORefreshTableHeaderView.h"
 
 @interface pLSecondViewController : UIViewController <UITableViewDelegate>{
     
     IBOutlet UITableView *tableView;
     
+    EGORefreshTableHeaderView *refreshHeaderView;
+    
+	BOOL checkForRefresh;
+	BOOL reloading;
+    
 }
 
-
+- (void)dataSourceDidFinishLoadingNewData;
+- (void) showReloadAnimationAnimated:(BOOL)animated;
 
 
 @end

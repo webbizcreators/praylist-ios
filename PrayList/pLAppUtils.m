@@ -123,10 +123,12 @@ NSMutableDictionary *contacts;
     RKObjectMapping *responseMapping = [RKObjectMapping mappingForClass:[pLPrayerRequestListItem class]];
     [responseMapping addAttributeMappingsFromDictionary:@{
      @"requestid": @"requestid",
-     @"requestorEmail": @"requestoremail",
-     @"requestText": @"requesttext",
+     @"requestoremail": @"requestoremail",
+     @"requesttext": @"requesttext",
      @"email": @"email",
-     @"requestDateText":@"requestdate",
+     @"requestdate":@"requestdate",
+     @"praycount":@"praycount",
+     @"iprayed":@"iprayed",
      }];
     
     RKResponseDescriptor *responseDescriptor = [RKResponseDescriptor responseDescriptorWithMapping:responseMapping

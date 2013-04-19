@@ -16,4 +16,7 @@
 @synthesize requesttext;
 @synthesize requestdate;
 
+@synthesize praycount;
+@synthesize iprayed;
+
 @end

@@ -8,6 +8,7 @@
 
 #import <UIKit/UIKit.h>
 #import <RestKit/RestKit.h>
+#import "EGORefreshTableHeaderView.h"
 
 @interface pLFirstViewController : UIViewController <UITableViewDelegate>{
     
@@ -15,8 +16,16 @@
     IBOutlet UIBarButtonItem *addbutton;
     IBOutlet UIBarButtonItem *refreshbutton;
     
+    EGORefreshTableHeaderView *refreshHeaderView;
+    
+	BOOL checkForRefresh;
+	BOOL reloading;
+    
 }
 
 @property (nonatomic, strong) NSOperationQueue *imageDownloadingQueue;
+
+- (void)dataSourceDidFinishLoadingNewData;
+- (void) showReloadAnimationAnimated:(BOOL)animated;
 
 @end

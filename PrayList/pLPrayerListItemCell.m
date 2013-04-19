@@ -17,6 +17,7 @@
 @synthesize img;
 @synthesize requestoremail;
 @synthesize requestid;
+@synthesize praybutton;
 
 - (id)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier
 {
@@ -35,8 +36,8 @@
 }
 
 -(IBAction)prayFor:(id)sender{
-    
-    if([@"Pray" isEqualToString:praybutton.titleLabel.text]){
+    NSLog(@"Title Label: %@", [[praybutton titleLabel] text ]);
+    if([@"Pray" isEqualToString:[[praybutton titleLabel] text ]]){
     
     NSString *objectpath = @"prayerrequests/prayfor/";
     NSString *path = [objectpath stringByAppendingString: [requestoremail stringByAppendingString:[@"/" stringByAppendingString:requestid]]];
@@ -50,6 +51,7 @@
                                                   
                                                   if([@"Prayed" isEqualToString:result.description]){
                                                       [praybutton setTitle:@"Prayed" forState:UIControlStateNormal];
+                                                      praybutton.titleLabel.text = @"Prayed";
                                                   }
                                                   
                                               }
@@ -72,6 +74,7 @@
                                                       
                                                       if([@"Unprayed" isEqualToString:result.description]){
                                                           [praybutton setTitle:@"Pray" forState:UIControlStateNormal];
+                                                          praybutton.titleLabel.text = @"Pray";
                                                       }
                                                       
                                                   }

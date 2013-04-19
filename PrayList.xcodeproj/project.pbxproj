@@ -40,6 +40,7 @@
 		D01EA2FC16C719550050E152 /* pLPrayerRequestCell.m in Sources */ = {isa = PBXBuildFile; fileRef = D01EA2FB16C719550050E152 /* pLPrayerRequestCell.m */; };
 		D01EA2FE16C719BB0050E152 /* PrayerRequestCellView.xib in Resources */ = {isa = PBXBuildFile; fileRef = D01EA2FD16C719BB0050E152 /* PrayerRequestCellView.xib */; };
 		D01EA30116D452E50050E152 /* pLPostRequestController.m in Sources */ = {isa = PBXBuildFile; fileRef = D01EA30016D452E50050E152 /* pLPostRequestController.m */; };
+		D0265B751721DA94005B99CA /* EGORefreshTableHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = D0265B741721DA94005B99CA /* EGORefreshTableHeaderView.m */; };
 		D04760161668785D00D13E64 /* me.png in Resources */ = {isa = PBXBuildFile; fileRef = D04760151668785D00D13E64 /* me.png */; };
 		D0544EA516DD5B9B004EDC8C /* pLCircle.m in Sources */ = {isa = PBXBuildFile; fileRef = D0544EA416DD5B9B004EDC8C /* pLCircle.m */; };
 		D0544EA816DD8829004EDC8C /* pLSelectCircleforPostViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D0544EA716DD8829004EDC8C /* pLSelectCircleforPostViewController.m */; };
@@ -151,6 +152,8 @@
 		D01EA2FD16C719BB0050E152 /* PrayerRequestCellView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PrayerRequestCellView.xib; sourceTree = "<group>"; };
 		D01EA2FF16D452E50050E152 /* pLPostRequestController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = pLPostRequestController.h; sourceTree = "<group>"; };
 		D01EA30016D452E50050E152 /* pLPostRequestController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = pLPostRequestController.m; sourceTree = "<group>"; };
+		D0265B731721DA94005B99CA /* EGORefreshTableHeaderView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EGORefreshTableHeaderView.h; sourceTree = "<group>"; };
+		D0265B741721DA94005B99CA /* EGORefreshTableHeaderView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EGORefreshTableHeaderView.m; sourceTree = "<group>"; };
 		D04760151668785D00D13E64 /* me.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = me.png; sourceTree = "<group>"; };
 		D0544EA316DD5B9B004EDC8C /* pLCircle.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = pLCircle.h; sourceTree = "<group>"; };
 		D0544EA416DD5B9B004EDC8C /* pLCircle.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = pLCircle.m; sourceTree = "<group>"; };
@@ -349,6 +352,8 @@
 				D0544EA916DD992C004EDC8C /* pLCircleCollectionCell.xib */,
 				D0544EAB16DEB581004EDC8C /* pLCircleCollectionCell.h */,
 				D0544EAC16DEB581004EDC8C /* pLCircleCollectionCell.m */,
+				D0265B731721DA94005B99CA /* EGORefreshTableHeaderView.h */,
+				D0265B741721DA94005B99CA /* EGORefreshTableHeaderView.m */,
 			);
 			name = Components;
 			sourceTree = "<group>";
@@ -580,6 +585,7 @@
 				D0B177DF16FE7780005EEC82 /* pLLoginResponse.m in Sources */,
 				D06EF3B51702476D00B06270 /* pLPerson.m in Sources */,
 				D07ACFF71707C9C40095B402 /* pLResponse.m in Sources */,
+				D0265B751721DA94005B99CA /* EGORefreshTableHeaderView.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

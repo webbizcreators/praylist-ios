@@ -16,4 +16,7 @@
 @property (nonatomic, retain) NSString* requesttext;
 @property (nonatomic, retain) NSDate* requestdate;
 
+@property (nonatomic, retain) NSNumber* praycount;
+@property (nonatomic, retain) NSNumber* iprayed;
+
 @end
