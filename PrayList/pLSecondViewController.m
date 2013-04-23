@@ -147,6 +147,7 @@ UIActivityIndicatorView *spinner;
     
     pLPrayerRequestListItem *pRequest = [prayerrequests2 objectAtIndex:indexPath.row];
     
+    [cell configureView:pRequest inTableViewController:self];
     
     cell.requesttitle.text= pRequest.requestoremail;
     cell.requestdate.text = [pLAppUtils formatPostDate:pRequest.requestdate];

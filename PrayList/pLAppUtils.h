@@ -19,5 +19,6 @@
 +(UIImage*)userimgFromEmail:(NSString*)email;
 +(NSString*)formatPostDate:(NSDate*)date;
 +(UIActivityIndicatorView*)addspinnertoview:(UIView*)view;
++(NSString*)calculaterequeststats:(NSNumber*)praycount commentcount:(NSNumber*)commentcount;
 
 @end

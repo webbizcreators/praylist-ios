@@ -154,6 +154,7 @@ UIActivityIndicatorView *spinner;
     cell.requesttext.text = pRequest.requesttext;
     cell.requestdate.text = [pLAppUtils formatPostDate:pRequest.requestdate];
     cell.img.image = [pLAppUtils userimgFromEmail: pRequest.requestoremail];
+    cell.requeststats.text = [pLAppUtils calculaterequeststats:pRequest.praycount commentcount:[NSNumber numberWithInt:0]];
     
     
     //NSString *text = pRequest.requesttext;
@@ -184,7 +185,7 @@ UIActivityIndicatorView *spinner;
     
     CGFloat height = MAX(size.height, 19.0f);
     
-    return height + 110;
+    return height + 130;
 }
 
 

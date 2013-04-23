@@ -13,6 +13,7 @@
 @synthesize requestdate;
 @synthesize requesttitle;
 @synthesize requesttext;
+@synthesize requeststats;
 @synthesize img;
 
 - (id)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier

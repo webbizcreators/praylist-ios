@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		D001A11C1725F25B004789CD /* pLRequestCommentViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D001A11B1725F25B004789CD /* pLRequestCommentViewController.m */; };
 		D01E39A41654AABD00C26BF0 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D01E39A31654AABD00C26BF0 /* UIKit.framework */; };
 		D01E39A61654AABD00C26BF0 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D01E39A51654AABD00C26BF0 /* Foundation.framework */; };
 		D01E39A81654AABD00C26BF0 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D01E39A71654AABD00C26BF0 /* CoreGraphics.framework */; };
@@ -108,6 +109,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		D001A11A1725F25B004789CD /* pLRequestCommentViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = pLRequestCommentViewController.h; sourceTree = "<group>"; };
+		D001A11B1725F25B004789CD /* pLRequestCommentViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = pLRequestCommentViewController.m; sourceTree = "<group>"; };
 		D01E399F1654AABD00C26BF0 /* PrayList.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PrayList.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		D01E39A31654AABD00C26BF0 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		D01E39A51654AABD00C26BF0 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -377,6 +380,8 @@
 				D0B177D516FBCC3B005EEC82 /* pLCircleListViewController.m */,
 				D0B177DA16FBD649005EEC82 /* pLEditCircleViewController.h */,
 				D0B177DB16FBD649005EEC82 /* pLEditCircleViewController.m */,
+				D001A11A1725F25B004789CD /* pLRequestCommentViewController.h */,
+				D001A11B1725F25B004789CD /* pLRequestCommentViewController.m */,
 			);
 			name = "View Controllers";
 			sourceTree = "<group>";
@@ -586,6 +591,7 @@
 				D06EF3B51702476D00B06270 /* pLPerson.m in Sources */,
 				D07ACFF71707C9C40095B402 /* pLResponse.m in Sources */,
 				D0265B751721DA94005B99CA /* EGORefreshTableHeaderView.m in Sources */,
+				D001A11C1725F25B004789CD /* pLRequestCommentViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

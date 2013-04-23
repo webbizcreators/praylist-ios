@@ -16,5 +16,6 @@
 @property (nonatomic, retain) NSString* requesttext;
 @property (nonatomic, retain) NSString* requestdatetimeago;
 @property (nonatomic, retain) NSArray* circlenames;
+@property (nonatomic, retain) NSNumber* praycount;
 
 @end

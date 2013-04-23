@@ -19,6 +19,15 @@
 @synthesize requestid;
 @synthesize praybutton;
 
+pLSecondViewController*tvc;
+pLPrayerRequestListItem*listitem;
+
+- (void) configureView:(pLPrayerRequestListItem*)li inTableViewController:(pLSecondViewController*)_tvc;
+{
+    tvc = _tvc;
+    listitem = li;
+}
+
 - (id)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier
 {
     self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];
@@ -33,6 +42,10 @@
     [super setSelected:selected animated:animated];
 
     // Configure the view for the selected state
+}
+
+- (IBAction)opencomments:(UIButton *)sender {
+    [tvc performSegueWithIdentifier:@"showComments" sender:self];
 }
 
 -(IBAction)prayFor:(id)sender{

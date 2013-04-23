@@ -17,6 +17,7 @@
 @synthesize requesttext;
 @synthesize requestdatetimeago;
 @synthesize circlenames;
+@synthesize praycount;
 
 
 -(NSDate *) requestdate

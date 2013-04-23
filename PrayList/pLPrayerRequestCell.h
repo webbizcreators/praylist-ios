@@ -14,6 +14,7 @@
     
     UILabel *requesttitle;
     UILabel *requesttext;
+    UILabel *requeststats;
     UILabel *requestdate;
     UIImageView *img;
     UIView * mainview;
@@ -22,6 +23,7 @@
 
 @property (nonatomic, retain) IBOutlet UILabel *requesttitle;
 @property (nonatomic, retain) IBOutlet UILabel *requesttext;
+@property (nonatomic, retain) IBOutlet UILabel *requeststats;
 @property (nonatomic, retain) IBOutlet UILabel *requestdate;
 @property (nonatomic, retain) IBOutlet UIImageView *img;
 @property (nonatomic, retain) IBOutlet UIView * mainview;

@@ -220,6 +220,7 @@ NSMutableDictionary *contacts;
      @"requestText": @"requesttext",
      @"requestDate":@"requestdate",
      @"circleNames":@"circlenames",
+     @"praycount":@"praycount",
      }];
     
     responseDescriptor = [RKResponseDescriptor responseDescriptorWithMapping:responseMapping
@@ -255,6 +256,7 @@ NSMutableDictionary *contacts;
      @"requesttext": @"requestText",
      @"requestdate":@"requestDate",
      @"circlenames":@"circleNames",
+     @"praycount":@"praycount",
      }];
     
     
@@ -480,4 +482,33 @@ NSMutableDictionary *contacts;
     return spinner;
     
 }
+
++(NSString*)calculaterequeststats:(NSNumber*)praycount commentcount:(NSNumber*)commentcount{
+    
+    NSString *retval = @"";
+    
+    if([praycount compare:[NSNumber numberWithInt:0]]==NSOrderedDescending){
+        if([praycount compare:[NSNumber numberWithInt:1]]==NSOrderedSame){
+            retval = [[praycount stringValue] stringByAppendingString:@" person prayed. "];
+        }
+        else
+        {
+            retval = [[praycount stringValue] stringByAppendingString:@" people prayed. "];
+        }
+    }
+    
+    if([commentcount compare:[NSNumber numberWithInt:0]]==NSOrderedDescending){
+        if([commentcount compare:[NSNumber numberWithInt:1]]==NSOrderedSame){
+            [retval stringByAppendingString:[[commentcount stringValue] stringByAppendingString:@" comment."]];
+        }
+        else
+        {
+            [retval stringByAppendingString:[[commentcount stringValue] stringByAppendingString:@" comments."]];
+        }
+    }
+    
+    return retval;
+    
+}
+
 @end
