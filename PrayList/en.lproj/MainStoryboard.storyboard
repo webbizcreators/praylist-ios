@@ -456,21 +456,55 @@
                                     <barButtonItem title="Back" id="ZuI-87-adQ"/>
                                 </items>
                             </toolbar>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="jjV-5n-hwR">
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                            </tableView>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="OdQ-bm-ZYE">
+                                <subviews>
+                                    <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="jjV-5n-hwR">
+                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        <connections>
+                                            <outlet property="dataSource" destination="WZU-Ke-ITR" id="GGt-zf-PYU"/>
+                                            <outlet property="delegate" destination="WZU-Ke-ITR" id="Pp0-nc-aHE"/>
+                                        </connections>
+                                    </tableView>
+                                    <toolbar opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="cWN-ZQ-7iI">
+                                        <items>
+                                            <barButtonItem style="plain" id="sKr-ir-40i">
+                                                <textField key="customView" opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" minimumFontSize="17" id="Hay-yP-1Uj">
+                                                    <rect key="frame" x="12" y="7" width="243" height="30"/>
+                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                                    <textInputTraits key="textInputTraits"/>
+                                                </textField>
+                                            </barButtonItem>
+                                            <barButtonItem title="Post" id="OCq-NG-LY0"/>
+                                        </items>
+                                    </toolbar>
+                                </subviews>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstItem="cWN-ZQ-7iI" firstAttribute="leading" secondItem="OdQ-bm-ZYE" secondAttribute="leading" type="default" id="2Fi-nl-WtG"/>
+                                    <constraint firstItem="jjV-5n-hwR" firstAttribute="leading" secondItem="OdQ-bm-ZYE" secondAttribute="leading" type="default" id="4pl-iO-ypS"/>
+                                    <constraint firstItem="jjV-5n-hwR" firstAttribute="trailing" secondItem="OdQ-bm-ZYE" secondAttribute="trailing" type="default" id="HQL-Kw-JRO"/>
+                                    <constraint firstItem="cWN-ZQ-7iI" firstAttribute="bottom" secondItem="OdQ-bm-ZYE" secondAttribute="bottom" type="default" id="Qg2-JN-Mdj"/>
+                                    <constraint firstItem="jjV-5n-hwR" firstAttribute="top" secondItem="OdQ-bm-ZYE" secondAttribute="top" type="default" id="RFC-lc-FFW"/>
+                                    <constraint firstItem="cWN-ZQ-7iI" firstAttribute="top" secondItem="jjV-5n-hwR" secondAttribute="bottom" type="default" id="oj4-fG-aHa"/>
+                                    <constraint firstItem="cWN-ZQ-7iI" firstAttribute="trailing" secondItem="OdQ-bm-ZYE" secondAttribute="trailing" type="default" id="puG-aT-vqk"/>
+                                </constraints>
+                            </view>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstItem="yD5-fT-Gxc" firstAttribute="trailing" secondItem="lrM-2G-RjR" secondAttribute="trailing" type="default" id="4sJ-OP-Bqc"/>
-                            <constraint firstItem="jjV-5n-hwR" firstAttribute="top" secondItem="yD5-fT-Gxc" secondAttribute="bottom" type="default" id="Ou6-lA-vyD"/>
+                            <constraint firstItem="OdQ-bm-ZYE" firstAttribute="trailing" secondItem="lrM-2G-RjR" secondAttribute="trailing" type="default" id="7Jq-IR-KbN"/>
+                            <constraint firstItem="OdQ-bm-ZYE" firstAttribute="leading" secondItem="lrM-2G-RjR" secondAttribute="leading" type="default" id="Fhp-Po-bTv"/>
+                            <constraint firstItem="OdQ-bm-ZYE" firstAttribute="bottom" secondItem="lrM-2G-RjR" secondAttribute="bottom" type="default" id="ZFc-Zg-0uH"/>
                             <constraint firstItem="yD5-fT-Gxc" firstAttribute="top" secondItem="lrM-2G-RjR" secondAttribute="top" type="default" id="pd0-qv-rlx"/>
-                            <constraint firstItem="jjV-5n-hwR" firstAttribute="bottom" secondItem="lrM-2G-RjR" secondAttribute="bottom" type="default" id="ugL-9m-3YJ"/>
-                            <constraint firstItem="jjV-5n-hwR" firstAttribute="trailing" secondItem="lrM-2G-RjR" secondAttribute="trailing" type="default" id="xL1-C4-unn"/>
-                            <constraint firstItem="jjV-5n-hwR" firstAttribute="leading" secondItem="lrM-2G-RjR" secondAttribute="leading" type="default" id="xNO-bS-xzo"/>
+                            <constraint firstItem="OdQ-bm-ZYE" firstAttribute="top" secondItem="yD5-fT-Gxc" secondAttribute="bottom" type="default" id="xZS-RN-czi"/>
                             <constraint firstItem="yD5-fT-Gxc" firstAttribute="leading" secondItem="lrM-2G-RjR" secondAttribute="leading" type="default" id="yyP-Ui-b7V"/>
                         </constraints>
                     </view>
+                    <connections>
+                        <outlet property="tableView" destination="jjV-5n-hwR" id="jNm-Ab-ucQ"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="kjD-zC-Gem" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>

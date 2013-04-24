@@ -11,6 +11,7 @@
 #import "pLPrayerListItemCell.h"
 #import "pLSecurityToken.h"
 #import "pLAppUtils.h"
+#import "pLRequestCommentViewController.h"
 
 #define FONT_SIZE 11.0f
 #define CELL_CONTENT_WIDTH 297.0f
@@ -242,6 +243,22 @@ UIActivityIndicatorView *spinner;
 	checkForRefresh = NO;
 }
 
+
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
+{
+    // Make sure your segue name in storyboard is the same as this line
+    if ([[segue identifier] isEqualToString:@"showComments"])
+    {
+        // Get reference to the destination view controller
+        pLRequestCommentViewController *vc = [segue destinationViewController];
+        
+        // Pass any objects to the view controller here, like...
+        pLPrayerListItemCell * lic = (pLPrayerListItemCell*)sender;
+        vc.prayerrequestlistitem = lic.listitem;
+        
+
+    }
+}
 
 
 - (void)didReceiveMemoryWarning

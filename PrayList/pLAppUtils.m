@@ -14,6 +14,7 @@
 #import "pLCircle.h"
 #import "pLPerson.h"
 #import "pLResponse.h"
+#import "pLComment.h"
 
 
 @implementation pLAppUtils
@@ -343,7 +344,7 @@ NSMutableDictionary *contacts;
     
     [objectManager.router.routeSet addRoute:[RKRoute
                                              routeWithClass:[pLCircle class]
-                                             pathPattern:@"prayerrequests"
+                                             pathPattern:@"circles"
                                              method:RKRequestMethodPUT]] ;
     
     [objectManager.router.routeSet addRoute:[RKRoute
@@ -397,6 +398,64 @@ NSMutableDictionary *contacts;
     [objectManager addResponseDescriptor: responseDescriptor];
     
     //*****************************************************
+    
+    
+    
+    
+    //pLComment ********************************************
+    responseMapping = [RKObjectMapping mappingForClass:[pLComment class]];
+    [responseMapping addAttributeMappingsFromDictionary:@{
+     @"email": @"email",
+     @"requestid": @"requestid",
+     @"commentid": @"commentid",
+     @"commenttext": @"commenttext",
+     @"commentdate": @"commentdate",
+     }];
+    
+    responseDescriptor = [RKResponseDescriptor responseDescriptorWithMapping:responseMapping
+                                                                 pathPattern:@"prayerrequests/:email/:requestid/comments"
+                                                                     keyPath: @"requestcomment"
+                                                                 statusCodes:[NSIndexSet indexSetWithIndex:200]];
+    
+    [objectManager addResponseDescriptor: responseDescriptor];
+    
+    
+    
+    requestMapping = [RKObjectMapping requestMapping];
+    [requestMapping addAttributeMappingsFromDictionary:@{
+     @"email": @"email",
+     @"requestid": @"requestid",
+     @"commentid": @"commentid",
+     @"commenttext": @"commenttext",
+     @"commentdate": @"commentdate",
+     }];
+    
+    
+    requestDescriptor = [RKRequestDescriptor requestDescriptorWithMapping:requestMapping
+                                                              objectClass:[pLComment class]
+                                                              rootKeyPath: nil];
+    
+    
+    [objectManager addRequestDescriptor:requestDescriptor];
+    
+    
+    
+    [objectManager.router.routeSet addRoute:[RKRoute
+                                             routeWithClass:[pLComment class]
+                                             pathPattern:@"prayerrequests/:email/:requestid/comments"
+                                             method:RKRequestMethodPUT]];
+    
+    
+    
+    
+    //******************************************************************
+    
+    
+    
+    
+    
+    
+    
     
 }
 

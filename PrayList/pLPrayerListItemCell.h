@@ -31,6 +31,7 @@
 
 @property (nonatomic, retain) NSString *requestoremail;
 @property (nonatomic, retain) NSString *requestid;
+@property (nonatomic, retain) pLPrayerRequestListItem* listitem;
 
 - (void) configureView:(pLPrayerRequestListItem*)listitem inTableViewController:(pLSecondViewController*)_tvc;
 

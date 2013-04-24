@@ -18,9 +18,10 @@
 @synthesize requestoremail;
 @synthesize requestid;
 @synthesize praybutton;
+@synthesize listitem;
 
 pLSecondViewController*tvc;
-pLPrayerRequestListItem*listitem;
+
 
 - (void) configureView:(pLPrayerRequestListItem*)li inTableViewController:(pLSecondViewController*)_tvc;
 {
@@ -44,9 +45,13 @@ pLPrayerRequestListItem*listitem;
     // Configure the view for the selected state
 }
 
+
+
 - (IBAction)opencomments:(UIButton *)sender {
     [tvc performSegueWithIdentifier:@"showComments" sender:self];
 }
+
+
 
 -(IBAction)prayFor:(id)sender{
     NSLog(@"Title Label: %@", [[praybutton titleLabel] text ]);

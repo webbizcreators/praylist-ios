@@ -56,6 +56,9 @@
 		D073270716BC950E00169F24 /* pLSettingsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D073270616BC950E00169F24 /* pLSettingsViewController.m */; };
 		D073270C16BCFB8500169F24 /* pLLoginRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = D073270B16BCFB8500169F24 /* pLLoginRequest.m */; };
 		D07ACFF71707C9C40095B402 /* pLResponse.m in Sources */ = {isa = PBXBuildFile; fileRef = D07ACFF61707C9C40095B402 /* pLResponse.m */; };
+		D07B3FFC1727327700BA5401 /* pLCommentCellView.xib in Resources */ = {isa = PBXBuildFile; fileRef = D07B3FFB1727327700BA5401 /* pLCommentCellView.xib */; };
+		D07B3FFF172732E500BA5401 /* pLCommentCell.m in Sources */ = {isa = PBXBuildFile; fileRef = D07B3FFE172732E500BA5401 /* pLCommentCell.m */; };
+		D07B40051727361100BA5401 /* pLComment.m in Sources */ = {isa = PBXBuildFile; fileRef = D07B40041727361100BA5401 /* pLComment.m */; };
 		D0B177D616FBCC3B005EEC82 /* pLCircleListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D0B177D516FBCC3B005EEC82 /* pLCircleListViewController.m */; };
 		D0B177DC16FBD649005EEC82 /* pLEditCircleViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D0B177DB16FBD649005EEC82 /* pLEditCircleViewController.m */; };
 		D0B177DF16FE7780005EEC82 /* pLLoginResponse.m in Sources */ = {isa = PBXBuildFile; fileRef = D0B177DE16FE7780005EEC82 /* pLLoginResponse.m */; };
@@ -181,6 +184,11 @@
 		D073270B16BCFB8500169F24 /* pLLoginRequest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = pLLoginRequest.m; sourceTree = "<group>"; };
 		D07ACFF51707C9C40095B402 /* pLResponse.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = pLResponse.h; sourceTree = "<group>"; };
 		D07ACFF61707C9C40095B402 /* pLResponse.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = pLResponse.m; sourceTree = "<group>"; };
+		D07B3FFB1727327700BA5401 /* pLCommentCellView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = pLCommentCellView.xib; sourceTree = "<group>"; };
+		D07B3FFD172732E500BA5401 /* pLCommentCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = pLCommentCell.h; sourceTree = "<group>"; };
+		D07B3FFE172732E500BA5401 /* pLCommentCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = pLCommentCell.m; sourceTree = "<group>"; };
+		D07B40031727361100BA5401 /* pLComment.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = pLComment.h; sourceTree = "<group>"; };
+		D07B40041727361100BA5401 /* pLComment.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = pLComment.m; sourceTree = "<group>"; };
 		D0B177D416FBCC3B005EEC82 /* pLCircleListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = pLCircleListViewController.h; sourceTree = "<group>"; };
 		D0B177D516FBCC3B005EEC82 /* pLCircleListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = pLCircleListViewController.m; sourceTree = "<group>"; };
 		D0B177DA16FBD649005EEC82 /* pLEditCircleViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = pLEditCircleViewController.h; sourceTree = "<group>"; };
@@ -339,6 +347,8 @@
 				D06EF3B41702476D00B06270 /* pLPerson.m */,
 				D07ACFF51707C9C40095B402 /* pLResponse.h */,
 				D07ACFF61707C9C40095B402 /* pLResponse.m */,
+				D07B40031727361100BA5401 /* pLComment.h */,
+				D07B40041727361100BA5401 /* pLComment.m */,
 			);
 			name = DataObjects;
 			sourceTree = "<group>";
@@ -357,6 +367,9 @@
 				D0544EAC16DEB581004EDC8C /* pLCircleCollectionCell.m */,
 				D0265B731721DA94005B99CA /* EGORefreshTableHeaderView.h */,
 				D0265B741721DA94005B99CA /* EGORefreshTableHeaderView.m */,
+				D07B3FFB1727327700BA5401 /* pLCommentCellView.xib */,
+				D07B3FFD172732E500BA5401 /* pLCommentCell.h */,
+				D07B3FFE172732E500BA5401 /* pLCommentCell.m */,
 			);
 			name = Components;
 			sourceTree = "<group>";
@@ -534,6 +547,7 @@
 				D06E202916BA316A0002F17B /* praylisticon.png in Resources */,
 				D01EA2FE16C719BB0050E152 /* PrayerRequestCellView.xib in Resources */,
 				D0544EAA16DD992C004EDC8C /* pLCircleCollectionCell.xib in Resources */,
+				D07B3FFC1727327700BA5401 /* pLCommentCellView.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -592,6 +606,8 @@
 				D07ACFF71707C9C40095B402 /* pLResponse.m in Sources */,
 				D0265B751721DA94005B99CA /* EGORefreshTableHeaderView.m in Sources */,
 				D001A11C1725F25B004789CD /* pLRequestCommentViewController.m in Sources */,
+				D07B3FFF172732E500BA5401 /* pLCommentCell.m in Sources */,
+				D07B40051727361100BA5401 /* pLComment.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
