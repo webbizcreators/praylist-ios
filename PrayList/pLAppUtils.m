@@ -104,6 +104,8 @@ NSMutableDictionary *contacts;
 
 +(void)registerObjectMappings{
     
+    NSMutableIndexSet *datastatuscodes = [NSMutableIndexSet indexSetWithIndex:200];
+    [datastatuscodes addIndex:204];
     
     NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
     [dateFormatter setDateStyle:NSDateFormatterMediumStyle];
@@ -135,7 +137,7 @@ NSMutableDictionary *contacts;
     RKResponseDescriptor *responseDescriptor = [RKResponseDescriptor responseDescriptorWithMapping:responseMapping
                                                                                        pathPattern:@"lists/myprayerlist/:email"
                                                                                            keyPath: @"prayerRequestListItem"
-                                                                                       statusCodes:[NSIndexSet indexSetWithIndex:200]];
+                                                                                       statusCodes:datastatuscodes];
     
     [objectManager addResponseDescriptor: responseDescriptor];
     
@@ -236,7 +238,7 @@ NSMutableDictionary *contacts;
     responseDescriptor = [RKResponseDescriptor responseDescriptorWithMapping:responseMapping
                                                                  pathPattern:@"prayerrequests/:requestoremail"
                                                                      keyPath: @"prayerRequest"
-                                                                 statusCodes:[NSIndexSet indexSetWithIndex:200]];
+                                                                 statusCodes:datastatuscodes];
     
     [objectManager addResponseDescriptor: responseDescriptor];
     
@@ -311,7 +313,7 @@ NSMutableDictionary *contacts;
     responseDescriptor = [RKResponseDescriptor responseDescriptorWithMapping:responseMapping
                                                                  pathPattern:@"circles/:owneremail"
                                                                      keyPath: @"circle"
-                                                                 statusCodes:[NSIndexSet indexSetWithIndex:200]];
+                                                                 statusCodes:datastatuscodes];
     
     [objectManager addResponseDescriptor: responseDescriptor];
     
@@ -369,7 +371,7 @@ NSMutableDictionary *contacts;
     responseDescriptor = [RKResponseDescriptor responseDescriptorWithMapping:responseMapping
                                                                  pathPattern:@"lists/mycontacts/:owneremail"
                                                                      keyPath: @"person"
-                                                                 statusCodes:[NSIndexSet indexSetWithIndex:200]];
+                                                                 statusCodes:datastatuscodes];
     
     [objectManager addResponseDescriptor: responseDescriptor];
     
@@ -415,7 +417,7 @@ NSMutableDictionary *contacts;
     responseDescriptor = [RKResponseDescriptor responseDescriptorWithMapping:responseMapping
                                                                  pathPattern:@"prayerrequests/:email/:requestid/comments"
                                                                      keyPath: @"requestcomment"
-                                                                 statusCodes:[NSIndexSet indexSetWithIndex:200]];
+                                                                 statusCodes:datastatuscodes];
     
     [objectManager addResponseDescriptor: responseDescriptor];
     

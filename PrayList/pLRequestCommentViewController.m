@@ -21,6 +21,10 @@
 #define kPullToReloadStatus 1
 #define kLoadingStatus 2
 
+#define kOFFSET_FOR_KEYBOARD_PORTRAIT 216.0
+#define kOFFSET_FOR_KEYBOARD_LANDSCAPE 162.0
+
+
 @interface pLRequestCommentViewController ()
 
 @end
@@ -31,16 +35,33 @@
 @synthesize prayerrequestlistitem;
 
 NSArray *comments;
+BOOL stayup = NO;
+BOOL isup = NO;
+
+UIActivityIndicatorView *spinner;
 
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    [self loadData];
+    
+    spinner = [pLAppUtils addspinnertoview:self.view];
+    
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillShow:) name:UIKeyboardWillShowNotification object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillHide:) name:UIKeyboardWillHideNotification object:nil];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self  selector:@selector(orientationChanged:)  name:UIDeviceOrientationDidChangeNotification  object:nil];
+    
+    
+    UITapGestureRecognizer* tapGestureRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(handleTap:)];
+    [tableView addGestureRecognizer:tapGestureRecognizer];
+    
+    [self loadData:NO];
 	// Do any additional setup after loading the view.
 }
 
 
--(void)loadData{
+-(void)loadData:(BOOL*)scrolltobottom{
     
     NSString *path;
     
@@ -66,13 +87,22 @@ NSArray *comments;
                                                       
                                                       NSSortDescriptor *sortDescriptor;
                                                       sortDescriptor = [[NSSortDescriptor alloc] initWithKey:@"commentdate"
-                                                                                                   ascending:NO];
+                                                                                                   ascending:YES];
                                                       NSArray *sortDescriptors = [NSArray arrayWithObject:sortDescriptor];
                                                       comments = [comments sortedArrayUsingDescriptors:sortDescriptors];
-                                                      
-                                                      [tableView reloadData];
-                                                      //[self dataSourceDidFinishLoadingNewData];
+                                                    
                                                   }
+                                                  
+                                                  [tableView reloadData];
+                                                  
+                                                  if(scrolltobottom){
+                                                      NSIndexPath* ipath = [NSIndexPath indexPathForRow: comments.count inSection: 0];
+                                                      [tableView scrollToRowAtIndexPath: ipath atScrollPosition: UITableViewScrollPositionBottom animated: YES];
+                                                  }
+                                                  
+                                                  commentfield.text = NULL;
+                                                  
+                                                  [spinner stopAnimating];
                                                   
                                               }
                                               failure:^(RKObjectRequestOperation *operation, NSError *error) {
@@ -273,6 +303,172 @@ NSArray *comments;
 }
 
 
+-(IBAction)backButton:(id)sender{
+    [self dismissModalViewControllerAnimated:YES];
+}
 
+-(void)handleTap:(UITapGestureRecognizer*)tapRecognizer
+{
+    if(tapRecognizer.state == UIGestureRecognizerStateEnded)
+    {
+        
+        //Figure out where the user tapped
+        CGPoint p = [tapRecognizer locationInView:commentfield];
+        CGRect textFieldBounds = commentfield.bounds;
+        CGRect clearButtonBounds = CGRectMake(textFieldBounds.origin.x + textFieldBounds.size.width - 44, textFieldBounds.origin.y, 44, textFieldBounds.size.height);
+        
+        if(CGRectContainsPoint(clearButtonBounds, p))
+            commentfield.text = @"";
+        
+        if(CGRectContainsPoint(textFieldBounds, p))
+            return;
+        
+        [commentfield resignFirstResponder];
+        //remove the tap gesture recognizer that was added.
+        for(id element in tableView.gestureRecognizers)
+        {
+            if([element isKindOfClass:[UITapGestureRecognizer class]])
+            {
+                [tableView removeGestureRecognizer:element];
+            }
+        }
+    }
+}
+
+
+
+-(IBAction)postCommentButton:(id)sender{
+
+    
+        [commentfield resignFirstResponder];
+        [spinner startAnimating];
+        
+
+        
+        pLComment *comm = [[pLComment alloc] init];
+        
+        comm.email = [pLAppUtils securitytoken].email;
+        comm.commenttext = commentfield.text;
+        comm.commentdate = [[NSDate alloc]init];
+        if(prayerrequestlistitem){
+            comm.requestid = prayerrequestlistitem.requestid;
+        }
+        else
+        {
+            comm.requestid = prayerrequest.requestid;
+        }
+    
+        [[RKObjectManager sharedManager] putObject:comm path: nil parameters: nil success:^( RKObjectRequestOperation *operation , RKMappingResult *mappingResult){
+            
+            if(mappingResult.array.count>0){
+                
+                [spinner stopAnimating];
+                [self loadData:YES];
+                
+            }
+            
+        }
+                                           failure:^( RKObjectRequestOperation *operation , NSError *error ){
+                                               
+                                               
+                                           }];
+        
+    
+    
+}
+
+
+- (void)keyboardWillHide:(NSNotification *)notif {
+    [self setViewMoveUp:NO];
+}
+
+
+- (void)keyboardWillShow:(NSNotification *)notif{
+    [self setViewMoveUp:YES];
+}
+
+
+- (void)textFieldDidBeginEditing:(UITextField *)textField {
+    stayup = YES;
+    [self setViewMoveUp:YES];
+}
+
+
+- (void)textFieldDidEndEditing:(UITextField *)textField {
+    stayup = NO;
+    [self setViewMoveUp:NO];
+}
+
+//method to move the view up/down whenever the keyboard is shown/dismissed
+-(void)setViewMoveUp:(BOOL)moveUp
+{
+    [UIView beginAnimations:nil context:NULL];
+    [UIView setAnimationDuration:0.3]; // if you want to slide up the view
+    [UIView setAnimationBeginsFromCurrentState:YES];
+    
+    //TODO: Finish code to properly adjust orientation of keyboard and view in event of orientation change with keyboard open
+    CGRect rect = self.view.frame;
+    if (moveUp)
+    {
+        // 1. move the view's origin up so that the text field that will be hidden come above the keyboard
+        // 2. increase the size of the view so that the area behind the keyboard is covered up.
+        
+        if (isup == NO) {
+            if(self.interfaceOrientation == UIInterfaceOrientationLandscapeLeft){
+                rect.size.width -= kOFFSET_FOR_KEYBOARD_LANDSCAPE;
+            }
+            else if(self.interfaceOrientation == UIInterfaceOrientationLandscapeRight)
+            {
+                rect.size.width -= kOFFSET_FOR_KEYBOARD_LANDSCAPE;
+                rect.origin.x += kOFFSET_FOR_KEYBOARD_LANDSCAPE;
+            }
+            else if (self.interfaceOrientation == UIInterfaceOrientationPortrait)
+            {
+                rect.size.height -= kOFFSET_FOR_KEYBOARD_PORTRAIT;
+            }
+            isup = YES;
+        }
+        
+    }
+    else
+    {
+        if (stayup == NO) {
+            if(self.interfaceOrientation == UIInterfaceOrientationLandscapeLeft){
+                rect.size.width += kOFFSET_FOR_KEYBOARD_LANDSCAPE;
+            }
+            else if(self.interfaceOrientation == UIInterfaceOrientationLandscapeRight)
+            {
+                rect.size.width += kOFFSET_FOR_KEYBOARD_LANDSCAPE;
+                rect.origin.x -= kOFFSET_FOR_KEYBOARD_LANDSCAPE;
+            }
+            else if (self.interfaceOrientation == UIInterfaceOrientationPortrait)
+            {
+                rect.size.height += kOFFSET_FOR_KEYBOARD_PORTRAIT;
+            }
+            isup = NO;
+        }
+    }
+    self.view.frame = rect;
+    [UIView commitAnimations];
+}
+
+
+- (void)orientationChanged:(NSNotification *)notification{
+    [self adjustViewsForOrientation:[[UIApplication sharedApplication] statusBarOrientation]];
+}
+
+- (void) adjustViewsForOrientation:(UIInterfaceOrientation) orientation {
+    
+    if (orientation == UIInterfaceOrientationPortrait || orientation == UIInterfaceOrientationPortraitUpsideDown)
+    {
+        if(isup==YES){
+            
+        }
+    }
+    else if (orientation == UIInterfaceOrientationLandscapeLeft || orientation == UIInterfaceOrientationLandscapeRight)
+    {
+        //load the landscape view
+    }
+}
 
 @end

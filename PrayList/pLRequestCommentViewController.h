@@ -19,10 +19,7 @@
     
     IBOutlet UITextField *commentfield;
     
-    IBOutlet UILabel *requesttitle;
-    IBOutlet UILabel *requesttext;
-    IBOutlet UILabel *requestdate;
-    IBOutlet UIImageView *img;
+    IBOutlet UIView *listview;
     
 }
 
