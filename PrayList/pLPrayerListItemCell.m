@@ -54,9 +54,9 @@ pLSecondViewController*tvc;
 
 
 -(IBAction)prayFor:(id)sender{
-    BOOL *pb = praybutton.highlighted;
+    NSNumber *pb = listitem.iprayed;
     
-    if(!praybutton.highlighted){
+    if(![listitem.iprayed isEqualToNumber:[NSNumber numberWithInt:1]]){
     
     NSString *objectpath = @"prayerrequests/prayfor/";
     NSString *path = [objectpath stringByAppendingString: [requestoremail stringByAppendingString:[@"/" stringByAppendingString:requestid]]];
