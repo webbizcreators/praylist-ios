@@ -42,6 +42,7 @@
 		D01EA2FE16C719BB0050E152 /* PrayerRequestCellView.xib in Resources */ = {isa = PBXBuildFile; fileRef = D01EA2FD16C719BB0050E152 /* PrayerRequestCellView.xib */; };
 		D01EA30116D452E50050E152 /* pLPostRequestController.m in Sources */ = {isa = PBXBuildFile; fileRef = D01EA30016D452E50050E152 /* pLPostRequestController.m */; };
 		D0265B751721DA94005B99CA /* EGORefreshTableHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = D0265B741721DA94005B99CA /* EGORefreshTableHeaderView.m */; };
+		D03CE701172A1EAD00DC828F /* praybutton.png in Resources */ = {isa = PBXBuildFile; fileRef = D03CE700172A1EAD00DC828F /* praybutton.png */; };
 		D04760161668785D00D13E64 /* me.png in Resources */ = {isa = PBXBuildFile; fileRef = D04760151668785D00D13E64 /* me.png */; };
 		D0544EA516DD5B9B004EDC8C /* pLCircle.m in Sources */ = {isa = PBXBuildFile; fileRef = D0544EA416DD5B9B004EDC8C /* pLCircle.m */; };
 		D0544EA816DD8829004EDC8C /* pLSelectCircleforPostViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D0544EA716DD8829004EDC8C /* pLSelectCircleforPostViewController.m */; };
@@ -165,6 +166,7 @@
 		D01EA30016D452E50050E152 /* pLPostRequestController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = pLPostRequestController.m; sourceTree = "<group>"; };
 		D0265B731721DA94005B99CA /* EGORefreshTableHeaderView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EGORefreshTableHeaderView.h; sourceTree = "<group>"; };
 		D0265B741721DA94005B99CA /* EGORefreshTableHeaderView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EGORefreshTableHeaderView.m; sourceTree = "<group>"; };
+		D03CE700172A1EAD00DC828F /* praybutton.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = praybutton.png; path = "../../Google Drive/PrayList Artwork/Optimized/praybutton.png"; sourceTree = "<group>"; };
 		D04760151668785D00D13E64 /* me.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = me.png; sourceTree = "<group>"; };
 		D0544EA316DD5B9B004EDC8C /* pLCircle.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = pLCircle.h; sourceTree = "<group>"; };
 		D0544EA416DD5B9B004EDC8C /* pLCircle.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = pLCircle.m; sourceTree = "<group>"; };
@@ -203,8 +205,8 @@
 		D0B31B251729D64E00AE0055 /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h@2x.png"; sourceTree = "<group>"; };
 		D0B31B291729D88500AE0055 /* Default@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default@2x.png"; sourceTree = "<group>"; };
 		D0B31B2B1729DA5400AE0055 /* Icon_Retina.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Icon_Retina.png; sourceTree = "<group>"; };
-		D0B31B2D1729DBE500AE0055 /* background_iPhone5.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = background_iPhone5.png; path = "../PrayList Artwork/Optimized/background_iPhone5.png"; sourceTree = "<group>"; };
-		D0B31B311729E09A00AE0055 /* logintitle.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = logintitle.png; path = "../PrayList Artwork/Optimized/logintitle.png"; sourceTree = "<group>"; };
+		D0B31B2D1729DBE500AE0055 /* background_iPhone5.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = background_iPhone5.png; path = "../../Google Drive/PrayList Artwork/Optimized/background_iPhone5.png"; sourceTree = "<group>"; };
+		D0B31B311729E09A00AE0055 /* logintitle.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = logintitle.png; path = "../../Google Drive/PrayList Artwork/Optimized/logintitle.png"; sourceTree = "<group>"; };
 		D0EE960316C1E6F100D8021A /* pLSecurityToken.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = pLSecurityToken.h; sourceTree = "<group>"; };
 		D0EE960416C1E6F100D8021A /* pLSecurityToken.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = pLSecurityToken.m; sourceTree = "<group>"; };
 		D0EE960616C1EF9900D8021A /* RestKit.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RestKit.xcodeproj; path = "../../Downloads/RestKit-0.20.0-rc1/RestKit.xcodeproj"; sourceTree = "<group>"; };
@@ -245,6 +247,7 @@
 		D01E39941654AABD00C26BF0 = {
 			isa = PBXGroup;
 			children = (
+				D03CE700172A1EAD00DC828F /* praybutton.png */,
 				D0B31B311729E09A00AE0055 /* logintitle.png */,
 				D0B31B2D1729DBE500AE0055 /* background_iPhone5.png */,
 				D0B31B2B1729DA5400AE0055 /* Icon_Retina.png */,
@@ -568,6 +571,7 @@
 				D0B31B2C1729DA5400AE0055 /* Icon_Retina.png in Resources */,
 				D0B31B2E1729DBE500AE0055 /* background_iPhone5.png in Resources */,
 				D0B31B321729E09A00AE0055 /* logintitle.png in Resources */,
+				D03CE701172A1EAD00DC828F /* praybutton.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

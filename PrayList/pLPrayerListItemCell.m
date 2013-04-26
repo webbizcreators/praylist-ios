@@ -54,8 +54,9 @@ pLSecondViewController*tvc;
 
 
 -(IBAction)prayFor:(id)sender{
-    NSLog(@"Title Label: %@", [[praybutton titleLabel] text ]);
-    if([@"Pray" isEqualToString:[[praybutton titleLabel] text ]]){
+    BOOL *pb = praybutton.highlighted;
+    
+    if(!praybutton.highlighted){
     
     NSString *objectpath = @"prayerrequests/prayfor/";
     NSString *path = [objectpath stringByAppendingString: [requestoremail stringByAppendingString:[@"/" stringByAppendingString:requestid]]];
@@ -68,8 +69,7 @@ pLSecondViewController*tvc;
                                                   pLResponse *result = mappingResult.firstObject;
                                                   
                                                   if([@"Prayed" isEqualToString:result.description]){
-                                                      [praybutton setTitle:@"Prayed" forState:UIControlStateNormal];
-                                                      praybutton.titleLabel.text = @"Prayed";
+                                                      [praybutton setHighlighted:YES];
                                                   }
                                                   
                                               }
@@ -91,8 +91,7 @@ pLSecondViewController*tvc;
                                                       pLResponse *result = mappingResult.firstObject;
                                                       
                                                       if([@"Unprayed" isEqualToString:result.description]){
-                                                          [praybutton setTitle:@"Pray" forState:UIControlStateNormal];
-                                                          praybutton.titleLabel.text = @"Pray";
+                                                          [praybutton setHighlighted:NO];
                                                       }
                                                       
                                                   }

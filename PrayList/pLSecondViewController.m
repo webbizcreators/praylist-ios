@@ -35,6 +35,13 @@ UIActivityIndicatorView *spinner;
 {
     [super viewDidLoad];
     
+    UIGraphicsBeginImageContext(self.view.frame.size);
+    [[UIImage imageNamed:@"background_iPhone5"] drawInRect:self.view.bounds];
+    UIImage *image = UIGraphicsGetImageFromCurrentImageContext();
+    UIGraphicsEndImageContext();
+    
+    self.view.backgroundColor = [UIColor colorWithPatternImage:image];
+    
     refreshHeaderView = [[EGORefreshTableHeaderView alloc] initWithFrame:
                          CGRectMake(0.0f, 0.0f - self.view.bounds.size.height,
                                     320.0f, self.view.bounds.size.height)];
@@ -159,8 +166,10 @@ UIActivityIndicatorView *spinner;
     NSLog(@"Title Label: %@", [[cell.praybutton titleLabel] text ]);
     
     if([pRequest.iprayed isEqualToNumber:[NSNumber numberWithInt:1]]){
-        [cell.praybutton setTitle:@"Prayed" forState:UIControlStateNormal];
-        cell.praybutton.titleLabel.text = @"Prayed";
+        [cell.praybutton setHighlighted:YES];
+    }
+    else{
+        [cell.praybutton setHighlighted:NO];
     }
     
     cell.img.image = [pLAppUtils userimgFromEmail: pRequest.requestoremail];
