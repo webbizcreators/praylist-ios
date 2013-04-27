@@ -43,6 +43,8 @@
 		D01EA30116D452E50050E152 /* pLPostRequestController.m in Sources */ = {isa = PBXBuildFile; fileRef = D01EA30016D452E50050E152 /* pLPostRequestController.m */; };
 		D0265B751721DA94005B99CA /* EGORefreshTableHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = D0265B741721DA94005B99CA /* EGORefreshTableHeaderView.m */; };
 		D03CE701172A1EAD00DC828F /* praybutton.png in Resources */ = {isa = PBXBuildFile; fileRef = D03CE700172A1EAD00DC828F /* praybutton.png */; };
+		D03CE705172B240B00DC828F /* prayerlisticon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D03CE704172B240B00DC828F /* prayerlisticon@2x.png */; };
+		D03CE707172B255300DC828F /* prayerlisticon.png in Resources */ = {isa = PBXBuildFile; fileRef = D03CE706172B255300DC828F /* prayerlisticon.png */; };
 		D04760161668785D00D13E64 /* me.png in Resources */ = {isa = PBXBuildFile; fileRef = D04760151668785D00D13E64 /* me.png */; };
 		D0544EA516DD5B9B004EDC8C /* pLCircle.m in Sources */ = {isa = PBXBuildFile; fileRef = D0544EA416DD5B9B004EDC8C /* pLCircle.m */; };
 		D0544EA816DD8829004EDC8C /* pLSelectCircleforPostViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D0544EA716DD8829004EDC8C /* pLSelectCircleforPostViewController.m */; };
@@ -167,6 +169,8 @@
 		D0265B731721DA94005B99CA /* EGORefreshTableHeaderView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EGORefreshTableHeaderView.h; sourceTree = "<group>"; };
 		D0265B741721DA94005B99CA /* EGORefreshTableHeaderView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EGORefreshTableHeaderView.m; sourceTree = "<group>"; };
 		D03CE700172A1EAD00DC828F /* praybutton.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = praybutton.png; path = "../../Google Drive/PrayList Artwork/Optimized/praybutton.png"; sourceTree = "<group>"; };
+		D03CE704172B240B00DC828F /* prayerlisticon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "prayerlisticon@2x.png"; path = "../../../Google Drive/PrayList Artwork/Optimized/prayerlisticon@2x.png"; sourceTree = "<group>"; };
+		D03CE706172B255300DC828F /* prayerlisticon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = prayerlisticon.png; path = "../../../Google Drive/PrayList Artwork/Optimized/prayerlisticon.png"; sourceTree = "<group>"; };
 		D04760151668785D00D13E64 /* me.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = me.png; sourceTree = "<group>"; };
 		D0544EA316DD5B9B004EDC8C /* pLCircle.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = pLCircle.h; sourceTree = "<group>"; };
 		D0544EA416DD5B9B004EDC8C /* pLCircle.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = pLCircle.m; sourceTree = "<group>"; };
@@ -420,6 +424,8 @@
 		D073270916BC973900169F24 /* Artwork */ = {
 			isa = PBXGroup;
 			children = (
+				D03CE706172B255300DC828F /* prayerlisticon.png */,
+				D03CE704172B240B00DC828F /* prayerlisticon@2x.png */,
 				D04760151668785D00D13E64 /* me.png */,
 				D01E39C11654AABD00C26BF0 /* first.png */,
 				D01E39C31654AABD00C26BF0 /* first@2x.png */,
@@ -572,6 +578,8 @@
 				D0B31B2E1729DBE500AE0055 /* background_iPhone5.png in Resources */,
 				D0B31B321729E09A00AE0055 /* logintitle.png in Resources */,
 				D03CE701172A1EAD00DC828F /* praybutton.png in Resources */,
+				D03CE705172B240B00DC828F /* prayerlisticon@2x.png in Resources */,
+				D03CE707172B255300DC828F /* prayerlisticon.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

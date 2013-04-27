@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="2.0" toolsVersion="3084" systemVersion="12D78" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" initialViewController="tUg-0J-Ebd">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="2.0" toolsVersion="3084" systemVersion="12C60" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" initialViewController="tUg-0J-Ebd">
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="2083"/>
     </dependencies>
@@ -19,7 +19,7 @@
                                     <outlet property="delegate" destination="2" id="YqE-gO-D6k"/>
                                 </connections>
                             </tableView>
-                            <toolbar opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" barStyle="blackOpaque" translatesAutoresizingMaskIntoConstraints="NO" id="B1b-9s-IPA">
+                            <toolbar opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" barStyle="blackTranslucent" translatesAutoresizingMaskIntoConstraints="NO" id="B1b-9s-IPA">
                                 <items>
                                     <barButtonItem width="277" style="plain" systemItem="fixedSpace" id="yaw-T7-fi0"/>
                                     <barButtonItem style="plain" systemItem="add" id="Wr5-SG-fyg">
@@ -28,15 +28,27 @@
                                         </connections>
                                     </barButtonItem>
                                 </items>
+                                <color key="tintColor" red="0.44313728809356689" green="0.58039218187332153" blue="0.63921570777893066" alpha="1" colorSpace="deviceRGB"/>
                             </toolbar>
+                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="My Requests" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="VEz-Ht-0cz">
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="21" id="OCe-AI-rDg"/>
+                                    <constraint firstAttribute="width" constant="144" id="vyz-gG-SHM"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="19"/>
+                                <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
                             <constraint firstItem="B1b-9s-IPA" firstAttribute="leading" secondItem="16" secondAttribute="leading" type="default" id="I8o-Wg-HzB"/>
+                            <constraint firstItem="VEz-Ht-0cz" firstAttribute="top" secondItem="16" secondAttribute="top" constant="11" id="JAr-E7-bbv"/>
                             <constraint firstItem="dLD-lq-ySC" firstAttribute="leading" secondItem="16" secondAttribute="leading" type="default" id="UEt-WY-ccC"/>
                             <constraint firstItem="dLD-lq-ySC" firstAttribute="bottom" secondItem="16" secondAttribute="bottom" type="default" id="Vma-QP-fEY"/>
                             <constraint firstItem="dLD-lq-ySC" firstAttribute="top" secondItem="B1b-9s-IPA" secondAttribute="bottom" type="default" id="VyX-7l-X27"/>
                             <constraint firstItem="dLD-lq-ySC" firstAttribute="trailing" secondItem="16" secondAttribute="trailing" type="default" id="eoP-Yb-MVZ"/>
+                            <constraint firstItem="VEz-Ht-0cz" firstAttribute="centerX" secondItem="B1b-9s-IPA" secondAttribute="centerX" type="default" id="fHh-81-eJz"/>
                             <constraint firstItem="B1b-9s-IPA" firstAttribute="top" secondItem="16" secondAttribute="top" type="default" id="rcp-0Q-Zhl"/>
                             <constraint firstItem="B1b-9s-IPA" firstAttribute="trailing" secondItem="16" secondAttribute="trailing" type="default" id="vZq-Ab-ABG"/>
                         </constraints>
@@ -433,7 +445,7 @@
                             <constraint firstItem="03r-eR-LQ8" firstAttribute="top" secondItem="17" secondAttribute="top" type="default" id="tkP-pn-Q7R"/>
                         </constraints>
                     </view>
-                    <tabBarItem key="tabBarItem" title="Prayer List" image="second" id="6"/>
+                    <tabBarItem key="tabBarItem" title="Prayer List" image="prayerlisticon.png" id="6"/>
                     <connections>
                         <outlet property="tableView" destination="03r-eR-LQ8" id="8mJ-yH-GI2"/>
                         <segue destination="WZU-Ke-ITR" kind="modal" identifier="showComments" id="tHJ-cI-d8Z"/>
@@ -673,7 +685,7 @@
         <image name="background_iPhone5.png" width="640" height="1136"/>
         <image name="first" width="16" height="16"/>
         <image name="logintitle.png" width="276" height="94"/>
-        <image name="second" width="16" height="16"/>
+        <image name="prayerlisticon.png" width="30" height="30"/>
     </resources>
     <classes>
         <class className="NSLayoutConstraint" superclassName="NSObject">
