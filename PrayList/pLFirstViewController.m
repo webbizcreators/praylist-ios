@@ -10,6 +10,7 @@
 #import "pLPrayerRequest.h"
 #import "pLPrayerRequestCell.h"
 #import "pLAppUtils.h"
+#import "pLResponse.h"
 
 #define FONT_SIZE 11.0f
 #define CELL_CONTENT_WIDTH 297.0f
@@ -26,7 +27,7 @@
 @implementation pLFirstViewController
 
 
-NSArray *prayerrequests;
+NSMutableArray *prayerrequests;
 UIActivityIndicatorView *spinner;
 
 - (void)viewDidLoad
@@ -43,8 +44,8 @@ UIActivityIndicatorView *spinner;
     refreshHeaderView = [[EGORefreshTableHeaderView alloc] initWithFrame:
                          CGRectMake(0.0f, 0.0f - self.view.bounds.size.height,
                                     320.0f, self.view.bounds.size.height)];
-	[tableView addSubview:refreshHeaderView];
-	tableView.showsVerticalScrollIndicator = YES;
+	[vartableView addSubview:refreshHeaderView];
+	vartableView.showsVerticalScrollIndicator = YES;
     
     
     [self loadData];
@@ -61,20 +62,21 @@ UIActivityIndicatorView *spinner;
                                            parameters:nil
                                               success:^(RKObjectRequestOperation *operation, RKMappingResult *mappingResult) {
                                                   
-                                                  prayerrequests = mappingResult.array;
+                                                  prayerrequests = [NSMutableArray arrayWithArray:mappingResult.array];
                                                   
                                                   if(prayerrequests.count>0){
                                                       
                                                       
                                                       NSSortDescriptor *sortDescriptor;
                                                       sortDescriptor = [[NSSortDescriptor alloc] initWithKey:@"requestdate"
-                                                                                                    ascending:NO];
+                                                                                                   ascending:NO];
                                                       NSArray *sortDescriptors = [NSArray arrayWithObject:sortDescriptor];
-                                                      prayerrequests = [prayerrequests sortedArrayUsingDescriptors:sortDescriptors];
-                                                      [spinner stopAnimating];
-                                                      [tableView reloadData];
-                                                      [self dataSourceDidFinishLoadingNewData];
+                                                      prayerrequests = [NSMutableArray arrayWithArray:[prayerrequests sortedArrayUsingDescriptors:sortDescriptors]];
+                                                      
                                                   }
+                                                  [spinner stopAnimating];
+                                                  [vartableView reloadData];
+                                                  [self dataSourceDidFinishLoadingNewData];
                                                   
                                               }
                                               failure:^(RKObjectRequestOperation *operation, NSError *error) {
@@ -96,14 +98,14 @@ UIActivityIndicatorView *spinner;
 	{
 		[UIView beginAnimations:nil context:NULL];
 		[UIView setAnimationDuration:0.2];
-		tableView.contentInset = UIEdgeInsetsMake(60.0f, 0.0f, 0.0f,
-                                                       0.0f);
+		vartableView.contentInset = UIEdgeInsetsMake(60.0f, 0.0f, 0.0f,
+                                                  0.0f);
 		[UIView commitAnimations];
 	}
 	else
 	{
-		tableView.contentInset = UIEdgeInsetsMake(60.0f, 0.0f, 0.0f,
-                                                       0.0f);
+		vartableView.contentInset = UIEdgeInsetsMake(60.0f, 0.0f, 0.0f,
+                                                  0.0f);
 	}
 }
 
@@ -119,14 +121,48 @@ UIActivityIndicatorView *spinner;
 	[refreshHeaderView flipImageAnimated:NO];
 	[UIView beginAnimations:nil context:NULL];
 	[UIView setAnimationDuration:.3];
-	[tableView setContentInset:UIEdgeInsetsMake(0.0f, 0.0f, 0.0f, 0.0f)];
+	[vartableView setContentInset:UIEdgeInsetsMake(0.0f, 0.0f, 0.0f, 0.0f)];
 	[refreshHeaderView setStatus:kPullToReloadStatus];
 	[refreshHeaderView toggleActivityView:NO];
 	[UIView commitAnimations];
 }
 
 
+- (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    return YES;
+}
 
+
+- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    if (editingStyle == UITableViewCellEditingStyleDelete)
+    {
+        
+        pLPrayerRequest *pr = [prayerrequests objectAtIndex:indexPath.row];
+        
+        [[RKObjectManager sharedManager] deleteObject:pr path: nil parameters: nil success:^( RKObjectRequestOperation *operation , RKMappingResult *mappingResult){
+            
+            if(mappingResult.array.count>0){
+                
+                pLResponse *result = mappingResult.firstObject;
+                
+                if([@"Success" isEqualToString:result.status]){
+                    
+                    [prayerrequests removeObjectAtIndex:indexPath.row];
+                    [vartableView deleteRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationFade];
+                    
+                }
+                
+            }
+            
+        }
+                                              failure:^( RKObjectRequestOperation *operation , NSError *error ){
+                                                  
+                                                  
+                                              }];
+    }
+}
 
 
 
@@ -252,7 +288,7 @@ UIActivityIndicatorView *spinner;
 	if (reloading) return;
     
 	if (scrollView.contentOffset.y <= - 65.0f) {
-		if([tableView.dataSource respondsToSelector:
+		if([vartableView.dataSource respondsToSelector:
             @selector(reloadTableViewDataSource)]){
 			[self showReloadAnimationAnimated:YES];
 			[self reloadTableViewDataSource];

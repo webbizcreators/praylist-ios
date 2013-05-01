@@ -72,10 +72,11 @@ UIActivityIndicatorView *spinner;
                                                                                                    ascending:NO];
                                                       NSArray *sortDescriptors = [NSArray arrayWithObject:sortDescriptor];
                                                       prayerrequests2 = [prayerrequests2 sortedArrayUsingDescriptors:sortDescriptors];
-                                                      [spinner stopAnimating];
-                                                      [tableView reloadData];
-                                                      [self dataSourceDidFinishLoadingNewData];
+                                                      
                                                   }
+                                                  [spinner stopAnimating];
+                                                  [tableView reloadData];
+                                                  [self dataSourceDidFinishLoadingNewData];
                                                   
                                               }
                                               failure:^(RKObjectRequestOperation *operation, NSError *error) {

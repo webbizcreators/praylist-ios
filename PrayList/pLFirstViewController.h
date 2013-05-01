@@ -12,7 +12,7 @@
 
 @interface pLFirstViewController : UIViewController <UITableViewDelegate>{
     
-    IBOutlet UITableView *tableView;
+    IBOutlet UITableView *vartableView;
     IBOutlet UIBarButtonItem *addbutton;
     
     EGORefreshTableHeaderView *refreshHeaderView;

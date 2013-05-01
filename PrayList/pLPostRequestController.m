@@ -22,6 +22,16 @@ UIActivityIndicatorView *spinner;
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    
+    
+    UIGraphicsBeginImageContext(self.view.frame.size);
+    [[UIImage imageNamed:@"background_iPhone5"] drawInRect:self.view.bounds];
+    UIImage *image = UIGraphicsGetImageFromCurrentImageContext();
+    UIGraphicsEndImageContext();
+    
+    self.view.backgroundColor = [UIColor colorWithPatternImage:image];
+    
+    
     spinner = [pLAppUtils addspinnertoview:self.view];
     userImage.image = [pLAppUtils userimgFromEmail: [pLAppUtils securitytoken].email];
     selectedcircles = [[NSMutableArray alloc]init];

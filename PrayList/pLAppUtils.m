@@ -282,6 +282,11 @@ NSMutableDictionary *contacts;
                                              pathPattern:@"prayerrequests/:requestoremail/:requestid"
                                              method:RKRequestMethodPOST]] ;
     
+    [objectManager.router.routeSet addRoute:[RKRoute
+                                             routeWithClass:[pLPrayerRequest class]
+                                             pathPattern:@"prayerrequests/d/:requestoremail/:requestid"
+                                             method:RKRequestMethodDELETE]] ;
+    
     
     
     
@@ -394,6 +399,14 @@ NSMutableDictionary *contacts;
     
     responseDescriptor = [RKResponseDescriptor responseDescriptorWithMapping:responseMapping
                                                                  pathPattern:@"prayerrequests/unprayfor/:email/:requestid"
+                                                                     keyPath: nil
+                                                                 statusCodes:[NSIndexSet indexSetWithIndex:200]];
+    
+    [objectManager addResponseDescriptor: responseDescriptor];
+    
+    
+    responseDescriptor = [RKResponseDescriptor responseDescriptorWithMapping:responseMapping
+                                                                 pathPattern:@"prayerrequests/d/:email/:requestid"
                                                                      keyPath: nil
                                                                  statusCodes:[NSIndexSet indexSetWithIndex:200]];
     
