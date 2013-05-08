@@ -13,5 +13,7 @@
 @synthesize owneremail;
 @synthesize groupname;
 @synthesize groupmembers;
+@synthesize grouptype;
+@synthesize orgid;
 
 @end

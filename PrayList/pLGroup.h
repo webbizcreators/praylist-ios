@@ -10,6 +10,8 @@
 
 @interface pLGroup : NSObject
 
+@property (nonatomic, retain) NSString* orgid;
+@property (nonatomic, retain) NSString* grouptype;
 @property (nonatomic, retain) NSString* owneremail;
 @property (nonatomic, retain) NSString* groupname;
 @property (nonatomic, retain) NSArray* groupmembers;

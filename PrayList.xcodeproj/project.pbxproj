@@ -50,7 +50,11 @@
 		D0544EA816DD8829004EDC8C /* pLSelectGroupforPostViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D0544EA716DD8829004EDC8C /* pLSelectGroupforPostViewController.m */; };
 		D0544EAA16DD992C004EDC8C /* pLGroupCollectionCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = D0544EA916DD992C004EDC8C /* pLGroupCollectionCell.xib */; };
 		D0544EAD16DEB581004EDC8C /* pLGroupCollectionCell.m in Sources */ = {isa = PBXBuildFile; fileRef = D0544EAC16DEB581004EDC8C /* pLGroupCollectionCell.m */; };
-		D06E202916BA316A0002F17B /* praylisticon.png in Resources */ = {isa = PBXBuildFile; fileRef = D06E202816BA316A0002F17B /* praylisticon.png */; };
+		D05D3B8C173A1652009D5FD1 /* pLGroupCellView.xib in Resources */ = {isa = PBXBuildFile; fileRef = D05D3B8B173A1652009D5FD1 /* pLGroupCellView.xib */; };
+		D05D3B91173A1696009D5FD1 /* personalgroupicon.png in Resources */ = {isa = PBXBuildFile; fileRef = D05D3B90173A1696009D5FD1 /* personalgroupicon.png */; };
+		D05D3B93173A169D009D5FD1 /* privategroupicon.png in Resources */ = {isa = PBXBuildFile; fileRef = D05D3B92173A169D009D5FD1 /* privategroupicon.png */; };
+		D05D3B95173A16A1009D5FD1 /* publicgroupicon.png in Resources */ = {isa = PBXBuildFile; fileRef = D05D3B94173A16A1009D5FD1 /* publicgroupicon.png */; };
+		D05D3B98173A1EAB009D5FD1 /* pLGroupCell.m in Sources */ = {isa = PBXBuildFile; fileRef = D05D3B97173A1EAB009D5FD1 /* pLGroupCell.m */; };
 		D06E202C16BA3A590002F17B /* pLLoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D06E202B16BA3A590002F17B /* pLLoginViewController.m */; };
 		D06EF3B51702476D00B06270 /* pLPerson.m in Sources */ = {isa = PBXBuildFile; fileRef = D06EF3B41702476D00B06270 /* pLPerson.m */; };
 		D06F475B1655A5EF00C2CD63 /* pLPrayerRequestListItem.m in Sources */ = {isa = PBXBuildFile; fileRef = D06F475A1655A5EF00C2CD63 /* pLPrayerRequestListItem.m */; };
@@ -179,7 +183,12 @@
 		D0544EA916DD992C004EDC8C /* pLGroupCollectionCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = pLGroupCollectionCell.xib; sourceTree = "<group>"; };
 		D0544EAB16DEB581004EDC8C /* pLGroupCollectionCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = pLGroupCollectionCell.h; sourceTree = "<group>"; };
 		D0544EAC16DEB581004EDC8C /* pLGroupCollectionCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = pLGroupCollectionCell.m; sourceTree = "<group>"; };
-		D06E202816BA316A0002F17B /* praylisticon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = praylisticon.png; sourceTree = "<group>"; };
+		D05D3B8B173A1652009D5FD1 /* pLGroupCellView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = pLGroupCellView.xib; sourceTree = "<group>"; };
+		D05D3B90173A1696009D5FD1 /* personalgroupicon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = personalgroupicon.png; sourceTree = "<group>"; };
+		D05D3B92173A169D009D5FD1 /* privategroupicon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = privategroupicon.png; sourceTree = "<group>"; };
+		D05D3B94173A16A1009D5FD1 /* publicgroupicon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = publicgroupicon.png; sourceTree = "<group>"; };
+		D05D3B96173A1EAB009D5FD1 /* pLGroupCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = pLGroupCell.h; sourceTree = "<group>"; };
+		D05D3B97173A1EAB009D5FD1 /* pLGroupCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = pLGroupCell.m; sourceTree = "<group>"; };
 		D06E202A16BA3A590002F17B /* pLLoginViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = pLLoginViewController.h; path = ../pLLoginViewController.h; sourceTree = "<group>"; };
 		D06E202B16BA3A590002F17B /* pLLoginViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = pLLoginViewController.m; path = ../pLLoginViewController.m; sourceTree = "<group>"; };
 		D06EF3B31702476D00B06270 /* pLPerson.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = pLPerson.h; sourceTree = "<group>"; };
@@ -392,6 +401,9 @@
 				D07B3FFB1727327700BA5401 /* pLCommentCellView.xib */,
 				D07B3FFD172732E500BA5401 /* pLCommentCell.h */,
 				D07B3FFE172732E500BA5401 /* pLCommentCell.m */,
+				D05D3B8B173A1652009D5FD1 /* pLGroupCellView.xib */,
+				D05D3B96173A1EAB009D5FD1 /* pLGroupCell.h */,
+				D05D3B97173A1EAB009D5FD1 /* pLGroupCell.m */,
 			);
 			name = Components;
 			sourceTree = "<group>";
@@ -424,6 +436,9 @@
 		D073270916BC973900169F24 /* Artwork */ = {
 			isa = PBXGroup;
 			children = (
+				D05D3B94173A16A1009D5FD1 /* publicgroupicon.png */,
+				D05D3B92173A169D009D5FD1 /* privategroupicon.png */,
+				D05D3B90173A1696009D5FD1 /* personalgroupicon.png */,
 				D03CE706172B255300DC828F /* prayerlisticon.png */,
 				D03CE704172B240B00DC828F /* prayerlisticon@2x.png */,
 				D04760151668785D00D13E64 /* me.png */,
@@ -431,7 +446,6 @@
 				D01E39C31654AABD00C26BF0 /* first@2x.png */,
 				D01E39C81654AABD00C26BF0 /* second.png */,
 				D01E39CA1654AABD00C26BF0 /* second@2x.png */,
-				D06E202816BA316A0002F17B /* praylisticon.png */,
 			);
 			name = Artwork;
 			sourceTree = "<group>";
@@ -568,7 +582,6 @@
 				D01E39CB1654AABD00C26BF0 /* second@2x.png in Resources */,
 				D06F47611656E5FC00C2CD63 /* PrayerListItemCellView.xib in Resources */,
 				D04760161668785D00D13E64 /* me.png in Resources */,
-				D06E202916BA316A0002F17B /* praylisticon.png in Resources */,
 				D01EA2FE16C719BB0050E152 /* PrayerRequestCellView.xib in Resources */,
 				D0544EAA16DD992C004EDC8C /* pLGroupCollectionCell.xib in Resources */,
 				D07B3FFC1727327700BA5401 /* pLCommentCellView.xib in Resources */,
@@ -580,6 +593,10 @@
 				D03CE701172A1EAD00DC828F /* praybutton.png in Resources */,
 				D03CE705172B240B00DC828F /* prayerlisticon@2x.png in Resources */,
 				D03CE707172B255300DC828F /* prayerlisticon.png in Resources */,
+				D05D3B8C173A1652009D5FD1 /* pLGroupCellView.xib in Resources */,
+				D05D3B91173A1696009D5FD1 /* personalgroupicon.png in Resources */,
+				D05D3B93173A169D009D5FD1 /* privategroupicon.png in Resources */,
+				D05D3B95173A16A1009D5FD1 /* publicgroupicon.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -640,6 +657,7 @@
 				D001A11C1725F25B004789CD /* pLRequestCommentViewController.m in Sources */,
 				D07B3FFF172732E500BA5401 /* pLCommentCell.m in Sources */,
 				D07B40051727361100BA5401 /* pLComment.m in Sources */,
+				D05D3B98173A1EAB009D5FD1 /* pLGroupCell.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

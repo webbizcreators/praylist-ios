@@ -13,6 +13,7 @@
 #import "pLGroupCollectionCell.h"
 #import "plGroup.h"
 #import "pLEditGroupViewController.h"
+#import "pLGroupCell.h"
 
 @interface pLGroupListViewController ()
 
@@ -88,16 +89,26 @@ UIActivityIndicatorView *spinner;
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     
-    static NSString *CellIdentifier = @"Cell";
+    static NSString *CustomCellIdentifier = @"groupcell";
     
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
-    if (cell == nil) {
-        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
+    pLGroupCell *cell = (pLGroupCell *)[tableView dequeueReusableCellWithIdentifier: CustomCellIdentifier];
+    if (cell == nil)
+    {
+        NSArray *nib = [[NSBundle mainBundle] loadNibNamed:@"PrayerRequestCellView" owner:self options:nil];
+        
+        for (id oneObject in nib)
+            if ([oneObject isKindOfClass:[pLGroupCell class]])
+                
+                cell = (pLGroupCell *)oneObject;
+        
+        [cell setSelectionStyle:UITableViewCellSelectionStyleBlue];
+        
     }
     
     pLGroup * c;
     c = (pLGroup*)[sourcegroups objectAtIndex:indexPath.row];
-    cell.textLabel.text = c.groupname;
+    cell.groupname.text = c.groupname;
+    cell.groupdesc.text = c.description;
     
     return cell;
     
