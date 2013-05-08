@@ -15,7 +15,7 @@
 @property (nonatomic, retain) NSString* requestoremail;
 @property (nonatomic, retain) NSString* requesttext;
 @property (nonatomic, retain) NSString* requestdatetimeago;
-@property (nonatomic, retain) NSArray* circlenames;
+@property (nonatomic, retain) NSArray* groupnames;
 @property (nonatomic, retain) NSNumber* praycount;
 
 @end

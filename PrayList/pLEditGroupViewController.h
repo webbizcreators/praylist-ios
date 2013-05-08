@@ -1,5 +1,5 @@
 //
-//  pLEditCircleViewController.h
+//  pLEditGroupViewController.h
 //  PrayList
 //
 //  Created by Peter Opheim on 3/21/13.
@@ -7,17 +7,17 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "pLCircle.h"
+#import "pLGroup.h"
 
-@interface pLEditCircleViewController : UIViewController<UITableViewDelegate>{
+@interface pLEditGroupViewController : UIViewController<UITableViewDelegate>{
     
-    IBOutlet UILabel * circlename;
+    IBOutlet UILabel * groupname;
     IBOutlet UIBarButtonItem *saveButton;
     IBOutlet UIBarButtonItem *cancelButton;
     IBOutlet UITableView * tableView;
     
 }
 
-@property (nonatomic, retain) pLCircle *circle;
+@property (nonatomic, retain) pLGroup *group;
 
 @end

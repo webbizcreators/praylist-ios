@@ -16,7 +16,7 @@
 @synthesize requestoremail;
 @synthesize requesttext;
 @synthesize requestdatetimeago;
-@synthesize circlenames;
+@synthesize groupnames;
 @synthesize praycount;
 
 

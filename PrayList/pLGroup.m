@@ -1,17 +1,17 @@
 //
-//  pLCircle.m
+//  pLGroup.m
 //  PrayList
 //
 //  Created by Peter Opheim on 2/26/13.
 //  Copyright (c) 2013 Peter Opheim. All rights reserved.
 //
 
-#import "pLCircle.h"
+#import "pLGroup.h"
 
-@implementation pLCircle
+@implementation pLGroup
 
 @synthesize owneremail;
-@synthesize circlename;
-@synthesize circlemembers;
+@synthesize groupname;
+@synthesize groupmembers;
 
 @end

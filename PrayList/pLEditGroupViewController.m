@@ -1,20 +1,20 @@
 //
-//  pLEditCircleViewController.m
+//  pLEditGroupViewController.m
 //  PrayList
 //
 //  Created by Peter Opheim on 3/21/13.
 //  Copyright (c) 2013 Peter Opheim. All rights reserved.
 //
 
-#import "pLEditCircleViewController.h"
+#import "pLEditGroupViewController.h"
 
-@interface pLEditCircleViewController ()
+@interface pLEditGroupViewController ()
 
 @end
 
-@implementation pLEditCircleViewController
+@implementation pLEditGroupViewController
 
-@synthesize circle;
+@synthesize group;
 
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
@@ -30,7 +30,7 @@
 
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return [circle.circlemembers count];
+    return [group.groupmembers count];
 }
 
 
@@ -44,7 +44,7 @@
     }
     
     NSString * c;
-    c = (NSString*)[circle.circlemembers objectAtIndex:indexPath.row];
+    c = (NSString*)[group.groupmembers objectAtIndex:indexPath.row];
     cell.textLabel.text = c;
     
     return cell;
@@ -68,7 +68,7 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-	circlename.text = circle.circlename;
+	groupname.text = group.groupname;
 }
 
 - (void)didReceiveMemoryWarning

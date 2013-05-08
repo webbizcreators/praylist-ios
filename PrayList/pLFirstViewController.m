@@ -145,14 +145,10 @@ UIActivityIndicatorView *spinner;
             
             if(mappingResult.array.count>0){
                 
-                pLResponse *result = mappingResult.firstObject;
-                
-                if([@"Success" isEqualToString:result.status]){
+                pLPrayerRequest *result = mappingResult.firstObject;
                     
                     [prayerrequests removeObjectAtIndex:indexPath.row];
                     [vartableView deleteRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationFade];
-                    
-                }
                 
             }
             

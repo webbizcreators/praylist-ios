@@ -1,19 +1,19 @@
 //
-//  pLSelectCircleforPostViewController.m
+//  pLSelectGroupforPostViewController.m
 //  PrayList
 //
 //  Created by Peter Opheim on 2/26/13.
 //  Copyright (c) 2013 Peter Opheim. All rights reserved.
 //
 
-#import "pLSelectCircleforPostViewController.h"
+#import "pLSelectGroupforPostViewController.h"
 #import "pLAppUtils.h"
-#import "pLCircle.h"
+#import "pLGroup.h"
 
-@implementation pLSelectCircleforPostViewController
+@implementation pLSelectGroupforPostViewController
 
-@synthesize destcircleArray;
-@synthesize sourcecircles;
+@synthesize destgroupArray;
+@synthesize sourcegroups;
 
 
 - (void)viewDidLoad
@@ -39,7 +39,7 @@
 
 -(IBAction)doneButton:(id)sender{
     
-    [destcircleArray removeAllObjects];
+    [destgroupArray removeAllObjects];
     
     NSArray* selectedRows = [tableView indexPathsForSelectedRows];
     
@@ -48,10 +48,10 @@
         NSIndexPath *thisPath = [selectedRows objectAtIndex:i];
         NSInteger *selectedindex = thisPath.row;
         
-        [destcircleArray addObject: [sourcecircles objectAtIndex:selectedindex]];
+        [destgroupArray addObject: [sourcegroups objectAtIndex:selectedindex]];
     }
     
-    [[NSNotificationCenter defaultCenter] postNotificationName:@"CircleSelectViewControllerDismissed"
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"GroupSelectViewControllerDismissed"
                                                         object:nil
                                                       userInfo:nil];
     
@@ -88,7 +88,7 @@
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     // Return the number of rows in the section.
     // If you're serving data from an array, return the length of the array:
-    return [sourcecircles count];
+    return [sourcegroups count];
 }
 
 // Customize the appearance of table view cells.
@@ -101,11 +101,11 @@
     }
     
     // Set the data for this cell:
-    pLCircle * c;
-    c = (pLCircle*)[sourcecircles objectAtIndex:indexPath.row];
-    cell.textLabel.text = c.circlename;
+    pLGroup * c;
+    c = (pLGroup*)[sourcegroups objectAtIndex:indexPath.row];
+    cell.textLabel.text = c.groupname;
     
-    int selectedindex = [destcircleArray indexOfObject:c];
+    int selectedindex = [destgroupArray indexOfObject:c];
     
     if(selectedindex!=2147483647){
         [tableView selectRowAtIndexPath:indexPath animated:YES scrollPosition:UITableViewScrollPositionNone];

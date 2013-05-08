@@ -9,14 +9,14 @@
 #import "pLPostRequestController.h"
 #import "pLAppUtils.h"
 #import "pLPrayerRequest.h"
-#import "pLSelectCircleforPostViewController.h"
-#import "pLCircleCollectionCell.h"
-#import "plCircle.h"
+#import "pLSelectGroupforPostViewController.h"
+#import "pLGroupCollectionCell.h"
+#import "pLGroup.h"
 
 @implementation pLPostRequestController
 
-NSMutableArray *sourcecircles;
-NSMutableArray *selectedcircles;
+NSMutableArray *sourcegroups;
+NSMutableArray *selectedgroups;
 UIActivityIndicatorView *spinner;
 
 - (void)viewDidLoad
@@ -34,8 +34,8 @@ UIActivityIndicatorView *spinner;
     
     spinner = [pLAppUtils addspinnertoview:self.view];
     userImage.image = [pLAppUtils userimgFromEmail: [pLAppUtils securitytoken].email];
-    selectedcircles = [[NSMutableArray alloc]init];
-    [self getcircles];
+    selectedgroups = [[NSMutableArray alloc]init];
+    [self getgroups];
     
 }
 
@@ -45,10 +45,10 @@ UIActivityIndicatorView *spinner;
  
 }
 
--(void)getcircles{
+-(void)getgroups{
     
     
-    NSString *objectpath = @"circles/";
+    NSString *objectpath = @"groups/";
     NSString *path = [objectpath stringByAppendingString: [pLAppUtils securitytoken].email];
     
     
@@ -57,16 +57,16 @@ UIActivityIndicatorView *spinner;
      
                                               success:^(RKObjectRequestOperation *operation, RKMappingResult *mappingResult) {
 
-                                                  sourcecircles = [[NSMutableArray alloc] initWithArray:mappingResult.array];
+                                                  sourcegroups = [[NSMutableArray alloc] initWithArray:mappingResult.array];
                                                   
                                                   
-                                                  if(sourcecircles.count>0){
+                                                  if(sourcegroups.count>0){
                                                       
                                                       NSSortDescriptor *sortDescriptor;
-                                                      sortDescriptor = [[NSSortDescriptor alloc] initWithKey:@"circlename"
+                                                      sortDescriptor = [[NSSortDescriptor alloc] initWithKey:@"groupname"
                                                                                                    ascending:YES];
                                                       NSArray *sortDescriptors = [NSArray arrayWithObject:sortDescriptor];
-                                                      sourcecircles = [[NSMutableArray alloc] initWithArray:[sourcecircles sortedArrayUsingDescriptors:sortDescriptors]];
+                                                      sourcegroups = [[NSMutableArray alloc] initWithArray:[sourcegroups sortedArrayUsingDescriptors:sortDescriptors]];
                                                       [spinner stopAnimating];
                                                   }
                                                   
@@ -84,10 +84,10 @@ UIActivityIndicatorView *spinner;
     
     [spinner startAnimating];
     
-    NSMutableArray *circlenames = [[NSMutableArray alloc]init];
+    NSMutableArray *groupnames = [[NSMutableArray alloc]init];
     
-    for(pLCircle *cr in selectedcircles){
-        [circlenames addObject:cr.circlename];
+    for(pLGroup *cr in sourcegroups){
+        [groupnames addObject:cr.groupname];
     }
     
     pLPrayerRequest *pr = [[pLPrayerRequest alloc] init];
@@ -95,7 +95,7 @@ UIActivityIndicatorView *spinner;
     pr.requestoremail = [pLAppUtils securitytoken].email;
     pr.requesttext = requestText.text;
     pr.requestdate = [[NSDate alloc]init];
-    pr.circlenames = circlenames;
+    pr.groupnames = groupnames;
     
     [[RKObjectManager sharedManager] putObject:pr path: nil parameters: nil success:^( RKObjectRequestOperation *operation , RKMappingResult *mappingResult){
         
@@ -123,26 +123,26 @@ UIActivityIndicatorView *spinner;
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
 {
     // Make sure your segue name in storyboard is the same as this line
-    if ([[segue identifier] isEqualToString:@"openCirclePickerSegue"])
+    if ([[segue identifier] isEqualToString:@"openGroupPickerSegue"])
     {
         // Get reference to the destination view controller
-        pLSelectCircleforPostViewController *vc = [segue destinationViewController];
+        pLSelectGroupforPostViewController *vc = [segue destinationViewController];
         
         // Pass any objects to the view controller here, like...
-        vc.destcircleArray = selectedcircles;
-        vc.sourcecircles = sourcecircles;
+        vc.destgroupArray = selectedgroups;
+        vc.sourcegroups = sourcegroups;
         
         [[NSNotificationCenter defaultCenter] addObserver:self
-                                                 selector:@selector(didDismissCircleSelectViewController)
-                                                     name:@"CircleSelectViewControllerDismissed"
+                                                 selector:@selector(didDismissGroupSelectViewController)
+                                                     name:@"GroupSelectViewControllerDismissed"
                                                    object:nil];
     }
 }
 
 
--(void)didDismissCircleSelectViewController{
+-(void)didDismissGroupSelectViewController{
     
-    [circleView reloadData];
+    [groupView reloadData];
     
 }
 
@@ -157,25 +157,25 @@ UIActivityIndicatorView *spinner;
 
 - (NSInteger)collectionView:(UICollectionView *)view numberOfItemsInSection:(NSInteger)section {
 
-    return [selectedcircles count];
+    return [selectedgroups count];
 }
 
 - (NSInteger)numberOfSectionsInCollectionView: (UICollectionView *)collectionView {
     return 1;
 }
 
-- (pLCircleCollectionCell *)collectionView:(UICollectionView *)cv cellForItemAtIndexPath:(NSIndexPath *)indexPath {
+- (pLGroupCollectionCell *)collectionView:(UICollectionView *)cv cellForItemAtIndexPath:(NSIndexPath *)indexPath {
     
     
-    [circleView registerClass:[pLCircleCollectionCell class] forCellWithReuseIdentifier:@"circlesCell"];
-    [circleView registerNib:[UINib nibWithNibName:@"pLCircleCollectionCell" bundle:[NSBundle mainBundle]]  forCellWithReuseIdentifier:@"circlesCell"];
+    [groupView registerClass:[pLGroupCollectionCell class] forCellWithReuseIdentifier:@"groupsCell"];
+    [groupView registerNib:[UINib nibWithNibName:@"pLGroupCollectionCell" bundle:[NSBundle mainBundle]]  forCellWithReuseIdentifier:@"groupsCell"];
     
     
-    pLCircleCollectionCell *cell = [cv dequeueReusableCellWithReuseIdentifier:@"circlesCell" forIndexPath:indexPath];
+    pLGroupCollectionCell *cell = [cv dequeueReusableCellWithReuseIdentifier:@"groupsCell" forIndexPath:indexPath];
     
-    pLCircle *cc = [selectedcircles objectAtIndex:indexPath.row];
+    pLGroup *cc = [selectedgroups objectAtIndex:indexPath.row];
     
-    cell.title.text = cc.circlename;
+    cell.title.text = cc.groupname;
     //cell.backgroundColor = [UIColor whiteColor];
     
     return cell;
@@ -183,8 +183,8 @@ UIActivityIndicatorView *spinner;
 
 
 - (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath {
-    pLCircle *cc = [selectedcircles objectAtIndex:indexPath.row];
-    NSNumber *charlength = [NSNumber numberWithInt:[cc.circlename length]];
+    pLGroup *cc = [selectedgroups objectAtIndex:indexPath.row];
+    NSNumber *charlength = [NSNumber numberWithInt:[cc.groupname length]];
     CGSize retval;
     retval.height = 20;
     retval.width = [charlength floatValue] * [[NSNumber numberWithInt:8] floatValue];

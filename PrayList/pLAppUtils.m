@@ -11,7 +11,7 @@
 #import "pLPrayerRequest.h"
 #import "pLLoginRequest.h"
 #import "pLLoginResponse.h"
-#import "pLCircle.h"
+#import "pLGroup.h"
 #import "pLPerson.h"
 #import "pLResponse.h"
 #import "pLComment.h"
@@ -105,7 +105,6 @@ NSMutableDictionary *contacts;
 +(void)registerObjectMappings{
     
     NSMutableIndexSet *datastatuscodes = [NSMutableIndexSet indexSetWithIndex:200];
-    [datastatuscodes addIndex:204];
     
     NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
     [dateFormatter setDateStyle:NSDateFormatterMediumStyle];
@@ -219,10 +218,10 @@ NSMutableDictionary *contacts;
     responseMapping = [RKObjectMapping mappingForClass:[pLPrayerRequest class]];
     [responseMapping addAttributeMappingsFromDictionary:@{
      @"requestid": @"requestid",
-     @"requestorEmail": @"requestoremail",
-     @"requestText": @"requesttext",
-     @"requestDate":@"requestdate",
-     @"circleNames":@"circlenames",
+     @"requestoremail": @"requestoremail",
+     @"requesttext": @"requesttext",
+     @"requestdate":@"requestdate",
+     @"groupnames":@"groupnames",
      @"praycount":@"praycount",
      }];
     
@@ -255,10 +254,10 @@ NSMutableDictionary *contacts;
     requestMapping = [RKObjectMapping requestMapping];
     [requestMapping addAttributeMappingsFromDictionary:@{
      @"requestid": @"requestid",
-     @"requestoremail": @"requestorEmail",
-     @"requesttext": @"requestText",
-     @"requestdate":@"requestDate",
-     @"circlenames":@"circleNames",
+     @"requestoremail": @"requestoremail",
+     @"requesttext": @"requesttext",
+     @"requestdate":@"requestdate",
+     @"groupnames":@"groupnames",
      @"praycount":@"praycount",
      }];
     
@@ -298,16 +297,16 @@ NSMutableDictionary *contacts;
     
     
     
-    //pLCircle ********************************************
-    responseMapping = [RKObjectMapping mappingForClass:[pLCircle class]];
+    //pLGroup ********************************************
+    responseMapping = [RKObjectMapping mappingForClass:[pLGroup class]];
     [responseMapping addAttributeMappingsFromDictionary:@{
-     @"ownerEmail": @"owneremail",
-     @"circleName": @"circlename",
-     @"circleMembers": @"circlemembers",
+     @"owneremail": @"owneremail",
+     @"groupname": @"groupname",
+     @"groupmembers": @"groupmembers",
      }];
     
     responseDescriptor = [RKResponseDescriptor responseDescriptorWithMapping:responseMapping
-                                                                 pathPattern:@"circles/:owneremail/:circlename"
+                                                                 pathPattern:@"groups/:owneremail/:groupname"
                                                                      keyPath: nil
                                                                  statusCodes:[NSIndexSet indexSetWithIndex:200]];
     
@@ -316,15 +315,15 @@ NSMutableDictionary *contacts;
     
     
     responseDescriptor = [RKResponseDescriptor responseDescriptorWithMapping:responseMapping
-                                                                 pathPattern:@"circles/:owneremail"
-                                                                     keyPath: @"circle"
+                                                                 pathPattern:@"groups/:owneremail"
+                                                                     keyPath: @"group"
                                                                  statusCodes:datastatuscodes];
     
     [objectManager addResponseDescriptor: responseDescriptor];
     
     
     responseDescriptor = [RKResponseDescriptor responseDescriptorWithMapping:responseMapping
-                                                                 pathPattern:@"circles"
+                                                                 pathPattern:@"group"
                                                                      keyPath: nil
                                                                  statusCodes:[NSIndexSet indexSetWithIndex:200]];
     
@@ -334,14 +333,14 @@ NSMutableDictionary *contacts;
     
     requestMapping = [RKObjectMapping requestMapping];
     [requestMapping addAttributeMappingsFromDictionary:@{
-     @"owneremail": @"ownerEmail",
-     @"circlename": @"circleName",
-     @"circlemembers": @"circleMembers",
+     @"owneremail": @"owneremail",
+     @"groupname": @"groupname",
+     @"groupmembers": @"groupmembers",
      }];
     
     
     requestDescriptor = [RKRequestDescriptor requestDescriptorWithMapping:requestMapping
-                                                              objectClass:[pLCircle class]
+                                                              objectClass:[pLGroup class]
                                                               rootKeyPath: nil];
     
     
@@ -350,13 +349,13 @@ NSMutableDictionary *contacts;
     
     
     [objectManager.router.routeSet addRoute:[RKRoute
-                                             routeWithClass:[pLCircle class]
-                                             pathPattern:@"circles"
+                                             routeWithClass:[pLGroup class]
+                                             pathPattern:@"groups"
                                              method:RKRequestMethodPUT]] ;
     
     [objectManager.router.routeSet addRoute:[RKRoute
-                                             routeWithClass:[pLCircle class]
-                                             pathPattern:@"prayerrequests/:owneremail/:circlename"
+                                             routeWithClass:[pLGroup class]
+                                             pathPattern:@"prayerrequests/:owneremail/:groupname"
                                              method:RKRequestMethodPOST]] ;
     
     
@@ -405,10 +404,12 @@ NSMutableDictionary *contacts;
     [objectManager addResponseDescriptor: responseDescriptor];
     
     
+    responseMapping = [[RKObjectMapping alloc]init];
+    
     responseDescriptor = [RKResponseDescriptor responseDescriptorWithMapping:responseMapping
                                                                  pathPattern:@"prayerrequests/d/:email/:requestid"
                                                                      keyPath: nil
-                                                                 statusCodes:[NSIndexSet indexSetWithIndex:200]];
+                                                                 statusCodes:[NSIndexSet indexSetWithIndex:204]];
     
     [objectManager addResponseDescriptor: responseDescriptor];
     

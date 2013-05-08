@@ -15,7 +15,7 @@
     IBOutlet UIBarButtonItem *postButton;
     IBOutlet UIImageView *userImage;
     IBOutlet UITextView *requestText;
-    IBOutlet UICollectionView *circleView;
+    IBOutlet UICollectionView *groupView;
     
 }
 

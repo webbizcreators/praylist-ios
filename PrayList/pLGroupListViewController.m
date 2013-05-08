@@ -1,26 +1,26 @@
 //
-//  pLCircleListViewController.m
+//  pLGroupListViewController.m
 //  PrayList
 //
 //  Created by Peter Opheim on 3/21/13.
 //  Copyright (c) 2013 Peter Opheim. All rights reserved.
 //
 
-#import "pLCircleListViewController.h"
+#import "pLGroupListViewController.h"
 #import "pLAppUtils.h"
 #import "pLPrayerRequest.h"
-#import "pLSelectCircleforPostViewController.h"
-#import "pLCircleCollectionCell.h"
-#import "plCircle.h"
-#import "pLEditCircleViewController.h"
+#import "pLSelectGroupforPostViewController.h"
+#import "pLGroupCollectionCell.h"
+#import "plGroup.h"
+#import "pLEditGroupViewController.h"
 
-@interface pLCircleListViewController ()
+@interface pLGroupListViewController ()
 
 @end
 
-@implementation pLCircleListViewController
+@implementation pLGroupListViewController
 
-NSMutableArray *sourcecircles;
+NSMutableArray *sourcegroups;
 UIActivityIndicatorView *spinner;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
@@ -47,7 +47,7 @@ UIActivityIndicatorView *spinner;
 -(void)loadData{
     spinner = [pLAppUtils addspinnertoview:self.view];
     tableView.hidden = YES;
-    NSString *objectpath = @"circles/";
+    NSString *objectpath = @"groups/";
     NSString *path = [objectpath stringByAppendingString: [pLAppUtils securitytoken].email];
     
     
@@ -56,20 +56,22 @@ UIActivityIndicatorView *spinner;
      
                                               success:^(RKObjectRequestOperation *operation, RKMappingResult *mappingResult) {
                                                   
-                                                  sourcecircles = [[NSMutableArray alloc] initWithArray:mappingResult.array];
+                                                  sourcegroups = [[NSMutableArray alloc] initWithArray:mappingResult.array];
                                                   
                                                   
-                                                  if(sourcecircles.count>0){
+                                                  if(sourcegroups.count>0){
                                                       
                                                       NSSortDescriptor *sortDescriptor;
-                                                      sortDescriptor = [[NSSortDescriptor alloc] initWithKey:@"circlename"
+                                                      sortDescriptor = [[NSSortDescriptor alloc] initWithKey:@"groupname"
                                                                                                    ascending:YES];
                                                       NSArray *sortDescriptors = [NSArray arrayWithObject:sortDescriptor];
-                                                      sourcecircles = [[NSMutableArray alloc] initWithArray:[sourcecircles sortedArrayUsingDescriptors:sortDescriptors]];
-                                                      [spinner stopAnimating];
-                                                      tableView.hidden = NO;
-                                                      [tableView reloadData];
+                                                      sourcegroups = [[NSMutableArray alloc] initWithArray:[sourcegroups sortedArrayUsingDescriptors:sortDescriptors]];
+                                                      
                                                   }
+                                                  
+                                                  [spinner stopAnimating];
+                                                  tableView.hidden = NO;
+                                                  [tableView reloadData];
                                                   
                                               }
                                               failure:^(RKObjectRequestOperation *operation, NSError *error) {
@@ -80,7 +82,7 @@ UIActivityIndicatorView *spinner;
 
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return [sourcecircles count];
+    return [sourcegroups count];
 }
 
 
@@ -93,9 +95,9 @@ UIActivityIndicatorView *spinner;
         cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
     }
     
-    pLCircle * c;
-    c = (pLCircle*)[sourcecircles objectAtIndex:indexPath.row];
-    cell.textLabel.text = c.circlename;
+    pLGroup * c;
+    c = (pLGroup*)[sourcegroups objectAtIndex:indexPath.row];
+    cell.textLabel.text = c.groupname;
     
     return cell;
     
@@ -104,24 +106,24 @@ UIActivityIndicatorView *spinner;
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
 {
     // Make sure your segue name in storyboard is the same as this line
-    if ([[segue identifier] isEqualToString:@"editCircle"])
+    if ([[segue identifier] isEqualToString:@"editGroup"])
     {
         // Get reference to the destination view controller
-        pLEditCircleViewController *vc = [segue destinationViewController];
+        pLEditGroupViewController *vc = [segue destinationViewController];
         
         UITableViewCell *cell = (UITableViewCell*)sender;
         NSIndexPath *indexPath = [tableView indexPathForCell: cell];
         // Pass any objects to the view controller here, like...
-        vc.circle = [sourcecircles objectAtIndex:indexPath.row];
+        vc.group = [sourcegroups objectAtIndex:indexPath.row];
         
         [[NSNotificationCenter defaultCenter] addObserver:self
-                                                 selector:@selector(didDismissCircleEditViewController)
-                                                     name:@"CircleEditViewControllerDismissed"
+                                                 selector:@selector(didDismissGroupEditViewController)
+                                                     name:@"GroupEditViewControllerDismissed"
                                                    object:nil];
     }
 }
 
--(void)didDismissCircleEditViewController{
+-(void)didDismissGroupEditViewController{
 
     
 }

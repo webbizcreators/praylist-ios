@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
-@interface pLCircleListViewController : UIViewController<UITableViewDelegate>{
+@interface pLGroupListViewController : UIViewController<UITableViewDelegate>{
     
     IBOutlet UITableView *tableView;
     

@@ -6,9 +6,9 @@
 //  Copyright (c) 2013 Peter Opheim. All rights reserved.
 //
 
-#import "pLCircleCollectionCell.h"
+#import "pLGroupCollectionCell.h"
 
-@implementation pLCircleCollectionCell
+@implementation pLGroupCollectionCell
 
 @synthesize title;
 

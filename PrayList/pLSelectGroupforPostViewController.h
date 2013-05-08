@@ -9,7 +9,7 @@
 #import <UIKit/UIKit.h>
 #import <RestKit/RestKit.h>
 
-@interface pLSelectCircleforPostViewController : UIViewController<UITableViewDelegate>{
+@interface pLSelectGroupforPostViewController : UIViewController<UITableViewDelegate>{
 
     IBOutlet UITableView *tableView;
     IBOutlet UIBarButtonItem *doneButton;
@@ -17,7 +17,7 @@
     
 }
 
-@property (nonatomic, retain) NSMutableArray *destcircleArray;
-@property (nonatomic, retain) NSMutableArray *sourcecircles;
+@property (nonatomic, retain) NSMutableArray *destgroupArray;
+@property (nonatomic, retain) NSMutableArray *sourcegroups;
 
 @end

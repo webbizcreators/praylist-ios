@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
-@interface pLCircleCollectionCell : UICollectionViewCell{
+@interface pLGroupCollectionCell : UICollectionViewCell{
 
 UILabel *title;
 
