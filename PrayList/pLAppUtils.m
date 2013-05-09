@@ -303,10 +303,20 @@ NSMutableDictionary *contacts;
      @"owneremail": @"owneremail",
      @"groupname": @"groupname",
      @"groupmembers": @"groupmembers",
+     @"grouptype": @"grouptype",
+     @"orgid": @"orgid",
      }];
     
     responseDescriptor = [RKResponseDescriptor responseDescriptorWithMapping:responseMapping
-                                                                 pathPattern:@"groups/:owneremail/:groupname"
+                                                                 pathPattern:@"groups/p/:owneremail/:groupname"
+                                                                     keyPath: nil
+                                                                 statusCodes:[NSIndexSet indexSetWithIndex:200]];
+    
+    [objectManager addResponseDescriptor: responseDescriptor];
+    
+    
+    responseDescriptor = [RKResponseDescriptor responseDescriptorWithMapping:responseMapping
+                                                                 pathPattern:@"groups/org/:orgid/:groupname"
                                                                      keyPath: nil
                                                                  statusCodes:[NSIndexSet indexSetWithIndex:200]];
     
@@ -315,7 +325,14 @@ NSMutableDictionary *contacts;
     
     
     responseDescriptor = [RKResponseDescriptor responseDescriptorWithMapping:responseMapping
-                                                                 pathPattern:@"groups/:owneremail"
+                                                                 pathPattern:@"groups/p/:owneremail"
+                                                                     keyPath: @"group"
+                                                                 statusCodes:datastatuscodes];
+    
+    [objectManager addResponseDescriptor: responseDescriptor];
+    
+    responseDescriptor = [RKResponseDescriptor responseDescriptorWithMapping:responseMapping
+                                                                 pathPattern:@"groups/org/:orgid"
                                                                      keyPath: @"group"
                                                                  statusCodes:datastatuscodes];
     
@@ -323,7 +340,7 @@ NSMutableDictionary *contacts;
     
     
     responseDescriptor = [RKResponseDescriptor responseDescriptorWithMapping:responseMapping
-                                                                 pathPattern:@"group"
+                                                                 pathPattern:@"groups"
                                                                      keyPath: nil
                                                                  statusCodes:[NSIndexSet indexSetWithIndex:200]];
     
@@ -336,6 +353,8 @@ NSMutableDictionary *contacts;
      @"owneremail": @"owneremail",
      @"groupname": @"groupname",
      @"groupmembers": @"groupmembers",
+     @"grouptype": @"grouptype",
+     @"orgid": @"orgid",
      }];
     
     

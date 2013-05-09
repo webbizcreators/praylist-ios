@@ -23,6 +23,9 @@
 
 NSMutableArray *sourcegroups;
 UIActivityIndicatorView *spinner;
+UIImage *personalimg;
+UIImage *privateimg;
+UIImage *publicimg;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -37,6 +40,10 @@ UIActivityIndicatorView *spinner;
 {
     [super viewDidLoad];
     
+    personalimg = [UIImage imageNamed:@"personalgroupicon.png"];
+    privateimg = [UIImage imageNamed:@"privategroupicon.png"];
+    publicimg = [UIImage imageNamed:@"publicgroupicon.png"];
+    
     [self loadData];
 	// Do any additional setup after loading the view.
 }
@@ -48,7 +55,7 @@ UIActivityIndicatorView *spinner;
 -(void)loadData{
     spinner = [pLAppUtils addspinnertoview:self.view];
     tableView.hidden = YES;
-    NSString *objectpath = @"groups/";
+    NSString *objectpath = @"groups/p/";
     NSString *path = [objectpath stringByAppendingString: [pLAppUtils securitytoken].email];
     
     
@@ -94,7 +101,7 @@ UIActivityIndicatorView *spinner;
     pLGroupCell *cell = (pLGroupCell *)[tableView dequeueReusableCellWithIdentifier: CustomCellIdentifier];
     if (cell == nil)
     {
-        NSArray *nib = [[NSBundle mainBundle] loadNibNamed:@"PrayerRequestCellView" owner:self options:nil];
+        NSArray *nib = [[NSBundle mainBundle] loadNibNamed:@"pLGroupCellView" owner:self options:nil];
         
         for (id oneObject in nib)
             if ([oneObject isKindOfClass:[pLGroupCell class]])
@@ -108,7 +115,18 @@ UIActivityIndicatorView *spinner;
     pLGroup * c;
     c = (pLGroup*)[sourcegroups objectAtIndex:indexPath.row];
     cell.groupname.text = c.groupname;
-    cell.groupdesc.text = c.description;
+    cell.groupdesc.text = @"";
+    
+    if([c.grouptype isEqualToString:@"Personal"]){
+        cell.img.image = personalimg;
+    }
+    else if ([c.grouptype isEqualToString:@"Private"]){
+        cell.img.image = privateimg;
+    }
+    else
+    {
+        cell.img.image = publicimg;
+    }
     
     return cell;
     
