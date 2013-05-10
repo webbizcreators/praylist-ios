@@ -11,6 +11,7 @@
 @interface pLGroupListViewController : UIViewController<UITableViewDelegate>{
     
     IBOutlet UITableView *tableView;
+    IBOutlet UISegmentedControl *typeselect;
     
 }
 

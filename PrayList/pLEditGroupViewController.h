@@ -11,10 +11,13 @@
 
 @interface pLEditGroupViewController : UIViewController<UITableViewDelegate>{
     
-    IBOutlet UILabel * groupname;
+    IBOutlet UITextField* groupname;
     IBOutlet UIBarButtonItem *saveButton;
     IBOutlet UIBarButtonItem *cancelButton;
-    IBOutlet UITableView * tableView;
+    IBOutlet UITableView * groupmembertableView;
+    IBOutlet UIView *generalsubview;
+    IBOutlet UIImageView *grouptypeicon;
+    IBOutlet UILabel *grouptypedescription;
     
 }
 

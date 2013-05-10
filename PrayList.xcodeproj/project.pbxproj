@@ -50,10 +50,6 @@
 		D0544EA816DD8829004EDC8C /* pLSelectGroupforPostViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D0544EA716DD8829004EDC8C /* pLSelectGroupforPostViewController.m */; };
 		D0544EAA16DD992C004EDC8C /* pLGroupCollectionCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = D0544EA916DD992C004EDC8C /* pLGroupCollectionCell.xib */; };
 		D0544EAD16DEB581004EDC8C /* pLGroupCollectionCell.m in Sources */ = {isa = PBXBuildFile; fileRef = D0544EAC16DEB581004EDC8C /* pLGroupCollectionCell.m */; };
-		D05D3B8C173A1652009D5FD1 /* pLGroupCellView.xib in Resources */ = {isa = PBXBuildFile; fileRef = D05D3B8B173A1652009D5FD1 /* pLGroupCellView.xib */; };
-		D05D3B91173A1696009D5FD1 /* personalgroupicon.png in Resources */ = {isa = PBXBuildFile; fileRef = D05D3B90173A1696009D5FD1 /* personalgroupicon.png */; };
-		D05D3B93173A169D009D5FD1 /* privategroupicon.png in Resources */ = {isa = PBXBuildFile; fileRef = D05D3B92173A169D009D5FD1 /* privategroupicon.png */; };
-		D05D3B95173A16A1009D5FD1 /* publicgroupicon.png in Resources */ = {isa = PBXBuildFile; fileRef = D05D3B94173A16A1009D5FD1 /* publicgroupicon.png */; };
 		D05D3B98173A1EAB009D5FD1 /* pLGroupCell.m in Sources */ = {isa = PBXBuildFile; fileRef = D05D3B97173A1EAB009D5FD1 /* pLGroupCell.m */; };
 		D06E202C16BA3A590002F17B /* pLLoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D06E202B16BA3A590002F17B /* pLLoginViewController.m */; };
 		D06EF3B51702476D00B06270 /* pLPerson.m in Sources */ = {isa = PBXBuildFile; fileRef = D06EF3B41702476D00B06270 /* pLPerson.m */; };
@@ -66,6 +62,16 @@
 		D07B3FFC1727327700BA5401 /* pLCommentCellView.xib in Resources */ = {isa = PBXBuildFile; fileRef = D07B3FFB1727327700BA5401 /* pLCommentCellView.xib */; };
 		D07B3FFF172732E500BA5401 /* pLCommentCell.m in Sources */ = {isa = PBXBuildFile; fileRef = D07B3FFE172732E500BA5401 /* pLCommentCell.m */; };
 		D07B40051727361100BA5401 /* pLComment.m in Sources */ = {isa = PBXBuildFile; fileRef = D07B40041727361100BA5401 /* pLComment.m */; };
+		D09B9E2F173C59B3002AF6E3 /* pLGroupMemberCell.m in Sources */ = {isa = PBXBuildFile; fileRef = D09B9E2E173C59B3002AF6E3 /* pLGroupMemberCell.m */; };
+		D09B9E31173C5B71002AF6E3 /* nouserimage.png in Resources */ = {isa = PBXBuildFile; fileRef = D09B9E30173C5B71002AF6E3 /* nouserimage.png */; };
+		D09B9E35173C71C2002AF6E3 /* personalgroupicon.png in Resources */ = {isa = PBXBuildFile; fileRef = D09B9E32173C71C2002AF6E3 /* personalgroupicon.png */; };
+		D09B9E36173C71C2002AF6E3 /* privategroupicon.png in Resources */ = {isa = PBXBuildFile; fileRef = D09B9E33173C71C2002AF6E3 /* privategroupicon.png */; };
+		D09B9E37173C71C2002AF6E3 /* publicgroupicon.png in Resources */ = {isa = PBXBuildFile; fileRef = D09B9E34173C71C2002AF6E3 /* publicgroupicon.png */; };
+		D09B9E3A173C71D2002AF6E3 /* groupicon.png in Resources */ = {isa = PBXBuildFile; fileRef = D09B9E38173C71D2002AF6E3 /* groupicon.png */; };
+		D09B9E3B173C71D2002AF6E3 /* groupicon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D09B9E39173C71D2002AF6E3 /* groupicon@2x.png */; };
+		D09B9E3F173C7509002AF6E3 /* personalgroupicon_title.png in Resources */ = {isa = PBXBuildFile; fileRef = D09B9E3E173C7509002AF6E3 /* personalgroupicon_title.png */; };
+		D09B9E42173C777E002AF6E3 /* privategroupicon_title.png in Resources */ = {isa = PBXBuildFile; fileRef = D09B9E40173C777E002AF6E3 /* privategroupicon_title.png */; };
+		D09B9E43173C777E002AF6E3 /* publicgroupicon_title.png in Resources */ = {isa = PBXBuildFile; fileRef = D09B9E41173C777E002AF6E3 /* publicgroupicon_title.png */; };
 		D0B177D616FBCC3B005EEC82 /* pLGroupListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D0B177D516FBCC3B005EEC82 /* pLGroupListViewController.m */; };
 		D0B177DC16FBD649005EEC82 /* pLEditGroupViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D0B177DB16FBD649005EEC82 /* pLEditGroupViewController.m */; };
 		D0B177DF16FE7780005EEC82 /* pLLoginResponse.m in Sources */ = {isa = PBXBuildFile; fileRef = D0B177DE16FE7780005EEC82 /* pLLoginResponse.m */; };
@@ -183,10 +189,6 @@
 		D0544EA916DD992C004EDC8C /* pLGroupCollectionCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = pLGroupCollectionCell.xib; sourceTree = "<group>"; };
 		D0544EAB16DEB581004EDC8C /* pLGroupCollectionCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = pLGroupCollectionCell.h; sourceTree = "<group>"; };
 		D0544EAC16DEB581004EDC8C /* pLGroupCollectionCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = pLGroupCollectionCell.m; sourceTree = "<group>"; };
-		D05D3B8B173A1652009D5FD1 /* pLGroupCellView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = pLGroupCellView.xib; sourceTree = "<group>"; };
-		D05D3B90173A1696009D5FD1 /* personalgroupicon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = personalgroupicon.png; sourceTree = "<group>"; };
-		D05D3B92173A169D009D5FD1 /* privategroupicon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = privategroupicon.png; sourceTree = "<group>"; };
-		D05D3B94173A16A1009D5FD1 /* publicgroupicon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = publicgroupicon.png; sourceTree = "<group>"; };
 		D05D3B96173A1EAB009D5FD1 /* pLGroupCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = pLGroupCell.h; sourceTree = "<group>"; };
 		D05D3B97173A1EAB009D5FD1 /* pLGroupCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = pLGroupCell.m; sourceTree = "<group>"; };
 		D06E202A16BA3A590002F17B /* pLLoginViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = pLLoginViewController.h; path = ../pLLoginViewController.h; sourceTree = "<group>"; };
@@ -209,6 +211,17 @@
 		D07B3FFE172732E500BA5401 /* pLCommentCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = pLCommentCell.m; sourceTree = "<group>"; };
 		D07B40031727361100BA5401 /* pLComment.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = pLComment.h; sourceTree = "<group>"; };
 		D07B40041727361100BA5401 /* pLComment.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = pLComment.m; sourceTree = "<group>"; };
+		D09B9E2D173C59B3002AF6E3 /* pLGroupMemberCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = pLGroupMemberCell.h; sourceTree = "<group>"; };
+		D09B9E2E173C59B3002AF6E3 /* pLGroupMemberCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = pLGroupMemberCell.m; sourceTree = "<group>"; };
+		D09B9E30173C5B71002AF6E3 /* nouserimage.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = nouserimage.png; sourceTree = "<group>"; };
+		D09B9E32173C71C2002AF6E3 /* personalgroupicon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = personalgroupicon.png; sourceTree = "<group>"; };
+		D09B9E33173C71C2002AF6E3 /* privategroupicon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = privategroupicon.png; sourceTree = "<group>"; };
+		D09B9E34173C71C2002AF6E3 /* publicgroupicon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = publicgroupicon.png; sourceTree = "<group>"; };
+		D09B9E38173C71D2002AF6E3 /* groupicon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = groupicon.png; sourceTree = "<group>"; };
+		D09B9E39173C71D2002AF6E3 /* groupicon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "groupicon@2x.png"; sourceTree = "<group>"; };
+		D09B9E3E173C7509002AF6E3 /* personalgroupicon_title.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = personalgroupicon_title.png; sourceTree = "<group>"; };
+		D09B9E40173C777E002AF6E3 /* privategroupicon_title.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = privategroupicon_title.png; sourceTree = "<group>"; };
+		D09B9E41173C777E002AF6E3 /* publicgroupicon_title.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = publicgroupicon_title.png; sourceTree = "<group>"; };
 		D0B177D416FBCC3B005EEC82 /* pLGroupListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = pLGroupListViewController.h; sourceTree = "<group>"; };
 		D0B177D516FBCC3B005EEC82 /* pLGroupListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = pLGroupListViewController.m; sourceTree = "<group>"; };
 		D0B177DA16FBD649005EEC82 /* pLEditGroupViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = pLEditGroupViewController.h; sourceTree = "<group>"; };
@@ -401,9 +414,10 @@
 				D07B3FFB1727327700BA5401 /* pLCommentCellView.xib */,
 				D07B3FFD172732E500BA5401 /* pLCommentCell.h */,
 				D07B3FFE172732E500BA5401 /* pLCommentCell.m */,
-				D05D3B8B173A1652009D5FD1 /* pLGroupCellView.xib */,
 				D05D3B96173A1EAB009D5FD1 /* pLGroupCell.h */,
 				D05D3B97173A1EAB009D5FD1 /* pLGroupCell.m */,
+				D09B9E2D173C59B3002AF6E3 /* pLGroupMemberCell.h */,
+				D09B9E2E173C59B3002AF6E3 /* pLGroupMemberCell.m */,
 			);
 			name = Components;
 			sourceTree = "<group>";
@@ -436,9 +450,15 @@
 		D073270916BC973900169F24 /* Artwork */ = {
 			isa = PBXGroup;
 			children = (
-				D05D3B94173A16A1009D5FD1 /* publicgroupicon.png */,
-				D05D3B92173A169D009D5FD1 /* privategroupicon.png */,
-				D05D3B90173A1696009D5FD1 /* personalgroupicon.png */,
+				D09B9E40173C777E002AF6E3 /* privategroupicon_title.png */,
+				D09B9E41173C777E002AF6E3 /* publicgroupicon_title.png */,
+				D09B9E3E173C7509002AF6E3 /* personalgroupicon_title.png */,
+				D09B9E38173C71D2002AF6E3 /* groupicon.png */,
+				D09B9E39173C71D2002AF6E3 /* groupicon@2x.png */,
+				D09B9E32173C71C2002AF6E3 /* personalgroupicon.png */,
+				D09B9E33173C71C2002AF6E3 /* privategroupicon.png */,
+				D09B9E34173C71C2002AF6E3 /* publicgroupicon.png */,
+				D09B9E30173C5B71002AF6E3 /* nouserimage.png */,
 				D03CE706172B255300DC828F /* prayerlisticon.png */,
 				D03CE704172B240B00DC828F /* prayerlisticon@2x.png */,
 				D04760151668785D00D13E64 /* me.png */,
@@ -593,10 +613,15 @@
 				D03CE701172A1EAD00DC828F /* praybutton.png in Resources */,
 				D03CE705172B240B00DC828F /* prayerlisticon@2x.png in Resources */,
 				D03CE707172B255300DC828F /* prayerlisticon.png in Resources */,
-				D05D3B8C173A1652009D5FD1 /* pLGroupCellView.xib in Resources */,
-				D05D3B91173A1696009D5FD1 /* personalgroupicon.png in Resources */,
-				D05D3B93173A169D009D5FD1 /* privategroupicon.png in Resources */,
-				D05D3B95173A16A1009D5FD1 /* publicgroupicon.png in Resources */,
+				D09B9E31173C5B71002AF6E3 /* nouserimage.png in Resources */,
+				D09B9E35173C71C2002AF6E3 /* personalgroupicon.png in Resources */,
+				D09B9E36173C71C2002AF6E3 /* privategroupicon.png in Resources */,
+				D09B9E37173C71C2002AF6E3 /* publicgroupicon.png in Resources */,
+				D09B9E3A173C71D2002AF6E3 /* groupicon.png in Resources */,
+				D09B9E3B173C71D2002AF6E3 /* groupicon@2x.png in Resources */,
+				D09B9E3F173C7509002AF6E3 /* personalgroupicon_title.png in Resources */,
+				D09B9E42173C777E002AF6E3 /* privategroupicon_title.png in Resources */,
+				D09B9E43173C777E002AF6E3 /* publicgroupicon_title.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -658,6 +683,7 @@
 				D07B3FFF172732E500BA5401 /* pLCommentCell.m in Sources */,
 				D07B40051727361100BA5401 /* pLComment.m in Sources */,
 				D05D3B98173A1EAB009D5FD1 /* pLGroupCell.m in Sources */,
+				D09B9E2F173C59B3002AF6E3 /* pLGroupMemberCell.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

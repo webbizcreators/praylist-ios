@@ -21,7 +21,10 @@
 
 @implementation pLGroupListViewController
 
-NSMutableArray *sourcegroups;
+NSMutableArray *personalgroups;
+NSMutableArray *privategroups;
+NSMutableArray *publicgroups;
+
 UIActivityIndicatorView *spinner;
 UIImage *personalimg;
 UIImage *privateimg;
@@ -44,7 +47,8 @@ UIImage *publicimg;
     privateimg = [UIImage imageNamed:@"privategroupicon.png"];
     publicimg = [UIImage imageNamed:@"publicgroupicon.png"];
     
-    [self loadData];
+    [self loadGroups];
+
 	// Do any additional setup after loading the view.
 }
 
@@ -52,10 +56,15 @@ UIImage *publicimg;
 
 
 
--(void)loadData{
+-(void)loadGroups{
     spinner = [pLAppUtils addspinnertoview:self.view];
-    tableView.hidden = YES;
-    NSString *objectpath = @"groups/p/";
+
+    personalgroups = [[NSMutableArray alloc]init];
+    privategroups = [[NSMutableArray alloc]init];
+    publicgroups = [[NSMutableArray alloc]init];
+    
+    
+    NSString *objectpath = @"groups/";
     NSString *path = [objectpath stringByAppendingString: [pLAppUtils securitytoken].email];
     
     
@@ -64,21 +73,38 @@ UIImage *publicimg;
      
                                               success:^(RKObjectRequestOperation *operation, RKMappingResult *mappingResult) {
                                                   
-                                                  sourcegroups = [[NSMutableArray alloc] initWithArray:mappingResult.array];
+                                                  NSMutableArray* groups = [[NSMutableArray alloc] initWithArray:mappingResult.array];
                                                   
                                                   
-                                                  if(sourcegroups.count>0){
+                                                  if(groups.count>0){
                                                       
                                                       NSSortDescriptor *sortDescriptor;
                                                       sortDescriptor = [[NSSortDescriptor alloc] initWithKey:@"groupname"
                                                                                                    ascending:YES];
                                                       NSArray *sortDescriptors = [NSArray arrayWithObject:sortDescriptor];
-                                                      sourcegroups = [[NSMutableArray alloc] initWithArray:[sourcegroups sortedArrayUsingDescriptors:sortDescriptors]];
+                                                      groups = [[NSMutableArray alloc] initWithArray:[groups sortedArrayUsingDescriptors:sortDescriptors]];
+                                                      
+                                                      for(NSObject *o in groups){
+                                                          pLGroup* g = (pLGroup*)o;
+                                                          
+                                                          if([g.grouptype isEqualToString:@"Personal"]){
+                                                              [personalgroups addObject:g];
+                                                          } else if ([g.grouptype isEqualToString:@"Private"]){
+                                                              [privategroups addObject:g];
+                                                          } else
+                                                          {
+                                                              [publicgroups addObject:g];
+                                                          }
+                                                          
+                                                          
+                                                          
+                                                      }
+                                                      
                                                       
                                                   }
                                                   
                                                   [spinner stopAnimating];
-                                                  tableView.hidden = NO;
+
                                                   [tableView reloadData];
                                                   
                                               }
@@ -89,31 +115,45 @@ UIImage *publicimg;
 }
 
 
+
+
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return [sourcegroups count];
+    
+    if(typeselect.selectedSegmentIndex==0){
+        return [personalgroups count]; 
+    }
+    else if (typeselect.selectedSegmentIndex==1) {
+      return [privategroups count];
+    } else{
+        return [publicgroups count];
+    }
+    
 }
 
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     
+    
     static NSString *CustomCellIdentifier = @"groupcell";
     
     pLGroupCell *cell = (pLGroupCell *)[tableView dequeueReusableCellWithIdentifier: CustomCellIdentifier];
-    if (cell == nil)
-    {
-        NSArray *nib = [[NSBundle mainBundle] loadNibNamed:@"pLGroupCellView" owner:self options:nil];
-        
-        for (id oneObject in nib)
-            if ([oneObject isKindOfClass:[pLGroupCell class]])
-                
-                cell = (pLGroupCell *)oneObject;
-        
-        [cell setSelectionStyle:UITableViewCellSelectionStyleBlue];
-        
-    }
+    
     
     pLGroup * c;
-    c = (pLGroup*)[sourcegroups objectAtIndex:indexPath.row];
+    
+    if(typeselect.selectedSegmentIndex==0){
+        c = (pLGroup*)[personalgroups objectAtIndex:indexPath.row];
+    }
+    else if (typeselect.selectedSegmentIndex==1) {
+        c = (pLGroup*)[privategroups objectAtIndex:indexPath.row];
+    } else{
+        c = (pLGroup*)[publicgroups objectAtIndex:indexPath.row];
+    }
+    
+    
+    
+    
+    
     cell.groupname.text = c.groupname;
     cell.groupdesc.text = @"";
     
@@ -143,7 +183,16 @@ UIImage *publicimg;
         UITableViewCell *cell = (UITableViewCell*)sender;
         NSIndexPath *indexPath = [tableView indexPathForCell: cell];
         // Pass any objects to the view controller here, like...
-        vc.group = [sourcegroups objectAtIndex:indexPath.row];
+        
+        if(typeselect.selectedSegmentIndex==0){
+            vc.group = [personalgroups objectAtIndex:indexPath.row];
+        }
+        else if (typeselect.selectedSegmentIndex==1) {
+            vc.group = [privategroups objectAtIndex:indexPath.row];
+        } else{
+            vc.group = [publicgroups objectAtIndex:indexPath.row];
+        }
+        
         
         [[NSNotificationCenter defaultCenter] addObserver:self
                                                  selector:@selector(didDismissGroupEditViewController)
@@ -154,6 +203,12 @@ UIImage *publicimg;
 
 -(void)didDismissGroupEditViewController{
 
+    
+}
+
+-(IBAction)switchtypeview:(id)sender{
+ 
+    [tableView reloadData];
     
 }
 

@@ -158,7 +158,7 @@ UIActivityIndicatorView *spinner;
     
     [cell configureView:pRequest inTableViewController:self];
     
-    cell.requesttitle.text= pRequest.requestoremail;
+    cell.requesttitle.text= [pLAppUtils fullnamefromEmail:pRequest.requestoremail];
     cell.requestdate.text = [pLAppUtils formatPostDate:pRequest.requestdate];
     cell.requestid = pRequest.requestid;
     cell.requestoremail = pRequest.requestoremail;

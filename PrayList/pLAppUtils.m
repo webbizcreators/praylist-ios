@@ -325,7 +325,7 @@ NSMutableDictionary *contacts;
     
     
     responseDescriptor = [RKResponseDescriptor responseDescriptorWithMapping:responseMapping
-                                                                 pathPattern:@"groups/p/:owneremail"
+                                                                 pathPattern:@"groups/:owneremail"
                                                                      keyPath: @"group"
                                                                  statusCodes:datastatuscodes];
     
@@ -374,7 +374,7 @@ NSMutableDictionary *contacts;
     
     [objectManager.router.routeSet addRoute:[RKRoute
                                              routeWithClass:[pLGroup class]
-                                             pathPattern:@"prayerrequests/:owneremail/:groupname"
+                                             pathPattern:@"groups"
                                              method:RKRequestMethodPOST]] ;
     
     
@@ -522,8 +522,13 @@ NSMutableDictionary *contacts;
         NSData*serverData = [NSURLConnection sendSynchronousRequest:theRequest
                                            returningResponse:nil error:nil];
         
-        [userImages setObject:[UIImage imageWithData:serverData] forKey:email];
-        
+        if([UIImage imageWithData:serverData]){
+            [userImages setObject:[UIImage imageWithData:serverData] forKey:email];
+        }
+        else
+        {
+            [userImages setObject:[UIImage imageNamed:@"nouserimage.png"] forKey:email];
+        }
         
         
         
@@ -531,6 +536,18 @@ NSMutableDictionary *contacts;
 
     return [userImages objectForKey:email];
     
+}
+
++(NSString*)fullnamefromEmail:(NSString*)email{
+    
+    pLPerson*person=[contacts objectForKey:email];
+    
+    if(person){
+        return person.fullname;
+    }
+    else{
+        return email;
+    }
 }
 
 +(void)loadmycontacts{

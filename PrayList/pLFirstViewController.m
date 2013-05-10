@@ -145,7 +145,6 @@ UIActivityIndicatorView *spinner;
             
             if(mappingResult.array.count>0){
                 
-                pLPrayerRequest *result = mappingResult.firstObject;
                     
                     [prayerrequests removeObjectAtIndex:indexPath.row];
                     [vartableView deleteRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationFade];
@@ -189,7 +188,7 @@ UIActivityIndicatorView *spinner;
     
     pLPrayerRequest *pRequest = [prayerrequests objectAtIndex:indexPath.row];
     
-    cell.requesttitle.text= pRequest.requestoremail;
+    cell.requesttitle.text= [pLAppUtils fullnamefromEmail:pRequest.requestoremail];
     cell.requesttext.text = pRequest.requesttext;
     cell.requestdate.text = [pLAppUtils formatPostDate:pRequest.requestdate];
     cell.img.image = [pLAppUtils userimgFromEmail: pRequest.requestoremail];
