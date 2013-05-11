@@ -133,6 +133,9 @@ NSMutableArray *groupmembers;
     generalsubview.layer.cornerRadius = 5.0;
     generalsubview.layer.masksToBounds = YES;
     
+    membersubview.layer.cornerRadius = 5.0;
+    membersubview.layer.masksToBounds = YES;
+    
     if(group){
         groupname.text = group.groupname;
         groupmembers = [NSMutableArray arrayWithArray:group.groupmembers];

@@ -48,7 +48,7 @@ UIActivityIndicatorView *spinner;
 -(void)getgroups{
     
     
-    NSString *objectpath = @"groups/p/";
+    NSString *objectpath = @"groups/";
     NSString *path = [objectpath stringByAppendingString: [pLAppUtils securitytoken].email];
     
     

@@ -16,6 +16,7 @@
     IBOutlet UIBarButtonItem *cancelButton;
     IBOutlet UITableView * groupmembertableView;
     IBOutlet UIView *generalsubview;
+    IBOutlet UIView *membersubview;
     IBOutlet UIImageView *grouptypeicon;
     IBOutlet UILabel *grouptypedescription;
     
