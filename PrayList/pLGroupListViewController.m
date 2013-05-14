@@ -21,12 +21,12 @@
 
 @implementation pLGroupListViewController
 
-NSMutableArray *personalgroups;
+
 NSMutableArray *privategroups;
 NSMutableArray *publicgroups;
 
 UIActivityIndicatorView *spinner;
-UIImage *personalimg;
+
 UIImage *privateimg;
 UIImage *publicimg;
 
@@ -43,7 +43,6 @@ UIImage *publicimg;
 {
     [super viewDidLoad];
     
-    personalimg = [UIImage imageNamed:@"personalgroupicon.png"];
     privateimg = [UIImage imageNamed:@"privategroupicon.png"];
     publicimg = [UIImage imageNamed:@"publicgroupicon.png"];
     
@@ -59,7 +58,7 @@ UIImage *publicimg;
 -(void)loadGroups{
     spinner = [pLAppUtils addspinnertoview:self.view];
 
-    personalgroups = [[NSMutableArray alloc]init];
+
     privategroups = [[NSMutableArray alloc]init];
     publicgroups = [[NSMutableArray alloc]init];
     
@@ -87,12 +86,9 @@ UIImage *publicimg;
                                                       for(NSObject *o in groups){
                                                           pLGroup* g = (pLGroup*)o;
                                                           
-                                                          if([g.grouptype isEqualToString:@"Personal"]){
-                                                              [personalgroups addObject:g];
-                                                          } else if ([g.grouptype isEqualToString:@"Private"]){
+                                                          if([g.grouptype isEqualToString:@"Private"]){
                                                               [privategroups addObject:g];
-                                                          } else
-                                                          {
+                                                          } else if ([g.grouptype isEqualToString:@"Public"]){
                                                               [publicgroups addObject:g];
                                                           }
                                                           
@@ -120,12 +116,10 @@ UIImage *publicimg;
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     
     if(typeselect.selectedSegmentIndex==0){
-        return [personalgroups count]; 
+        return [privategroups count];
     }
     else if (typeselect.selectedSegmentIndex==1) {
-      return [privategroups count];
-    } else{
-        return [publicgroups count];
+      return [publicgroups count];
     }
     
 }
@@ -142,11 +136,9 @@ UIImage *publicimg;
     pLGroup * c;
     
     if(typeselect.selectedSegmentIndex==0){
-        c = (pLGroup*)[personalgroups objectAtIndex:indexPath.row];
+        c = (pLGroup*)[privategroups objectAtIndex:indexPath.row];
     }
     else if (typeselect.selectedSegmentIndex==1) {
-        c = (pLGroup*)[privategroups objectAtIndex:indexPath.row];
-    } else{
         c = (pLGroup*)[publicgroups objectAtIndex:indexPath.row];
     }
     
@@ -157,14 +149,10 @@ UIImage *publicimg;
     cell.groupname.text = c.groupname;
     cell.groupdesc.text = @"";
     
-    if([c.grouptype isEqualToString:@"Personal"]){
-        cell.img.image = personalimg;
-    }
-    else if ([c.grouptype isEqualToString:@"Private"]){
+    if([c.grouptype isEqualToString:@"Private"]){
         cell.img.image = privateimg;
     }
-    else
-    {
+    else if ([c.grouptype isEqualToString:@"Public"]){
         cell.img.image = publicimg;
     }
     
@@ -185,11 +173,9 @@ UIImage *publicimg;
         // Pass any objects to the view controller here, like...
         
         if(typeselect.selectedSegmentIndex==0){
-            vc.group = [personalgroups objectAtIndex:indexPath.row];
+            vc.group = [privategroups objectAtIndex:indexPath.row];
         }
         else if (typeselect.selectedSegmentIndex==1) {
-            vc.group = [privategroups objectAtIndex:indexPath.row];
-        } else{
             vc.group = [publicgroups objectAtIndex:indexPath.row];
         }
         

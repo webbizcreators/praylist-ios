@@ -16,8 +16,11 @@
 @synthesize requestoremail;
 @synthesize requesttext;
 @synthesize requestdatetimeago;
-@synthesize groupnames;
+@synthesize groupids;
 @synthesize praycount;
+@synthesize orgid;
+@synthesize peopleprayed;
+@synthesize answer;
 
 
 -(NSDate *) requestdate
