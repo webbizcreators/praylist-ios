@@ -19,7 +19,7 @@
 
 @implementation pLSelectGroupMemberViewController
 
-@synthesize group;
+@synthesize groupmembersadd;
 
 NSArray*groupcontacts;
 UIActivityIndicatorView *spinner;
@@ -36,7 +36,7 @@ UIActivityIndicatorView *spinner;
 
 -(IBAction)doneButton:(id)sender{
     
-    [group.groupmembers removeAllObjects];
+    [groupmembersadd removeAllObjects];
     
     NSArray* selectedRows = [self.tableView indexPathsForSelectedRows];
     
@@ -45,14 +45,16 @@ UIActivityIndicatorView *spinner;
         NSIndexPath *thisPath = [selectedRows objectAtIndex:i];
         NSInteger *selectedindex = thisPath.row;
         
-        [group.groupmembers addObject: [groupcontacts objectAtIndex:selectedindex]];
+        pLPerson *person = (pLPerson*)[groupcontacts objectAtIndex:selectedindex];
+        
+        [groupmembersadd addObject: person.email];
     }
     
-    [[NSNotificationCenter defaultCenter] postNotificationName:@"GroupSelectViewControllerDismissed"
+    [self.navigationController popViewControllerAnimated:YES];
+    
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"GroupMemberControllerDismissed"
                                                         object:nil
                                                       userInfo:nil];
-    
-    [self.navigationController popViewControllerAnimated:YES];
 }
 
 

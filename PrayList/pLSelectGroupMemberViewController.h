@@ -12,6 +12,6 @@
 
 @interface pLSelectGroupMemberViewController : UITableViewController
 
-@property (nonatomic,retain) pLGroup*group;
+@property (nonatomic,retain) NSMutableArray*groupmembersadd;
 
 @end

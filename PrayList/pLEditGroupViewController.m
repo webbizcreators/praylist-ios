@@ -163,6 +163,13 @@ NSMutableArray *groupmembers;
         
         groupmembers = [[NSMutableArray alloc]init];
     }
+    
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(didDismissGroupMemberController)
+                                                 name:@"GroupMemberControllerDismissed"
+                                               object:nil];
+    
 }
 
 
@@ -188,17 +195,23 @@ NSMutableArray *groupmembers;
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
 {
     // Make sure your segue name in storyboard is the same as this line
-    if ([[segue identifier] isEqualToString:@"addmemberseque"])
+    if ([[segue identifier] isEqualToString:@"addmembersegue"])
     {
-        // Get reference to the destination view controller
+        
         pLSelectGroupMemberViewController *vc = [segue destinationViewController];
         
-
+        vc.groupmembersadd = groupmembers;
         
     }
     
     
     
+}
+
+-(void)didDismissGroupMemberController {
+    
+    
+    [groupmembertableView reloadData];
 }
 
 
