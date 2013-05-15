@@ -19,6 +19,8 @@
 
 @implementation pLSelectGroupMemberViewController
 
+@synthesize group;
+
 NSArray*groupcontacts;
 UIActivityIndicatorView *spinner;
 
@@ -30,6 +32,29 @@ UIActivityIndicatorView *spinner;
     }
     return self;
 }
+
+
+-(IBAction)doneButton:(id)sender{
+    
+    [group.groupmembers removeAllObjects];
+    
+    NSArray* selectedRows = [self.tableView indexPathsForSelectedRows];
+    
+    for (int i=0; (i<[selectedRows count]); ++i) {
+        
+        NSIndexPath *thisPath = [selectedRows objectAtIndex:i];
+        NSInteger *selectedindex = thisPath.row;
+        
+        [group.groupmembers addObject: [groupcontacts objectAtIndex:selectedindex]];
+    }
+    
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"GroupSelectViewControllerDismissed"
+                                                        object:nil
+                                                      userInfo:nil];
+    
+    [self.navigationController popViewControllerAnimated:YES];
+}
+
 
 - (void)viewDidLoad
 {
@@ -79,6 +104,20 @@ UIActivityIndicatorView *spinner;
     return cell;
 }
 
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    UITableViewCell *tableViewCell = [tableView cellForRowAtIndexPath:indexPath];
+    tableViewCell.accessoryView.hidden = NO;
+    tableViewCell.accessoryType = UITableViewCellAccessoryCheckmark;
+}
+
+- (void)tableView:(UITableView *)tableView didDeselectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    UITableViewCell *tableViewCell = [tableView cellForRowAtIndexPath:indexPath];
+    tableViewCell.accessoryView.hidden = YES;
+    tableViewCell.accessoryType = UITableViewCellAccessoryNone;
+}
+
 /*
 // Override to support conditional editing of the table view.
 - (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath
@@ -120,8 +159,8 @@ UIActivityIndicatorView *spinner;
 
 #pragma mark - Table view delegate
 
-- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
-{
+//- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+//{
     // Navigation logic may go here. Create and push another view controller.
     /*
      <#DetailViewController#> *detailViewController = [[<#DetailViewController#> alloc] initWithNibName:@"<#Nib name#>" bundle:nil];
@@ -129,6 +168,6 @@ UIActivityIndicatorView *spinner;
      // Pass the selected object to the new view controller.
      [self.navigationController pushViewController:detailViewController animated:YES];
      */
-}
+//}
 
 @end

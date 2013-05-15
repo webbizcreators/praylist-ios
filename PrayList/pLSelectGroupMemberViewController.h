@@ -8,7 +8,10 @@
 
 #import <UIKit/UIKit.h>
 #import <RestKit/RestKit.h>
+#import "pLGroup.h"
 
 @interface pLSelectGroupMemberViewController : UITableViewController
+
+@property (nonatomic,retain) pLGroup*group;
 
 @end

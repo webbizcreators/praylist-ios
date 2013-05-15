@@ -15,6 +15,6 @@
 @property (nonatomic, retain) NSString* owneremail;
 @property (nonatomic, retain) NSString* groupname;
 @property (nonatomic, retain) NSString* groupid;
-@property (nonatomic, retain) NSArray* groupmembers;
+@property (nonatomic, retain) NSMutableArray* groupmembers;
 
 @end
