@@ -15,5 +15,6 @@
 @synthesize groupmembers;
 @synthesize grouptype;
 @synthesize orgid;
+@synthesize groupid;
 
 @end

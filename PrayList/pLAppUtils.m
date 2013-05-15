@@ -23,6 +23,20 @@ pLSecurityToken* st = nil;
 NSMutableDictionary *userImages;
 NSMutableDictionary *contacts;
 
++(NSArray*)getcontacts{
+    NSArray*contactsarray = [contacts allValues];
+    
+    
+    NSSortDescriptor *sortDescriptor;
+    sortDescriptor = [[NSSortDescriptor alloc] initWithKey:@"fullname"
+                                                 ascending:NO];
+    NSArray *sortDescriptors = [NSArray arrayWithObject:sortDescriptor];
+    contactsarray = [NSMutableArray arrayWithArray:[contactsarray sortedArrayUsingDescriptors:sortDescriptors]];
+    
+    return contactsarray;
+    
+}
+
 +(pLSecurityToken*) securitytoken
 {
     return st;
@@ -221,8 +235,11 @@ NSMutableDictionary *contacts;
      @"requestoremail": @"requestoremail",
      @"requesttext": @"requesttext",
      @"requestdate":@"requestdate",
-     @"groupnames":@"groupnames",
+     @"groupids":@"groupids",
      @"praycount":@"praycount",
+     @"orgid":@"orgid",
+     @"peopleprayed":@"peopleprayed",
+     @"answer":@"answer",
      }];
     
     responseDescriptor = [RKResponseDescriptor responseDescriptorWithMapping:responseMapping
@@ -257,8 +274,11 @@ NSMutableDictionary *contacts;
      @"requestoremail": @"requestoremail",
      @"requesttext": @"requesttext",
      @"requestdate":@"requestdate",
-     @"groupnames":@"groupnames",
+     @"groupids":@"groupids",
      @"praycount":@"praycount",
+     @"orgid":@"orgid",
+     @"peopleprayed":@"peopleprayed",
+     @"answer":@"answer",
      }];
     
     
@@ -305,6 +325,7 @@ NSMutableDictionary *contacts;
      @"groupmembers": @"groupmembers",
      @"grouptype": @"grouptype",
      @"orgid": @"orgid",
+     @"groupid": @"groupid",
      }];
     
     responseDescriptor = [RKResponseDescriptor responseDescriptorWithMapping:responseMapping
@@ -355,6 +376,7 @@ NSMutableDictionary *contacts;
      @"groupmembers": @"groupmembers",
      @"grouptype": @"grouptype",
      @"orgid": @"orgid",
+     @"groupid": @"groupid",
      }];
     
     

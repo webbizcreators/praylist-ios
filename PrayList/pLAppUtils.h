@@ -21,5 +21,6 @@
 +(UIActivityIndicatorView*)addspinnertoview:(UIView*)view;
 +(NSString*)calculaterequeststats:(NSNumber*)praycount commentcount:(NSNumber*)commentcount;
 +(NSString*)fullnamefromEmail:(NSString*)email;
++(NSArray*)getcontacts;
 
 @end

@@ -23,5 +23,6 @@
 }
 
 @property (nonatomic, retain) pLGroup *group;
+@property (nonatomic, retain) NSString *newgrouptype;
 
 @end

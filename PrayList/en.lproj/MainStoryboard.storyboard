@@ -336,25 +336,82 @@
                                 </items>
                                 <color key="tintColor" red="0.44313728810000003" green="0.58431375029999999" blue="0.63921570780000003" alpha="1" colorSpace="deviceRGB"/>
                             </toolbar>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="eyy-OF-bAM">
+                                <subviews>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="iQt-9W-UsP">
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="35" id="3m2-kB-KIG"/>
+                                            <constraint firstAttribute="width" constant="109" id="lvO-IN-gQ2"/>
+                                        </constraints>
+                                        <fontDescription key="fontDescription" type="boldSystem" pointSize="14"/>
+                                        <state key="normal" title="Private">
+                                            <color key="titleColor" red="0.19607843459999999" green="0.30980393290000002" blue="0.52156865600000002" alpha="1" colorSpace="calibratedRGB"/>
+                                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                        </state>
+                                        <state key="highlighted">
+                                            <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="addprivategroup:" destination="zky-a8-8uz" eventType="touchUpInside" id="p3x-NH-LIM"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="M6o-rF-sMu">
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="35" id="GcW-YF-FuD"/>
+                                        </constraints>
+                                        <fontDescription key="fontDescription" type="boldSystem" pointSize="14"/>
+                                        <state key="normal" title="Public">
+                                            <color key="titleColor" red="0.19607843459999999" green="0.30980393290000002" blue="0.52156865600000002" alpha="1" colorSpace="calibratedRGB"/>
+                                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                        </state>
+                                        <state key="highlighted">
+                                            <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="addpublicgroup:" destination="zky-a8-8uz" eventType="touchUpInside" id="Dee-eQ-0nY"/>
+                                        </connections>
+                                    </button>
+                                </subviews>
+                                <color key="backgroundColor" white="1" alpha="0.70000000000000007" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstItem="M6o-rF-sMu" firstAttribute="leading" secondItem="iQt-9W-UsP" secondAttribute="leading" type="default" id="6Yd-Q8-ab0"/>
+                                    <constraint firstItem="iQt-9W-UsP" firstAttribute="top" secondItem="eyy-OF-bAM" secondAttribute="top" constant="8" id="6hA-2Q-paq"/>
+                                    <constraint firstItem="M6o-rF-sMu" firstAttribute="top" secondItem="iQt-9W-UsP" secondAttribute="bottom" constant="8" symbolic="YES" type="default" id="DsV-17-U8a"/>
+                                    <constraint firstItem="iQt-9W-UsP" firstAttribute="centerX" secondItem="eyy-OF-bAM" secondAttribute="centerX" type="default" id="n93-7b-92x"/>
+                                    <constraint firstItem="M6o-rF-sMu" firstAttribute="trailing" secondItem="iQt-9W-UsP" secondAttribute="trailing" type="default" id="wdj-jw-wjq"/>
+                                </constraints>
+                            </view>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                         <constraints>
+                            <constraint firstItem="eyy-OF-bAM" firstAttribute="leading" secondItem="Wwb-iw-SCQ" secondAttribute="leading" constant="186" id="8Pl-60-eDU"/>
                             <constraint firstItem="kQB-Ao-G4G" firstAttribute="top" secondItem="Wwb-iw-SCQ" secondAttribute="top" type="default" id="BHk-LG-i7c"/>
                             <constraint firstItem="um7-gC-IEu" firstAttribute="top" secondItem="kQB-Ao-G4G" secondAttribute="bottom" type="default" id="S8x-8r-s36"/>
                             <constraint firstItem="kQB-Ao-G4G" firstAttribute="leading" secondItem="Wwb-iw-SCQ" secondAttribute="leading" type="default" id="bgA-MC-VuE"/>
+                            <constraint firstItem="eyy-OF-bAM" firstAttribute="top" secondItem="Wwb-iw-SCQ" secondAttribute="top" constant="1" id="cuU-UO-d8i"/>
+                            <constraint firstAttribute="bottom" secondItem="eyy-OF-bAM" secondAttribute="bottom" constant="355" id="gV7-X1-AzS"/>
                             <constraint firstItem="um7-gC-IEu" firstAttribute="bottom" secondItem="Wwb-iw-SCQ" secondAttribute="bottom" type="default" id="j5H-qb-Rbz"/>
                             <constraint firstItem="um7-gC-IEu" firstAttribute="trailing" secondItem="Wwb-iw-SCQ" secondAttribute="trailing" type="default" id="okf-rZ-wfh"/>
                             <constraint firstItem="um7-gC-IEu" firstAttribute="leading" secondItem="Wwb-iw-SCQ" secondAttribute="leading" type="default" id="pJD-DC-Zur"/>
                             <constraint firstItem="kQB-Ao-G4G" firstAttribute="trailing" secondItem="Wwb-iw-SCQ" secondAttribute="trailing" type="default" id="vJe-cf-q7T"/>
+                            <constraint firstItem="eyy-OF-bAM" firstAttribute="trailing" secondItem="Wwb-iw-SCQ" secondAttribute="trailing" type="default" id="ySn-oG-yxj"/>
                         </constraints>
                     </view>
                     <tabBarItem key="tabBarItem" title="Groups" image="groupicon.png" id="x5a-Kl-846"/>
                     <navigationItem key="navigationItem" title="Groups" id="8wy-hh-z4N">
-                        <barButtonItem key="rightBarButtonItem" title="Add Group" id="6iN-4R-zep"/>
+                        <barButtonItem key="rightBarButtonItem" title="Add Group" id="6iN-4R-zep">
+                            <connections>
+                                <action selector="addgroupbutton:" destination="zky-a8-8uz" id="9xa-QJ-nWa"/>
+                            </connections>
+                        </barButtonItem>
                     </navigationItem>
                     <connections>
+                        <outlet property="addprivategroupbtn" destination="iQt-9W-UsP" id="HL0-eQ-VoV"/>
+                        <outlet property="addpublicgroupbtn" destination="M6o-rF-sMu" id="Dcd-Sp-yOf"/>
+                        <outlet property="buttonview" destination="eyy-OF-bAM" id="i1r-05-fgW"/>
                         <outlet property="tableView" destination="um7-gC-IEu" id="D3e-A4-63y"/>
                         <outlet property="typeselect" destination="3FQ-9l-BcM" id="RZx-1G-Flk"/>
+                        <segue destination="avv-Hy-Cdh" kind="push" identifier="addGroup" id="1Vi-Xo-O9b"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="rjX-Gh-nSM" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -419,7 +476,11 @@
                                     <toolbar opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Koy-zx-VUX">
                                         <items>
                                             <barButtonItem style="plain" systemItem="flexibleSpace" id="4Oo-LB-kSn"/>
-                                            <barButtonItem title="Add Group Member" id="ZdD-H2-Vl5"/>
+                                            <barButtonItem title="Add Group Member" id="ZdD-H2-Vl5">
+                                                <connections>
+                                                    <segue destination="EQc-Cv-Xsy" kind="push" identifier="addmembersegue" id="TG1-v7-50V"/>
+                                                </connections>
+                                            </barButtonItem>
                                         </items>
                                         <color key="tintColor" red="0.44313728810000003" green="0.58431375029999999" blue="0.63921570780000003" alpha="1" colorSpace="deviceRGB"/>
                                     </toolbar>
@@ -539,7 +600,6 @@
                         <outlet property="grouptypedescription" destination="34g-uA-t7o" id="fdg-5B-mcD"/>
                         <outlet property="grouptypeicon" destination="w0U-a8-gyI" id="NMv-tJ-IOc"/>
                         <outlet property="membersubview" destination="1mj-Px-XrJ" id="E7F-au-Qeu"/>
-                        <segue destination="EQc-Cv-Xsy" kind="push" id="vHT-PC-00V"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ZVS-qo-1Rm" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -550,19 +610,46 @@
         <scene sceneID="kHf-oA-j8R">
             <objects>
                 <tableViewController id="EQc-Cv-Xsy" customClass="pLSelectGroupMemberViewController" sceneMemberID="viewController">
-                    <tableView key="view" opaque="NO" clipsSubviews="YES" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="JBA-PO-1Bz">
+                    <tableView key="view" opaque="NO" clipsSubviews="YES" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" rowHeight="40" sectionHeaderHeight="22" sectionFooterHeight="22" id="JBA-PO-1Bz">
                         <rect key="frame" x="0.0" y="64" width="320" height="455"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <prototypes>
-                            <tableViewCell contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" id="0jI-4z-poq">
-                                <rect key="frame" x="0.0" y="22" width="320" height="44"/>
+                            <tableViewCell contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="contactcell" rowHeight="40" id="0jI-4z-poq" customClass="pLGroupMemberCell">
+                                <rect key="frame" x="0.0" y="22" width="320" height="40"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
-                                    <rect key="frame" x="0.0" y="0.0" width="320" height="43"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="320" height="39"/>
                                     <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="UserName" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="eKR-8W-8U2">
+                                            <constraints>
+                                                <constraint firstAttribute="height" constant="21" id="2iz-ba-Pk3"/>
+                                                <constraint firstAttribute="width" constant="184" id="QKa-ul-cgJ"/>
+                                            </constraints>
+                                            <fontDescription key="fontDescription" name="Arial-BoldMT" family="Arial" pointSize="14"/>
+                                            <color key="textColor" red="0.3411764706" green="0.41960784309999999" blue="0.58431372550000005" alpha="1" colorSpace="calibratedRGB"/>
+                                            <color key="highlightedColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        </label>
+                                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="TQO-We-sRz">
+                                            <constraints>
+                                                <constraint firstAttribute="width" constant="38" id="6gV-Ki-5CT"/>
+                                                <constraint firstAttribute="height" constant="38" id="NDc-CI-aWe"/>
+                                            </constraints>
+                                        </imageView>
+                                    </subviews>
                                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 </view>
+                                <constraints>
+                                    <constraint firstItem="TQO-We-sRz" firstAttribute="leading" secondItem="0jI-4z-poq" secondAttribute="leading" constant="1" id="6yW-Gd-yk0"/>
+                                    <constraint firstItem="eKR-8W-8U2" firstAttribute="leading" secondItem="TQO-We-sRz" secondAttribute="trailing" constant="8" symbolic="YES" type="default" id="PEs-Oc-AUG"/>
+                                    <constraint firstItem="TQO-We-sRz" firstAttribute="centerY" secondItem="0jI-4z-poq" secondAttribute="centerY" type="default" id="QPs-yW-kwy"/>
+                                    <constraint firstItem="eKR-8W-8U2" firstAttribute="top" secondItem="0jI-4z-poq" secondAttribute="top" constant="9" id="wEp-gI-yz3"/>
+                                </constraints>
+                                <connections>
+                                    <outlet property="img" destination="TQO-We-sRz" id="7VQ-nt-BX8"/>
+                                    <outlet property="username" destination="eKR-8W-8U2" id="TMJ-gw-6w8"/>
+                                </connections>
                             </tableViewCell>
                         </prototypes>
                         <connections>
@@ -932,6 +1019,13 @@
         <class className="pLGroupListViewController" superclassName="UIViewController">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/pLGroupListViewController.h"/>
             <relationships>
+                <relationship kind="action" name="addgroupbutton:"/>
+                <relationship kind="action" name="addprivategroup:"/>
+                <relationship kind="action" name="addpublicgroup:"/>
+                <relationship kind="action" name="switchtypeview:"/>
+                <relationship kind="outlet" name="addprivategroupbtn" candidateClass="UIButton"/>
+                <relationship kind="outlet" name="addpublicgroupbtn" candidateClass="UIButton"/>
+                <relationship kind="outlet" name="buttonview" candidateClass="UIView"/>
                 <relationship kind="outlet" name="tableView" candidateClass="UITableView"/>
                 <relationship kind="outlet" name="typeselect" candidateClass="UISegmentedControl"/>
             </relationships>
@@ -996,4 +1090,7 @@
         <simulatedOrientationMetrics key="orientation"/>
         <simulatedScreenMetrics key="destination" type="retina4"/>
     </simulatedMetricsContainer>
+    <inferredMetricsTieBreakers>
+        <segue reference="1Vi-Xo-O9b"/>
+    </inferredMetricsTieBreakers>
 </document>

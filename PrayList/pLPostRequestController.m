@@ -84,10 +84,10 @@ UIActivityIndicatorView *spinner;
     
     [spinner startAnimating];
     
-    NSMutableArray *groupnames = [[NSMutableArray alloc]init];
+    NSMutableArray *groupids = [[NSMutableArray alloc]init];
     
     for(pLGroup *cr in sourcegroups){
-        [groupnames addObject:cr.groupname];
+        [groupids addObject:cr.groupid];
     }
     
     pLPrayerRequest *pr = [[pLPrayerRequest alloc] init];
@@ -95,7 +95,7 @@ UIActivityIndicatorView *spinner;
     pr.requestoremail = [pLAppUtils securitytoken].email;
     pr.requesttext = requestText.text;
     pr.requestdate = [[NSDate alloc]init];
-    pr.groupnames = groupnames;
+    pr.groupids = groupids;
     
     [[RKObjectManager sharedManager] putObject:pr path: nil parameters: nil success:^( RKObjectRequestOperation *operation , RKMappingResult *mappingResult){
         

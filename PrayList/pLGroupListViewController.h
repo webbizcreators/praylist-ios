@@ -12,6 +12,9 @@
     
     IBOutlet UITableView *tableView;
     IBOutlet UISegmentedControl *typeselect;
+    IBOutlet UIView *buttonview;
+    IBOutlet UIButton *addprivategroupbtn;
+    IBOutlet UIButton *addpublicgroupbtn;
     
 }
 

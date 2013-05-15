@@ -10,6 +10,7 @@
 #import "pLAppUtils.h"
 #import <QuartzCore/QuartzCore.h>
 #import "pLGroupMemberCell.h"
+#import "pLSelectGroupMemberViewController.h"
 
 @interface pLEditGroupViewController ()
 
@@ -18,6 +19,7 @@
 @implementation pLEditGroupViewController
 
 @synthesize group;
+@synthesize newgrouptype;
 
 NSMutableArray *groupmembers;
 
@@ -139,10 +141,7 @@ NSMutableArray *groupmembers;
     if(group){
         groupname.text = group.groupname;
         groupmembers = [NSMutableArray arrayWithArray:group.groupmembers];
-        if([group.grouptype isEqualToString:@"Personal"]){
-            grouptypeicon.image = [UIImage imageNamed:@"personalgroupicon_title.png"];
-            grouptypedescription.text = @"Personal Group";
-        }else if([group.grouptype isEqualToString:@"Private"]){
+        if([group.grouptype isEqualToString:@"Private"]){
             grouptypeicon.image = [UIImage imageNamed:@"privategroupicon_title.png"];
             grouptypedescription.text = @"Private Group";
         }else if([group.grouptype isEqualToString:@"Public"]){
@@ -153,6 +152,15 @@ NSMutableArray *groupmembers;
     }
     else
     {
+        
+        if([newgrouptype isEqualToString:@"Private"]){
+            grouptypeicon.image = [UIImage imageNamed:@"privategroupicon_title.png"];
+            grouptypedescription.text = @"Private Group";
+        }else if([newgrouptype isEqualToString:@"Public"]){
+            grouptypeicon.image = [UIImage imageNamed:@"publicgroupicon_title.png"];
+            grouptypedescription.text = @"Public Group";
+        }
+        
         groupmembers = [[NSMutableArray alloc]init];
     }
 }
@@ -174,6 +182,23 @@ NSMutableArray *groupmembers;
                 [groupmembertableView deleteRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationFade];
 
     }
+}
+
+
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
+{
+    // Make sure your segue name in storyboard is the same as this line
+    if ([[segue identifier] isEqualToString:@"addmemberseque"])
+    {
+        // Get reference to the destination view controller
+        pLSelectGroupMemberViewController *vc = [segue destinationViewController];
+        
+
+        
+    }
+    
+    
+    
 }
 
 

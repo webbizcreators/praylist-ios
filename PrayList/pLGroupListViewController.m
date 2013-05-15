@@ -43,6 +43,10 @@ UIImage *publicimg;
 {
     [super viewDidLoad];
     
+    UITapGestureRecognizer* tapGestureRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(handleTap:)];
+    [self.view addGestureRecognizer:tapGestureRecognizer];
+    
+    buttonview.hidden=YES;
     privateimg = [UIImage imageNamed:@"privategroupicon.png"];
     publicimg = [UIImage imageNamed:@"publicgroupicon.png"];
     
@@ -160,6 +164,30 @@ UIImage *publicimg;
     
 }
 
+-(IBAction)addgroupbutton:(id)sender
+{
+    if(buttonview.hidden==YES){
+       buttonview.hidden=NO; 
+    }
+    else{
+        buttonview.hidden=YES;
+    }
+    
+}
+
+-(IBAction)addprivategroup:(id)sender
+{
+    [self performSegueWithIdentifier: @"addGroup" sender: addprivategroupbtn];
+    buttonview.hidden=YES;
+}
+
+-(IBAction)addpublicgroup:(id)sender
+{
+    [self performSegueWithIdentifier: @"addGroup" sender: addpublicgroupbtn];
+    buttonview.hidden=YES;
+}
+
+
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
 {
     // Make sure your segue name in storyboard is the same as this line
@@ -184,11 +212,39 @@ UIImage *publicimg;
                                                  selector:@selector(didDismissGroupEditViewController)
                                                      name:@"GroupEditViewControllerDismissed"
                                                    object:nil];
+        
+    }else if ([[segue identifier] isEqualToString:@"addGroup"]){
+        
+        // Get reference to the destination view controller
+        pLEditGroupViewController *vc = [segue destinationViewController];
+        
+        UIButton* btn = (UIButton*)sender;
+        
+        if([btn.titleLabel.text isEqualToString:@"Private"])
+        vc.newgrouptype = @"Private";
+        else
+        {
+         vc.newgrouptype = @"Public";   
+        }
+        
+        [[NSNotificationCenter defaultCenter] addObserver:self
+                                                 selector:@selector(didDismissGroupEditViewController)
+                                                     name:@"GroupEditViewControllerDismissed"
+                                                   object:nil];
+        
     }
+    
+    
+    
 }
 
+-(void)handleTap:(UITapGestureRecognizer*)tapRecognizer
+{
+  buttonview.hidden=YES;  
+}
 -(void)didDismissGroupEditViewController{
 
+    [self loadGroups];
     
 }
 
