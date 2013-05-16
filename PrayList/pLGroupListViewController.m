@@ -50,6 +50,16 @@ UIImage *publicimg;
     privateimg = [UIImage imageNamed:@"privategroupicon.png"];
     publicimg = [UIImage imageNamed:@"publicgroupicon.png"];
     
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(didDismissGroupEditViewController)
+                                                 name:@"EditGroupViewControllerDismissed"
+                                               object:nil];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(requestgroup:)
+                                                 name:@"RequestGroup"
+                                               object:nil];
+    
     [self loadGroups];
 
 	// Do any additional setup after loading the view.
@@ -57,7 +67,30 @@ UIImage *publicimg;
 
 
 
-
+- (void)requestgroup:(NSNotification *)groupcell {
+    
+    id cellid=[groupcell object];
+    pLGroupCell*cell = (pLGroupCell*)cellid;
+    NSIndexPath *indexPath = [tableView indexPathForCell:cell];
+    pLGroup*c;
+    
+    if(typeselect.selectedSegmentIndex==0){
+    
+    }
+    else{
+        c = (pLGroup*)[publicgroups objectAtIndex:indexPath.row];
+        NSMutableArray*ar = [NSMutableArray arrayWithArray:c.groupmembers];
+        [ar addObject:[pLAppUtils securitytoken].email];
+        c.groupmembers = ar;
+        
+    }
+    
+    
+    
+    
+    [tableView reloadRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationNone];
+    
+}
 
 -(void)loadGroups{
     spinner = [pLAppUtils addspinnertoview:self.view];
@@ -125,6 +158,10 @@ UIImage *publicimg;
     else if (typeselect.selectedSegmentIndex==1) {
       return [publicgroups count];
     }
+    else
+    {
+        return 0;
+    }
     
 }
 
@@ -132,18 +169,38 @@ UIImage *publicimg;
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     
     
-    static NSString *CustomCellIdentifier = @"groupcell";
-    
-    pLGroupCell *cell = (pLGroupCell *)[tableView dequeueReusableCellWithIdentifier: CustomCellIdentifier];
-    
+    pLGroupCell *cell;
     
     pLGroup * c;
     
     if(typeselect.selectedSegmentIndex==0){
         c = (pLGroup*)[privategroups objectAtIndex:indexPath.row];
+        if([c.owneremail isEqualToString:[pLAppUtils securitytoken].email]){
+            cell = (pLGroupCell *)[tableView dequeueReusableCellWithIdentifier: @"groupcell"];
+        }
+        else if ([c.invitees containsObject:[pLAppUtils securitytoken].email]){
+            cell = (pLGroupCell *)[tableView dequeueReusableCellWithIdentifier: @"joingroupcell"];
+        }
+        else if ([c.groupmembers containsObject:[pLAppUtils securitytoken].email]){
+            cell = (pLGroupCell *)[tableView dequeueReusableCellWithIdentifier: @"leavegroupcell"];
+        }
+        else {
+            cell = (pLGroupCell *)[tableView dequeueReusableCellWithIdentifier: @"requestgroupcell"];
+        }
+        
+        
     }
     else if (typeselect.selectedSegmentIndex==1) {
         c = (pLGroup*)[publicgroups objectAtIndex:indexPath.row];
+        if([c.owneremail isEqualToString:[pLAppUtils securitytoken].email]){
+            cell = (pLGroupCell *)[tableView dequeueReusableCellWithIdentifier: @"groupcell"];
+        }
+        else if ([c.groupmembers containsObject:[pLAppUtils securitytoken].email]){
+            cell = (pLGroupCell *)[tableView dequeueReusableCellWithIdentifier: @"leavegroupcell"];
+        }
+        else {
+            cell = (pLGroupCell *)[tableView dequeueReusableCellWithIdentifier: @"joingroupcell"];
+        }
     }
     
     
@@ -208,10 +265,7 @@ UIImage *publicimg;
         }
         
         
-        [[NSNotificationCenter defaultCenter] addObserver:self
-                                                 selector:@selector(didDismissGroupEditViewController)
-                                                     name:@"GroupEditViewControllerDismissed"
-                                                   object:nil];
+        
         
     }else if ([[segue identifier] isEqualToString:@"addGroup"]){
         
@@ -227,10 +281,7 @@ UIImage *publicimg;
          vc.newgrouptype = @"Public";   
         }
         
-        [[NSNotificationCenter defaultCenter] addObserver:self
-                                                 selector:@selector(didDismissGroupEditViewController)
-                                                     name:@"GroupEditViewControllerDismissed"
-                                                   object:nil];
+        
         
     }
     
@@ -242,6 +293,8 @@ UIImage *publicimg;
 {
   buttonview.hidden=YES;  
 }
+
+
 -(void)didDismissGroupEditViewController{
 
     [self loadGroups];

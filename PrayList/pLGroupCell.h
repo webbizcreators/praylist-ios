@@ -8,7 +8,11 @@
 
 #import <UIKit/UIKit.h>
 
-@interface pLGroupCell : UITableViewCell
+@interface pLGroupCell : UITableViewCell{
+    
+    IBOutlet UIButton *groupactionbtn;
+    
+}
 
 
 
@@ -16,5 +20,6 @@
 @property (nonatomic, retain) IBOutlet UILabel *groupdesc;
 @property (nonatomic, retain) IBOutlet UILabel *membercount;
 @property (nonatomic, retain) IBOutlet UIImageView *img;
+
 
 @end

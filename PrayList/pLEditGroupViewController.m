@@ -67,8 +67,9 @@ NSMutableArray *groupmembers;
     
     gp.owneremail = [pLAppUtils securitytoken].email;
     gp.groupname = groupname.text;
-
+    gp.orgid = [pLAppUtils securitytoken].orgid;
     gp.groupmembers = groupmembers;
+    gp.grouptype = newgrouptype;
     
     [[RKObjectManager sharedManager] putObject:gp path: nil parameters: nil success:^( RKObjectRequestOperation *operation , RKMappingResult *mappingResult){
         
@@ -170,7 +171,10 @@ NSMutableArray *groupmembers;
                                                  name:@"GroupMemberControllerDismissed"
                                                object:nil];
     
+
+    
 }
+
 
 
 

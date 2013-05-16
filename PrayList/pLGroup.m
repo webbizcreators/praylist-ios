@@ -16,5 +16,7 @@
 @synthesize grouptype;
 @synthesize orgid;
 @synthesize groupid;
+@synthesize invitees;
+@synthesize requestors;
 
 @end

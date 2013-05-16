@@ -26,4 +26,12 @@
     // Configure the view for the selected state
 }
 
+-(IBAction)actionbutton:(id)sender{
+ 
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"RequestGroup"
+                                                        object:self
+                                                      userInfo:nil];
+    
+}
+
 @end

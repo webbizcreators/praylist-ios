@@ -16,5 +16,7 @@
 @property (nonatomic, retain) NSString* groupname;
 @property (nonatomic, retain) NSString* groupid;
 @property (nonatomic, retain) NSMutableArray* groupmembers;
+@property (nonatomic, retain) NSMutableArray* invitees;
+@property (nonatomic, retain) NSMutableArray* requestors;
 
 @end

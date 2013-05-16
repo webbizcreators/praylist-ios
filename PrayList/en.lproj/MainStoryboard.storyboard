@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="2.0" toolsVersion="3084" systemVersion="12C60" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" initialViewController="tUg-0J-Ebd">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="2.0" toolsVersion="3084" systemVersion="12D78" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" initialViewController="tUg-0J-Ebd">
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="2083"/>
     </dependencies>
@@ -306,6 +306,192 @@
                                             <outlet property="groupname" destination="Lca-QQ-w9m" id="WY2-Ca-Kym"/>
                                             <outlet property="img" destination="eJ5-0E-Ajb" id="vgT-A1-0NG"/>
                                             <segue destination="avv-Hy-Cdh" kind="push" identifier="editGroup" trigger="accessoryAction" id="1hl-am-O7u"/>
+                                        </connections>
+                                    </tableViewCell>
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="joingroupcell" id="zOj-9B-isH" customClass="pLGroupCell">
+                                        <rect key="frame" x="0.0" y="66" width="320" height="44"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
+                                            <rect key="frame" x="0.0" y="0.0" width="320" height="43"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" image="privategroupicon.png" translatesAutoresizingMaskIntoConstraints="NO" id="NvY-NW-aMA"/>
+                                                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="GroupDescription" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ozw-k3-5st">
+                                                    <constraints>
+                                                        <constraint firstAttribute="height" constant="21" id="GXM-rv-cgh"/>
+                                                    </constraints>
+                                                    <fontDescription key="fontDescription" name="ArialMT" family="Arial" pointSize="11"/>
+                                                    <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                                                    <color key="highlightedColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                </label>
+                                                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="GroupName" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="iZ8-d9-V5B">
+                                                    <constraints>
+                                                        <constraint firstAttribute="height" constant="21" id="4Gn-sQ-7te"/>
+                                                        <constraint firstAttribute="width" constant="180" id="w8E-sv-0pX"/>
+                                                    </constraints>
+                                                    <fontDescription key="fontDescription" name="Arial-BoldMT" family="Arial" pointSize="14"/>
+                                                    <color key="textColor" red="0.3411764706" green="0.41960784309999999" blue="0.58431372550000005" alpha="1" colorSpace="calibratedRGB"/>
+                                                    <color key="highlightedColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                </label>
+                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="B2n-0S-Mdf">
+                                                    <constraints>
+                                                        <constraint firstAttribute="width" constant="73" id="6zN-Xr-eGJ"/>
+                                                        <constraint firstAttribute="height" constant="34" id="fYJ-yi-Pnv"/>
+                                                    </constraints>
+                                                    <fontDescription key="fontDescription" type="boldSystem" pointSize="13"/>
+                                                    <state key="normal" title="Join">
+                                                        <color key="titleColor" red="0.19607843459999999" green="0.30980393290000002" blue="0.52156865600000002" alpha="1" colorSpace="calibratedRGB"/>
+                                                        <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                                    </state>
+                                                    <state key="highlighted">
+                                                        <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                    </state>
+                                                    <connections>
+                                                        <action selector="actionbutton:" destination="zOj-9B-isH" eventType="touchUpInside" id="NfE-xf-Dff"/>
+                                                    </connections>
+                                                </button>
+                                            </subviews>
+                                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                        </view>
+                                        <constraints>
+                                            <constraint firstItem="iZ8-d9-V5B" firstAttribute="top" secondItem="zOj-9B-isH" secondAttribute="top" constant="1" id="0nu-xR-DzO"/>
+                                            <constraint firstItem="NvY-NW-aMA" firstAttribute="leading" secondItem="zOj-9B-isH" secondAttribute="leading" constant="3" id="2di-PK-xEb"/>
+                                            <constraint firstItem="B2n-0S-Mdf" firstAttribute="leading" secondItem="iZ8-d9-V5B" secondAttribute="trailing" constant="8" symbolic="YES" type="default" id="2zT-rb-fbP"/>
+                                            <constraint firstItem="Ozw-k3-5st" firstAttribute="leading" secondItem="NvY-NW-aMA" secondAttribute="trailing" constant="8" symbolic="YES" type="default" id="6Yi-Dt-7Am"/>
+                                            <constraint firstItem="B2n-0S-Mdf" firstAttribute="centerY" secondItem="zOj-9B-isH" secondAttribute="centerY" type="default" id="OQA-Yd-hGt"/>
+                                            <constraint firstAttribute="bottom" secondItem="Ozw-k3-5st" secondAttribute="bottom" constant="1" id="S4w-Aa-g83"/>
+                                            <constraint firstItem="B2n-0S-Mdf" firstAttribute="leading" secondItem="Ozw-k3-5st" secondAttribute="trailing" constant="8" symbolic="YES" type="default" id="Ykc-IU-MD5"/>
+                                            <constraint firstItem="B2n-0S-Mdf" firstAttribute="centerY" secondItem="NvY-NW-aMA" secondAttribute="centerY" type="default" id="bwq-Vw-4yx"/>
+                                            <constraint firstItem="iZ8-d9-V5B" firstAttribute="leading" secondItem="NvY-NW-aMA" secondAttribute="trailing" constant="8" symbolic="YES" type="default" id="xVD-m0-h3N"/>
+                                        </constraints>
+                                        <connections>
+                                            <outlet property="groupdesc" destination="Ozw-k3-5st" id="8I0-9p-ysH"/>
+                                            <outlet property="groupname" destination="iZ8-d9-V5B" id="lzu-ZF-qNo"/>
+                                            <outlet property="img" destination="NvY-NW-aMA" id="sNr-LR-aUQ"/>
+                                        </connections>
+                                    </tableViewCell>
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="requestgroupcell" id="Pom-B4-CLY" customClass="pLGroupCell">
+                                        <rect key="frame" x="0.0" y="110" width="320" height="44"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
+                                            <rect key="frame" x="0.0" y="0.0" width="320" height="43"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" image="privategroupicon.png" translatesAutoresizingMaskIntoConstraints="NO" id="9Bh-XE-83a"/>
+                                                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="GroupDescription" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gd2-ak-wYb">
+                                                    <constraints>
+                                                        <constraint firstAttribute="height" constant="21" id="kcC-J6-5Km"/>
+                                                    </constraints>
+                                                    <fontDescription key="fontDescription" name="ArialMT" family="Arial" pointSize="11"/>
+                                                    <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                                                    <color key="highlightedColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                </label>
+                                                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="GroupName" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="JO6-7G-bvI">
+                                                    <constraints>
+                                                        <constraint firstAttribute="height" constant="21" id="6gU-x8-Hot"/>
+                                                        <constraint firstAttribute="width" constant="180" id="jRt-eX-M7j"/>
+                                                    </constraints>
+                                                    <fontDescription key="fontDescription" name="Arial-BoldMT" family="Arial" pointSize="14"/>
+                                                    <color key="textColor" red="0.3411764706" green="0.41960784309999999" blue="0.58431372550000005" alpha="1" colorSpace="calibratedRGB"/>
+                                                    <color key="highlightedColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                </label>
+                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Kil-7e-JrZ">
+                                                    <constraints>
+                                                        <constraint firstAttribute="height" constant="34" id="9qr-9L-Bsb"/>
+                                                        <constraint firstAttribute="width" constant="73" id="wQU-qN-IAi"/>
+                                                    </constraints>
+                                                    <fontDescription key="fontDescription" type="boldSystem" pointSize="13"/>
+                                                    <state key="normal" title="Request">
+                                                        <color key="titleColor" red="0.19607843459999999" green="0.30980393290000002" blue="0.52156865600000002" alpha="1" colorSpace="calibratedRGB"/>
+                                                        <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                                    </state>
+                                                    <state key="highlighted">
+                                                        <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                    </state>
+                                                    <connections>
+                                                        <action selector="actionbutton:" destination="Pom-B4-CLY" eventType="touchUpInside" id="qfO-qf-dvf"/>
+                                                    </connections>
+                                                </button>
+                                            </subviews>
+                                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                        </view>
+                                        <constraints>
+                                            <constraint firstAttribute="bottom" secondItem="gd2-ak-wYb" secondAttribute="bottom" constant="1" id="6qc-sl-NrA"/>
+                                            <constraint firstItem="gd2-ak-wYb" firstAttribute="leading" secondItem="9Bh-XE-83a" secondAttribute="trailing" constant="8" symbolic="YES" type="default" id="9ET-c3-Pey"/>
+                                            <constraint firstItem="JO6-7G-bvI" firstAttribute="leading" secondItem="9Bh-XE-83a" secondAttribute="trailing" constant="8" symbolic="YES" type="default" id="COS-RE-ciG"/>
+                                            <constraint firstItem="9Bh-XE-83a" firstAttribute="leading" secondItem="Pom-B4-CLY" secondAttribute="leading" constant="3" id="Jlb-Vf-Enf"/>
+                                            <constraint firstItem="JO6-7G-bvI" firstAttribute="top" secondItem="Pom-B4-CLY" secondAttribute="top" constant="1" id="M5z-La-53b"/>
+                                            <constraint firstItem="Kil-7e-JrZ" firstAttribute="leading" secondItem="JO6-7G-bvI" secondAttribute="trailing" constant="8" symbolic="YES" type="default" id="MeI-dG-o0f"/>
+                                            <constraint firstItem="Kil-7e-JrZ" firstAttribute="centerY" secondItem="9Bh-XE-83a" secondAttribute="centerY" type="default" id="Nnz-gS-zfT"/>
+                                            <constraint firstItem="Kil-7e-JrZ" firstAttribute="centerY" secondItem="Pom-B4-CLY" secondAttribute="centerY" type="default" id="pv1-Cw-COE"/>
+                                            <constraint firstItem="Kil-7e-JrZ" firstAttribute="leading" secondItem="gd2-ak-wYb" secondAttribute="trailing" constant="8" symbolic="YES" type="default" id="tes-7i-rkH"/>
+                                        </constraints>
+                                        <connections>
+                                            <outlet property="groupdesc" destination="gd2-ak-wYb" id="plD-Jf-2HW"/>
+                                            <outlet property="groupname" destination="JO6-7G-bvI" id="oXi-M9-CsB"/>
+                                            <outlet property="img" destination="9Bh-XE-83a" id="SnN-Mu-QwO"/>
+                                        </connections>
+                                    </tableViewCell>
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="leavegroupcell" id="4o5-Jb-gOD" customClass="pLGroupCell">
+                                        <rect key="frame" x="0.0" y="154" width="320" height="44"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
+                                            <rect key="frame" x="0.0" y="0.0" width="320" height="43"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" image="privategroupicon.png" translatesAutoresizingMaskIntoConstraints="NO" id="Nqd-vK-XeT"/>
+                                                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="GroupDescription" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="i2o-x5-mas">
+                                                    <constraints>
+                                                        <constraint firstAttribute="height" constant="21" id="P6K-cw-nsd"/>
+                                                    </constraints>
+                                                    <fontDescription key="fontDescription" name="ArialMT" family="Arial" pointSize="11"/>
+                                                    <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                                                    <color key="highlightedColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                </label>
+                                                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="GroupName" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="MEZ-Hu-6qE">
+                                                    <constraints>
+                                                        <constraint firstAttribute="height" constant="21" id="OgM-eK-2NI"/>
+                                                        <constraint firstAttribute="width" constant="180" id="vJX-q5-pBT"/>
+                                                    </constraints>
+                                                    <fontDescription key="fontDescription" name="Arial-BoldMT" family="Arial" pointSize="14"/>
+                                                    <color key="textColor" red="0.3411764706" green="0.41960784309999999" blue="0.58431372550000005" alpha="1" colorSpace="calibratedRGB"/>
+                                                    <color key="highlightedColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                </label>
+                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Z14-Ld-AgB">
+                                                    <constraints>
+                                                        <constraint firstAttribute="height" constant="34" id="Dhk-Nh-Uyq"/>
+                                                        <constraint firstAttribute="width" constant="73" id="YqD-hC-FAO"/>
+                                                    </constraints>
+                                                    <fontDescription key="fontDescription" type="boldSystem" pointSize="13"/>
+                                                    <state key="normal" title="Leave">
+                                                        <color key="titleColor" red="0.19607843459999999" green="0.30980393290000002" blue="0.52156865600000002" alpha="1" colorSpace="calibratedRGB"/>
+                                                        <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                                    </state>
+                                                    <state key="highlighted">
+                                                        <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                    </state>
+                                                    <connections>
+                                                        <action selector="actionbutton:" destination="4o5-Jb-gOD" eventType="touchUpInside" id="UbJ-lS-KHC"/>
+                                                    </connections>
+                                                </button>
+                                            </subviews>
+                                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                        </view>
+                                        <constraints>
+                                            <constraint firstItem="Z14-Ld-AgB" firstAttribute="leading" secondItem="i2o-x5-mas" secondAttribute="trailing" constant="8" symbolic="YES" type="default" id="36L-i3-nfo"/>
+                                            <constraint firstAttribute="bottom" secondItem="i2o-x5-mas" secondAttribute="bottom" constant="1" id="3kz-U0-AHe"/>
+                                            <constraint firstItem="i2o-x5-mas" firstAttribute="leading" secondItem="Nqd-vK-XeT" secondAttribute="trailing" constant="8" symbolic="YES" type="default" id="5BG-iJ-eb1"/>
+                                            <constraint firstItem="MEZ-Hu-6qE" firstAttribute="top" secondItem="4o5-Jb-gOD" secondAttribute="top" constant="1" id="DmJ-B4-eKR"/>
+                                            <constraint firstItem="Nqd-vK-XeT" firstAttribute="leading" secondItem="4o5-Jb-gOD" secondAttribute="leading" constant="3" id="Nqo-eZ-yFs"/>
+                                            <constraint firstItem="MEZ-Hu-6qE" firstAttribute="leading" secondItem="Nqd-vK-XeT" secondAttribute="trailing" constant="8" symbolic="YES" type="default" id="Q6m-rV-b2i"/>
+                                            <constraint firstItem="Z14-Ld-AgB" firstAttribute="centerY" secondItem="Nqd-vK-XeT" secondAttribute="centerY" type="default" id="Yn1-3b-vGi"/>
+                                            <constraint firstItem="Z14-Ld-AgB" firstAttribute="centerY" secondItem="4o5-Jb-gOD" secondAttribute="centerY" type="default" id="frm-Kc-NPd"/>
+                                            <constraint firstItem="Z14-Ld-AgB" firstAttribute="leading" secondItem="MEZ-Hu-6qE" secondAttribute="trailing" constant="8" symbolic="YES" type="default" id="xiZ-KH-2Nt"/>
+                                        </constraints>
+                                        <connections>
+                                            <outlet property="groupdesc" destination="i2o-x5-mas" id="rBy-AO-uEd"/>
+                                            <outlet property="groupname" destination="MEZ-Hu-6qE" id="keO-RI-AeK"/>
+                                            <outlet property="img" destination="Nqd-vK-XeT" id="qGu-x3-QNa"/>
                                         </connections>
                                     </tableViewCell>
                                 </prototypes>
@@ -996,7 +1182,6 @@
         <class className="pLEditGroupViewController" superclassName="UIViewController">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/pLEditGroupViewController.h"/>
             <relationships>
-                <relationship kind="action" name="savebutton:"/>
                 <relationship kind="outlet" name="cancelButton" candidateClass="UIBarButtonItem"/>
                 <relationship kind="outlet" name="generalsubview" candidateClass="UIView"/>
                 <relationship kind="outlet" name="groupmembertableView" candidateClass="UITableView"/>
@@ -1017,6 +1202,8 @@
         <class className="pLGroupCell" superclassName="UITableViewCell">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/pLGroupCell.h"/>
             <relationships>
+                <relationship kind="action" name="actionbutton:"/>
+                <relationship kind="outlet" name="groupactionbtn" candidateClass="UIButton"/>
                 <relationship kind="outlet" name="groupdesc" candidateClass="UILabel"/>
                 <relationship kind="outlet" name="groupname" candidateClass="UILabel"/>
                 <relationship kind="outlet" name="img" candidateClass="UIImageView"/>
@@ -1078,9 +1265,6 @@
         </class>
         <class className="pLSelectGroupMemberViewController" superclassName="UITableViewController">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/pLSelectGroupMemberViewController.h"/>
-            <relationships>
-                <relationship kind="action" name="doneButton:"/>
-            </relationships>
         </class>
         <class className="pLSelectGroupforPostViewController" superclassName="UIViewController">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/pLSelectGroupforPostViewController.h"/>
@@ -1097,6 +1281,6 @@
         <simulatedScreenMetrics key="destination" type="retina4"/>
     </simulatedMetricsContainer>
     <inferredMetricsTieBreakers>
-        <segue reference="1Vi-Xo-O9b"/>
+        <segue reference="1hl-am-O7u"/>
     </inferredMetricsTieBreakers>
 </document>

@@ -149,7 +149,7 @@ NSMutableDictionary *contacts;
     
     RKResponseDescriptor *responseDescriptor = [RKResponseDescriptor responseDescriptorWithMapping:responseMapping
                                                                                        pathPattern:@"lists/myprayerlist/:email"
-                                                                                           keyPath: @"prayerRequestListItem"
+                                                                                           keyPath: nil
                                                                                        statusCodes:datastatuscodes];
     
     [objectManager addResponseDescriptor: responseDescriptor];
@@ -200,6 +200,7 @@ NSMutableDictionary *contacts;
      @"tokenId": @"tokenId",
      @"dateCode": @"dateCode",
      @"email": @"email",
+     @"orgid": @"orgid",
      }];
     
     RKObjectMapping* loginResponseMapping = [RKObjectMapping mappingForClass:[pLLoginResponse class]];
@@ -253,7 +254,7 @@ NSMutableDictionary *contacts;
     
     responseDescriptor = [RKResponseDescriptor responseDescriptorWithMapping:responseMapping
                                                                  pathPattern:@"prayerrequests/:requestoremail"
-                                                                     keyPath: @"prayerRequest"
+                                                                     keyPath: nil
                                                                  statusCodes:datastatuscodes];
     
     [objectManager addResponseDescriptor: responseDescriptor];
@@ -326,6 +327,8 @@ NSMutableDictionary *contacts;
      @"grouptype": @"grouptype",
      @"orgid": @"orgid",
      @"groupid": @"groupid",
+     @"invitees": @"invitees",
+     @"requestors": @"requestors",
      }];
     
     responseDescriptor = [RKResponseDescriptor responseDescriptorWithMapping:responseMapping
@@ -347,14 +350,14 @@ NSMutableDictionary *contacts;
     
     responseDescriptor = [RKResponseDescriptor responseDescriptorWithMapping:responseMapping
                                                                  pathPattern:@"groups/:owneremail"
-                                                                     keyPath: @"group"
+                                                                     keyPath: nil
                                                                  statusCodes:datastatuscodes];
     
     [objectManager addResponseDescriptor: responseDescriptor];
     
     responseDescriptor = [RKResponseDescriptor responseDescriptorWithMapping:responseMapping
                                                                  pathPattern:@"groups/org/:orgid"
-                                                                     keyPath: @"group"
+                                                                     keyPath: nil
                                                                  statusCodes:datastatuscodes];
     
     [objectManager addResponseDescriptor: responseDescriptor];
@@ -377,6 +380,8 @@ NSMutableDictionary *contacts;
      @"grouptype": @"grouptype",
      @"orgid": @"orgid",
      @"groupid": @"groupid",
+     @"invitees": @"invitees",
+     @"requestors": @"requestors",
      }];
     
     
@@ -415,7 +420,7 @@ NSMutableDictionary *contacts;
     
     responseDescriptor = [RKResponseDescriptor responseDescriptorWithMapping:responseMapping
                                                                  pathPattern:@"lists/mycontacts/:owneremail"
-                                                                     keyPath: @"person"
+                                                                     keyPath: nil
                                                                  statusCodes:datastatuscodes];
     
     [objectManager addResponseDescriptor: responseDescriptor];
@@ -471,7 +476,7 @@ NSMutableDictionary *contacts;
     
     responseDescriptor = [RKResponseDescriptor responseDescriptorWithMapping:responseMapping
                                                                  pathPattern:@"prayerrequests/:email/:requestid/comments"
-                                                                     keyPath: @"requestcomment"
+                                                                     keyPath: nil
                                                                  statusCodes:datastatuscodes];
     
     [objectManager addResponseDescriptor: responseDescriptor];
