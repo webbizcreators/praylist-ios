@@ -15,22 +15,67 @@
 
 @implementation pLAppDelegate
 
-
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
     
 
     //RKObjectManager *objectManager = [RKObjectManager managerWithBaseURL:[NSURL URLWithString:@"http://praylistws.elasticbeanstalk.com/rest/"]];
     
-    RKObjectManager *objectManager = [RKObjectManager managerWithBaseURL:[NSURL URLWithString:@"http://127.0.0.1:8080/praylistws/rest/"]];
+    //RKObjectManager *objectManager = [RKObjectManager managerWithBaseURL:[NSURL URLWithString:@"http://127.0.0.1:8080/praylistws/rest/"]];
+    
+    RKObjectManager *objectManager = [RKObjectManager managerWithBaseURL:[NSURL URLWithString:@"http://mbpro.local:8080/praylistws/rest/"]];
+    
     objectManager.requestSerializationMIMEType = RKMIMETypeJSON;
                                 
     
     [pLAppUtils registerObjectMappings];
-        
     
     
+    //self.window.rootViewController = self.viewController;
+	[self.window makeKeyAndVisible];
+    
+	// Let the device know we want to receive push notifications
+	[[UIApplication sharedApplication] registerForRemoteNotificationTypes:
+     (UIRemoteNotificationTypeBadge | UIRemoteNotificationTypeSound | UIRemoteNotificationTypeAlert)];
+    
+    if (launchOptions != nil)
+	{
+		NSDictionary* dictionary = [launchOptions objectForKey:UIApplicationLaunchOptionsRemoteNotificationKey];
+		if (dictionary != nil)
+		{
+			NSLog(@"Launched from push notification: %@", dictionary);
+			[self addMessageFromRemoteNotification:dictionary updateUI:NO];
+		}
+	}
+
     return YES;
+}
+
+- (void)application:(UIApplication*)application didReceiveRemoteNotification:(NSDictionary*)userInfo
+{
+    
+	NSLog(@"Received notification: %@", userInfo);
+	[self addMessageFromRemoteNotification:userInfo updateUI:YES];
+}
+
+- (void)addMessageFromRemoteNotification:(NSDictionary*)userInfo updateUI:(BOOL)updateUI
+{
+	//Refresh notification array so push notif can find it, so that it can mark it as viewed
+    
+	NSNumber* alertCount = [[userInfo valueForKey:@"aps"] valueForKey:@"badge"];
+    
+    [pLAppUtils setNotifCount:alertCount];
+    
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"NotificationUpdate"
+                                                        object:nil
+                                                      userInfo:nil];
+    
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"GroupsChanged"
+                                                        object:nil
+                                                      userInfo:nil];
+    
+	
+    [[UIApplication sharedApplication] setApplicationIconBadgeNumber:[alertCount unsignedIntegerValue]];
 }
 							
 - (void)applicationWillResignActive:(UIApplication *)application
@@ -58,6 +103,18 @@
 - (void)applicationWillTerminate:(UIApplication *)application
 {
     // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
+}
+
+- (void)application:(UIApplication*)application didRegisterForRemoteNotificationsWithDeviceToken:(NSData*)deviceToken
+{
+    [pLAppUtils setDeviceToken:[deviceToken description]];
+	NSLog(@"My token is: %@", deviceToken);
+    NSLog(@"AppUtils token is: %@", [pLAppUtils devicetoken]);
+}
+
+- (void)application:(UIApplication*)application didFailToRegisterForRemoteNotificationsWithError:(NSError*)error
+{
+	NSLog(@"Failed to get token, error: %@", error);
 }
 
 @end

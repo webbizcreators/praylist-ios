@@ -22,6 +22,9 @@
 @synthesize newgrouptype;
 
 NSMutableArray *groupmembers;
+NSMutableArray *groupinvitees;
+NSMutableArray *grouprequestors;
+NSMutableArray *listOfItems;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -33,26 +36,62 @@ NSMutableArray *groupmembers;
 }
 
 
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
+    
+    return [listOfItems count];
+}
 
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return [groupmembers count];
+    
+    NSDictionary *dictionary = [listOfItems objectAtIndex:section];
+    NSArray *array = [dictionary objectForKey:@"People"];
+    return [array count];
+    
+}
+
+- (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section {
+    
+    if(section == 0){
+        return @"Invited";
+    }
+    else if(section == 1){
+        return @"Requested";
+    }
+    else{
+        return @"Members";
+    }
 }
 
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     
-    static NSString *CellIdentifier = @"groupmember";
     
-    pLGroupMemberCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
-
+    if(indexPath.section == 1){
     
-    NSString * c;
-    c = (NSString*)[groupmembers objectAtIndex:indexPath.row];
-    cell.img.image = [pLAppUtils userimgFromEmail: c];
-    cell.username.text = [pLAppUtils fullnamefromEmail:c];
+        pLGroupMemberCell *cell = [tableView dequeueReusableCellWithIdentifier:@"requestorgroupmember"];
+        
+        NSDictionary *dictionary = [listOfItems objectAtIndex:indexPath.section];
+        NSArray *array = [dictionary objectForKey:@"People"];
+        NSString *c = [array objectAtIndex:indexPath.row];
+        cell.img.image = [pLAppUtils userimgFromEmail: c];
+        cell.username.text = [pLAppUtils fullnamefromEmail:c];
+        cell.email = c;
+        return cell;
     
-    return cell;
+    }
+    else{
+        pLGroupMemberCell *cell = [tableView dequeueReusableCellWithIdentifier:@"groupmember"];
+        
+        NSDictionary *dictionary = [listOfItems objectAtIndex:indexPath.section];
+        NSArray *array = [dictionary objectForKey:@"People"];
+        NSString *c = [array objectAtIndex:indexPath.row];
+        cell.img.image = [pLAppUtils userimgFromEmail: c];
+        cell.username.text = [pLAppUtils fullnamefromEmail:c];
+        cell.email = c;
+        return cell;
+        
+    }
     
 }
 
@@ -69,6 +108,7 @@ NSMutableArray *groupmembers;
     gp.groupname = groupname.text;
     gp.orgid = [pLAppUtils securitytoken].orgid;
     gp.groupmembers = groupmembers;
+        gp.invitees = groupinvitees;
     gp.grouptype = newgrouptype;
     
     [[RKObjectManager sharedManager] putObject:gp path: nil parameters: nil success:^( RKObjectRequestOperation *operation , RKMappingResult *mappingResult){
@@ -97,6 +137,8 @@ NSMutableArray *groupmembers;
         
         gp.groupname = groupname.text;
         gp.groupmembers = groupmembers;
+        gp.invitees = groupinvitees;
+        gp.requestors = grouprequestors;
         
         [[RKObjectManager sharedManager] postObject:gp path: nil parameters: nil success:^( RKObjectRequestOperation *operation , RKMappingResult *mappingResult){
             
@@ -142,6 +184,8 @@ NSMutableArray *groupmembers;
     if(group){
         groupname.text = group.groupname;
         groupmembers = [NSMutableArray arrayWithArray:group.groupmembers];
+        groupinvitees = [NSMutableArray arrayWithArray:group.invitees];
+        grouprequestors = [NSMutableArray arrayWithArray:group.requestors];
         if([group.grouptype isEqualToString:@"Private"]){
             grouptypeicon.image = [UIImage imageNamed:@"privategroupicon_title.png"];
             grouptypedescription.text = @"Private Group";
@@ -163,6 +207,7 @@ NSMutableArray *groupmembers;
         }
         
         groupmembers = [[NSMutableArray alloc]init];
+        groupinvitees = [[NSMutableArray alloc]init];
     }
     
     
@@ -171,12 +216,37 @@ NSMutableArray *groupmembers;
                                                  name:@"GroupMemberControllerDismissed"
                                                object:nil];
     
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(memberapprove:)
+                                                 name:@"MemberApprove"
+                                               object:nil];
+    
+    listOfItems = [[NSMutableArray alloc] init];
+    
 
+    NSDictionary *membersdict = [NSDictionary dictionaryWithObject:groupmembers forKey:@"People"];
+    NSDictionary *inviteesdict = [NSDictionary dictionaryWithObject:groupinvitees forKey:@"People"];
+    NSDictionary *requestorsdict = [NSDictionary dictionaryWithObject:grouprequestors forKey:@"People"];
+    
+    [listOfItems addObject:inviteesdict];
+    [listOfItems addObject:requestorsdict];
+    [listOfItems addObject:membersdict];
     
 }
 
 
-
+- (void)memberapprove:(NSNotification *)membercell {
+    
+    id cellid=[membercell object];
+    pLGroupMemberCell*cell = (pLGroupMemberCell*)cellid;
+    NSString*email = cell.email;
+    
+    [grouprequestors removeObject:email];
+    [groupmembers addObject:email];
+    [groupmembertableView reloadData];
+    
+    
+}
 
 - (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath
 {
@@ -204,7 +274,7 @@ NSMutableArray *groupmembers;
         
         pLSelectGroupMemberViewController *vc = [segue destinationViewController];
         
-        vc.groupmembersadd = groupmembers;
+        vc.groupmembersadd = groupinvitees;
         
     }
     

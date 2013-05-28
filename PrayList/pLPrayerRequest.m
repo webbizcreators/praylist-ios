@@ -21,6 +21,7 @@
 @synthesize orgid;
 @synthesize peopleprayed;
 @synthesize answer;
+@synthesize commentcount;
 
 
 -(NSDate *) requestdate

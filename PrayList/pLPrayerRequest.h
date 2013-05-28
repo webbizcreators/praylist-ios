@@ -20,5 +20,6 @@
 @property (nonatomic, retain) NSString* orgid;
 @property (nonatomic, retain) NSArray* peopleprayed;
 @property (nonatomic, retain) NSString* answer;
+@property (nonatomic, retain) NSNumber* commentcount;
 
 @end

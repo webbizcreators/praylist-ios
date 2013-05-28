@@ -15,6 +15,8 @@
 #import "pLPerson.h"
 #import "pLResponse.h"
 #import "pLComment.h"
+#import "pLNotification.h"
+#import "pLNotificationCount.h"
 
 
 @implementation pLAppUtils
@@ -22,6 +24,9 @@
 pLSecurityToken* st = nil;
 NSMutableDictionary *userImages;
 NSMutableDictionary *contacts;
+NSMutableArray *notifications;
+NSNumber *notifcount;
+NSString *dt = @"";
 
 +(NSArray*)getcontacts{
     NSArray*contactsarray = [contacts allValues];
@@ -36,6 +41,30 @@ NSMutableDictionary *contacts;
     return contactsarray;
     
 }
+
++(NSString*)devicetoken
+{
+    return dt;
+}
+
++(void)setDeviceToken:(NSString *)dtt
+{
+    dt = dtt;
+}
+
+
++(NSNumber*)notifcount
+{
+    return notifcount;
+}
+
++(void)setNotifCount:(NSNumber *)dtt
+{
+    notifcount = dtt;
+}
+
+
+
 
 +(pLSecurityToken*) securitytoken
 {
@@ -120,14 +149,13 @@ NSMutableDictionary *contacts;
     
     NSMutableIndexSet *datastatuscodes = [NSMutableIndexSet indexSetWithIndex:200];
     
-    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
-    [dateFormatter setDateStyle:NSDateFormatterMediumStyle];
-    [dateFormatter setTimeStyle:NSDateFormatterNoStyle];
+    NSDateFormatter *dateFormatter = [NSDateFormatter new];
+    [dateFormatter setDateFormat:@"yyyy-MM-dd'T'HH:mm:ss.SSS'Z'"];
+    dateFormatter.timeZone = [NSTimeZone timeZoneWithAbbreviation:@"UTC"];
+    dateFormatter.locale = [[NSLocale alloc] initWithLocaleIdentifier:@"en_US_POSIX"];
     
-    
-    NSTimeZone *PST = [NSTimeZone timeZoneWithAbbreviation:@"PST"];
-    [RKObjectMapping addDefaultDateFormatterForString:@"MM-dd-yyyy" inTimeZone:PST];
-    
+    // Set it Globally
+    [RKObjectMapping setPreferredDateFormatter:dateFormatter];
     
     
     RKObjectManager *objectManager = [RKObjectManager sharedManager];
@@ -145,6 +173,7 @@ NSMutableDictionary *contacts;
      @"requestdate":@"requestdate",
      @"praycount":@"praycount",
      @"iprayed":@"iprayed",
+     @"commentcount":@"commentcount",
      }];
     
     RKResponseDescriptor *responseDescriptor = [RKResponseDescriptor responseDescriptorWithMapping:responseMapping
@@ -167,6 +196,7 @@ NSMutableDictionary *contacts;
     [requestMapping addAttributeMappingsFromDictionary:@{
      @"email": @"email",
      @"password": @"password",
+     @"devicetoken": @"devicetoken",
      }];
     
     
@@ -241,6 +271,7 @@ NSMutableDictionary *contacts;
      @"orgid":@"orgid",
      @"peopleprayed":@"peopleprayed",
      @"answer":@"answer",
+     @"commentcount":@"commentcount",
      }];
     
     responseDescriptor = [RKResponseDescriptor responseDescriptorWithMapping:responseMapping
@@ -280,6 +311,7 @@ NSMutableDictionary *contacts;
      @"orgid":@"orgid",
      @"peopleprayed":@"peopleprayed",
      @"answer":@"answer",
+     @"commentcount":@"commentcount",
      }];
     
     
@@ -468,6 +500,7 @@ NSMutableDictionary *contacts;
     responseMapping = [RKObjectMapping mappingForClass:[pLComment class]];
     [responseMapping addAttributeMappingsFromDictionary:@{
      @"email": @"email",
+     @"requestemail": @"requestemail",
      @"requestid": @"requestid",
      @"commentid": @"commentid",
      @"commenttext": @"commenttext",
@@ -475,7 +508,7 @@ NSMutableDictionary *contacts;
      }];
     
     responseDescriptor = [RKResponseDescriptor responseDescriptorWithMapping:responseMapping
-                                                                 pathPattern:@"prayerrequests/:email/:requestid/comments"
+                                                                 pathPattern:@"prayerrequests/:requestemail/:requestid/comments"
                                                                      keyPath: nil
                                                                  statusCodes:datastatuscodes];
     
@@ -486,6 +519,7 @@ NSMutableDictionary *contacts;
     requestMapping = [RKObjectMapping requestMapping];
     [requestMapping addAttributeMappingsFromDictionary:@{
      @"email": @"email",
+     @"requestemail": @"requestemail",
      @"requestid": @"requestid",
      @"commentid": @"commentid",
      @"commenttext": @"commenttext",
@@ -504,7 +538,7 @@ NSMutableDictionary *contacts;
     
     [objectManager.router.routeSet addRoute:[RKRoute
                                              routeWithClass:[pLComment class]
-                                             pathPattern:@"prayerrequests/:email/:requestid/comments"
+                                             pathPattern:@"prayerrequests/:requestemail/:requestid/comments"
                                              method:RKRequestMethodPUT]];
     
     
@@ -513,7 +547,46 @@ NSMutableDictionary *contacts;
     //******************************************************************
     
     
+    //pLNotification ********************************************
+    responseMapping = [RKObjectMapping mappingForClass:[pLNotification class]];
+    [responseMapping addAttributeMappingsFromDictionary:@{
+     @"email": @"email",
+     @"notificationdate": @"notificationdate",
+     @"notiftext": @"notiftext",
+     @"entityid": @"entityid",
+     @"openedflag": @"openedflag",
+     @"fromemail": @"fromemail",
+     @"notiftype": @"notiftype",
+     }];
     
+    responseDescriptor = [RKResponseDescriptor responseDescriptorWithMapping:responseMapping
+                                                                 pathPattern:@"notifications/:email"
+                                                                     keyPath: nil
+                                                                 statusCodes:[NSIndexSet indexSetWithIndex:200]];
+    
+    [objectManager addResponseDescriptor: responseDescriptor];
+    
+    
+    //*************************************************************
+    
+    
+    
+    //pLNotificationCount ********************************************
+    responseMapping = [RKObjectMapping mappingForClass:[pLNotificationCount class]];
+    [responseMapping addAttributeMappingsFromDictionary:@{
+     @"email": @"email",
+     @"count": @"count",
+     }];
+    
+    responseDescriptor = [RKResponseDescriptor responseDescriptorWithMapping:responseMapping
+                                                                 pathPattern:@"notifications/:email/count"
+                                                                     keyPath: nil
+                                                                 statusCodes:[NSIndexSet indexSetWithIndex:200]];
+    
+    [objectManager addResponseDescriptor: responseDescriptor];
+    
+    
+    //*************************************************************
     
     
     
@@ -606,6 +679,60 @@ NSMutableDictionary *contacts;
     
 }
 
++(void)loadnotifcount{
+
+    
+    NSString *objectpath = @"notifications/";
+    NSString *path = [[objectpath stringByAppendingString: [pLAppUtils securitytoken].email] stringByAppendingString:@"/count"];
+    
+    
+    [[RKObjectManager sharedManager] getObjectsAtPath:path
+                                           parameters:nil
+     
+                                              success:^(RKObjectRequestOperation *operation, RKMappingResult *mappingResult) {
+                                                  
+                                                  pLNotificationCount*cnt = mappingResult.firstObject;
+                                                  
+                                                  if(cnt){
+                                                      notifcount=cnt.count;
+                                                  }
+                                                  
+                                                  
+                                              }
+                                              failure:^(RKObjectRequestOperation *operation, NSError *error) {
+                                                  NSLog(@"Encountered an error: %@", error);
+                                              }];
+    
+}
+
+
+
++(void)clearnotifs{
+
+    
+    NSString *objectpath = @"notifications/";
+    NSString *path = [[objectpath stringByAppendingString: [pLAppUtils securitytoken].email] stringByAppendingString:@"/clearcount"];
+    
+    
+    [[RKObjectManager sharedManager] getObjectsAtPath:path
+                                           parameters:nil
+     
+                                              success:^(RKObjectRequestOperation *operation, RKMappingResult *mappingResult) {
+                                                  
+                                                  notifcount = [NSNumber numberWithInt:0];
+                                                  [[UIApplication sharedApplication] setApplicationIconBadgeNumber:0];
+                                                  
+                                                  [[NSNotificationCenter defaultCenter] postNotificationName:@"NotificationUpdate"
+                                                                                                      object:nil
+                                                                                                    userInfo:nil];
+                                                  
+                                              }
+                                              failure:^(RKObjectRequestOperation *operation, NSError *error) {
+                                                  NSLog(@"Encountered an error: %@", error);
+                                              }];
+    
+}
+
 +(UIActivityIndicatorView*)addspinnertoview:(UIView*)view{
     
     UIActivityIndicatorView *spinner;
@@ -637,11 +764,11 @@ NSMutableDictionary *contacts;
     
     if([commentcount compare:[NSNumber numberWithInt:0]]==NSOrderedDescending){
         if([commentcount compare:[NSNumber numberWithInt:1]]==NSOrderedSame){
-            [retval stringByAppendingString:[[commentcount stringValue] stringByAppendingString:@" comment."]];
+            retval = [retval stringByAppendingString:[[commentcount stringValue] stringByAppendingString:@" comment."]];
         }
         else
         {
-            [retval stringByAppendingString:[[commentcount stringValue] stringByAppendingString:@" comments."]];
+            retval = [retval stringByAppendingString:[[commentcount stringValue] stringByAppendingString:@" comments."]];
         }
     }
     

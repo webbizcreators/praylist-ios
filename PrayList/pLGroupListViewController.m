@@ -60,6 +60,11 @@ UIImage *publicimg;
                                                  name:@"RequestGroup"
                                                object:nil];
     
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(loadgroups)
+                                                 name:@"GroupsChanged"
+                                               object:nil];
+    
     [self loadGroups];
 
 	// Do any additional setup after loading the view.
@@ -75,20 +80,137 @@ UIImage *publicimg;
     pLGroup*c;
     
     if(typeselect.selectedSegmentIndex==0){
-    
+        c = (pLGroup*)[privategroups objectAtIndex:indexPath.row];
     }
     else{
         c = (pLGroup*)[publicgroups objectAtIndex:indexPath.row];
-        NSMutableArray*ar = [NSMutableArray arrayWithArray:c.groupmembers];
-        [ar addObject:[pLAppUtils securitytoken].email];
-        c.groupmembers = ar;
-        
     }
     
     
+    if([c.grouptype isEqualToString:@"Private"]){
+        if ([c.invitees containsObject:[pLAppUtils securitytoken].email]){
+   
+            NSString *objectpath = @"groups/";
+            NSString *path = [[[[objectpath stringByAppendingString: [pLAppUtils securitytoken].orgid] stringByAppendingString:@"/"] stringByAppendingString:c.groupid] stringByAppendingString:@"/join"];
+            [spinner startAnimating];
+            
+            [[RKObjectManager sharedManager] getObjectsAtPath:path
+                                                   parameters:nil
+             
+                                                      success:^(RKObjectRequestOperation *operation, RKMappingResult *mappingResult) {
+                                                          
+                                                          NSMutableArray*ar = [NSMutableArray arrayWithArray:c.groupmembers];
+                                                          [ar addObject:[pLAppUtils securitytoken].email];
+                                                          c.groupmembers = ar;
+                                                          [tableView reloadRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationNone];
+                                                          [spinner stopAnimating];
+                                                          
+                                                      }
+                                                      failure:^(RKObjectRequestOperation *operation, NSError *error) {
+                                                          NSLog(@"Encountered an error: %@", error);
+                                                          [spinner stopAnimating];
+                                                      }];
+
+            
+        }
+        else if ([c.groupmembers containsObject:[pLAppUtils securitytoken].email]){
+                NSString *objectpath = @"groups/";
+                NSString *path = [[[[objectpath stringByAppendingString: [pLAppUtils securitytoken].orgid] stringByAppendingString:@"/"] stringByAppendingString:c.groupid] stringByAppendingString:@"/leave"];
+                [spinner startAnimating];
+                
+                [[RKObjectManager sharedManager] getObjectsAtPath:path
+                                                       parameters:nil
+                 
+                                                          success:^(RKObjectRequestOperation *operation, RKMappingResult *mappingResult) {
+                                                              
+                                                              NSMutableArray*ar = [NSMutableArray arrayWithArray:c.groupmembers];
+                                                              [ar removeObject:[pLAppUtils securitytoken].email];
+                                                              c.groupmembers = ar;
+                                                              [tableView reloadRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationNone];
+                                                              [spinner stopAnimating];
+                                                              
+                                                          }
+                                                          failure:^(RKObjectRequestOperation *operation, NSError *error) {
+                                                              NSLog(@"Encountered an error: %@", error);
+                                                              [spinner stopAnimating];
+                                                          }];
+        }
+        else {
+            
+                NSString *objectpath = @"groups/";
+                NSString *path = [[[[objectpath stringByAppendingString: [pLAppUtils securitytoken].orgid] stringByAppendingString:@"/"] stringByAppendingString:c.groupid] stringByAppendingString:@"/request"];
+                [spinner startAnimating];
+                
+                [[RKObjectManager sharedManager] getObjectsAtPath:path
+                                                       parameters:nil
+                 
+                                                          success:^(RKObjectRequestOperation *operation, RKMappingResult *mappingResult) {
+                                                              
+                                                              NSMutableArray*ar = [NSMutableArray arrayWithArray:c.requestors];
+                                                              [ar addObject:[pLAppUtils securitytoken].email];
+                                                              c.requestors = ar;
+                                                              [tableView reloadRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationNone];
+                                                              [spinner stopAnimating];
+                                                              
+                                                          }
+                                                          failure:^(RKObjectRequestOperation *operation, NSError *error) {
+                                                              NSLog(@"Encountered an error: %@", error);
+                                                              [spinner stopAnimating];
+                                                          }];
+            
+        }
+    }
+    else
+    {
+        if ([c.groupmembers containsObject:[pLAppUtils securitytoken].email]){
+            NSString *objectpath = @"groups/";
+            NSString *path = [[[[objectpath stringByAppendingString: [pLAppUtils securitytoken].orgid] stringByAppendingString:@"/"] stringByAppendingString:c.groupid] stringByAppendingString:@"/leave"];
+            [spinner startAnimating];
+            
+            [[RKObjectManager sharedManager] getObjectsAtPath:path
+                                                   parameters:nil
+             
+                                                      success:^(RKObjectRequestOperation *operation, RKMappingResult *mappingResult) {
+                                                          
+                                                          NSMutableArray*ar = [NSMutableArray arrayWithArray:c.groupmembers];
+                                                          [ar removeObject:[pLAppUtils securitytoken].email];
+                                                          c.groupmembers = ar;
+                                                          [tableView reloadRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationNone];
+                                                          [spinner stopAnimating];
+                                                          
+                                                      }
+                                                      failure:^(RKObjectRequestOperation *operation, NSError *error) {
+                                                          NSLog(@"Encountered an error: %@", error);
+                                                          [spinner stopAnimating];
+                                                      }];
+        }
+        else {
+            
+            NSString *objectpath = @"groups/";
+            NSString *path = [[[[objectpath stringByAppendingString: [pLAppUtils securitytoken].orgid] stringByAppendingString:@"/"] stringByAppendingString:c.groupid] stringByAppendingString:@"/join"];
+            [spinner startAnimating];
+            
+            [[RKObjectManager sharedManager] getObjectsAtPath:path
+                                                   parameters:nil
+             
+                                                      success:^(RKObjectRequestOperation *operation, RKMappingResult *mappingResult) {
+                                                          
+                                                          NSMutableArray*ar = [NSMutableArray arrayWithArray:c.groupmembers];
+                                                          [ar addObject:[pLAppUtils securitytoken].email];
+                                                          c.groupmembers = ar;
+                                                          [tableView reloadRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationNone];
+                                                          [spinner stopAnimating];
+                                                          
+                                                      }
+                                                      failure:^(RKObjectRequestOperation *operation, NSError *error) {
+                                                          NSLog(@"Encountered an error: %@", error);
+                                                          [spinner stopAnimating];
+                                                      }];
+        }
+            
+    }
     
     
-    [tableView reloadRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationNone];
     
 }
 
@@ -184,7 +306,10 @@ UIImage *publicimg;
         else if ([c.groupmembers containsObject:[pLAppUtils securitytoken].email]){
             cell = (pLGroupCell *)[tableView dequeueReusableCellWithIdentifier: @"leavegroupcell"];
         }
-        else {
+        else if ([c.requestors containsObject:[pLAppUtils securitytoken].email]){
+            cell = (pLGroupCell *)[tableView dequeueReusableCellWithIdentifier: @"requestedgroupcell"];
+        }
+        else{
             cell = (pLGroupCell *)[tableView dequeueReusableCellWithIdentifier: @"requestgroupcell"];
         }
         
@@ -242,6 +367,11 @@ UIImage *publicimg;
 {
     [self performSegueWithIdentifier: @"addGroup" sender: addpublicgroupbtn];
     buttonview.hidden=YES;
+}
+
+-(IBAction)refreshgroups:(id)sender
+{
+    [self loadGroups];
 }
 
 

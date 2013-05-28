@@ -11,6 +11,7 @@
 @interface pLComment : NSObject
 
 @property (nonatomic, retain) NSString* email;
+@property (nonatomic, retain) NSString* requestemail;
 @property (nonatomic, retain) NSString* requestid;
 @property (nonatomic, retain) NSString* commentid;
 @property (nonatomic, retain) NSString* commenttext;

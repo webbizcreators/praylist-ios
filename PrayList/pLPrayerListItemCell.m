@@ -19,13 +19,14 @@
 @synthesize requestid;
 @synthesize praybutton;
 @synthesize listitem;
+@synthesize requeststats;
 
-pLSecondViewController*tvc;
+pLSecondViewController*tvc2;
 
 
 - (void) configureView:(pLPrayerRequestListItem*)li inTableViewController:(pLSecondViewController*)_tvc;
 {
-    tvc = _tvc;
+    tvc2 = _tvc;
     listitem = li;
 }
 
@@ -48,13 +49,13 @@ pLSecondViewController*tvc;
 
 
 - (IBAction)opencomments:(UIButton *)sender {
-    [tvc performSegueWithIdentifier:@"showComments" sender:self];
+    [tvc2 performSegueWithIdentifier:@"showComments" sender:self];
 }
 
 
 
 -(IBAction)prayFor:(id)sender{
-    NSNumber *pb = listitem.iprayed;
+    
     
     if(![listitem.iprayed isEqualToNumber:[NSNumber numberWithInt:1]]){
     
@@ -68,9 +69,11 @@ pLSecondViewController*tvc;
                                                   
                                                   pLResponse *result = mappingResult.firstObject;
                                                   
-                                                  if([@"Prayed" isEqualToString:result.description]){
+                                                  
                                                       [praybutton setHighlighted:YES];
-                                                  }
+                                                      listitem.iprayed = [NSNumber numberWithInt:1];
+                                                      listitem.praycount = [NSNumber numberWithFloat:([listitem.praycount floatValue] + [[NSNumber numberWithInt:1] floatValue])];
+                                                  
                                                   
                                               }
                                               failure:^(RKObjectRequestOperation *operation, NSError *error) {
@@ -90,9 +93,10 @@ pLSecondViewController*tvc;
                                                       
                                                       pLResponse *result = mappingResult.firstObject;
                                                       
-                                                      if([@"Unprayed" isEqualToString:result.description]){
+                                                      
                                                           [praybutton setHighlighted:NO];
-                                                      }
+                                                          listitem.iprayed = [NSNumber numberWithInt:0];
+                                                      
                                                       
                                                   }
                                                   failure:^(RKObjectRequestOperation *operation, NSError *error) {

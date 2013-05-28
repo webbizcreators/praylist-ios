@@ -28,12 +28,12 @@
 @property (nonatomic, retain) IBOutlet UIImageView *img;
 @property (nonatomic, retain) IBOutlet UIButton *praybutton;
 @property (nonatomic, retain) IBOutlet UIButton *commentbutton;
-
+@property (nonatomic, retain) IBOutlet UILabel *requeststats;
 @property (nonatomic, retain) NSString *requestoremail;
 @property (nonatomic, retain) NSString *requestid;
 @property (nonatomic, retain) pLPrayerRequestListItem* listitem;
 
-- (void) configureView:(pLPrayerRequestListItem*)listitem inTableViewController:(pLSecondViewController*)_tvc;
+- (void) configureView:(pLPrayerRequestListItem*)li inTableViewController:(pLSecondViewController*)_tvc;
 
 
 @end

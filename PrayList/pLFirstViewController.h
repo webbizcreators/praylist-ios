@@ -14,6 +14,7 @@
     
     IBOutlet UITableView *vartableView;
     IBOutlet UIBarButtonItem *addbutton;
+    IBOutlet UIButton *notifbutton;
     
     EGORefreshTableHeaderView *refreshHeaderView;
     

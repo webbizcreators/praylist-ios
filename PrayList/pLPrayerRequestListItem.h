@@ -15,7 +15,7 @@
 @property (nonatomic, retain) NSString* requestoremail;
 @property (nonatomic, retain) NSString* requesttext;
 @property (nonatomic, retain) NSDate* requestdate;
-
+@property (nonatomic, retain) NSNumber* commentcount;
 @property (nonatomic, retain) NSNumber* praycount;
 @property (nonatomic, retain) NSNumber* iprayed;
 

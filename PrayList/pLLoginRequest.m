@@ -12,5 +12,6 @@
 
 @synthesize email;
 @synthesize password;
+@synthesize devicetoken;
 
 @end

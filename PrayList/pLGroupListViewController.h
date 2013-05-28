@@ -15,6 +15,7 @@
     IBOutlet UIView *buttonview;
     IBOutlet UIButton *addprivategroupbtn;
     IBOutlet UIButton *addpublicgroupbtn;
+    IBOutlet UIButton *refreshbutton;
     
 }
 

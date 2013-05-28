@@ -12,6 +12,10 @@
 #import "pLSecurityToken.h"
 #import "pLAppUtils.h"
 #import "pLRequestCommentViewController.h"
+#import "BarButtonBadge.h"
+#import "CustomBadge.h"
+#import "pLNotificationsPopupViewController.h"
+#import "FPPopoverController.h"
 
 #define FONT_SIZE 11.0f
 #define CELL_CONTENT_WIDTH 297.0f
@@ -27,6 +31,7 @@
 
 @implementation pLSecondViewController
 
+NSDate *lastdataload;
 NSArray *prayerrequests2;
 UIActivityIndicatorView *spinner;
 
@@ -48,9 +53,84 @@ UIActivityIndicatorView *spinner;
 	[tableView addSubview:refreshHeaderView];
 	tableView.showsVerticalScrollIndicator = YES;
     
+
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(updateNotificationBadge)
+                                                 name:@"NotificationUpdate"
+                                               object:nil];
+
+    
     [self loadData];
     
 }
+
+- (void)updateNotificationBadge{
+    
+    for (UIView *subView in notifbutton.subviews)
+    {
+        if ([subView isKindOfClass:[CustomBadge class]])
+        {
+            [subView removeFromSuperview];
+        }
+    }
+    
+    NSNumber *notifcount = [pLAppUtils notifcount];
+    if([notifcount unsignedIntValue]>0){
+        [BarButtonBadge addBadgetoButton:notifbutton badgeString: [notifcount stringValue] atRight:NO];
+    }
+}
+
+
+- (void)viewWillAppear:(BOOL)animated {
+    
+    NSDate*now=[[NSDate alloc]init];
+    double intervalInSeconds = [now timeIntervalSinceDate:lastdataload];
+    
+    if(intervalInSeconds>10){
+        [self loadData];
+    }
+    
+    [self updateNotificationBadge];
+    
+}
+
+
+-(IBAction)opennotifs:(id)sender{
+    
+    for (UIView *subView in notifbutton.subviews)
+    {
+        if ([subView isKindOfClass:[CustomBadge class]])
+        {
+            [subView removeFromSuperview];
+        }
+    }
+    
+    [pLAppUtils clearnotifs];
+    [[UIApplication sharedApplication] setApplicationIconBadgeNumber:0];
+    
+    NSArray *nib = [[NSBundle mainBundle] loadNibNamed:@"NotificationsPopupView" owner:self options:nil];
+    pLNotificationsPopupViewController*controller;
+    
+    for (id oneObject in nib)
+        if ([oneObject isKindOfClass:[pLNotificationsPopupViewController class]])
+            
+            controller = (pLNotificationsPopupViewController *)oneObject;
+    
+    controller.title = @"Notifications";
+    //our popover
+    FPPopoverController *popover = [[FPPopoverController alloc] initWithViewController:controller];
+    
+    popover.contentSizeForViewInPopover = CGSizeMake(280,350);
+    popover.contentSize = CGSizeMake(280,350);
+    
+    //the popover will be presented from the okButton view
+    [popover presentPopoverFromView:notifbutton.subviews[0]];
+    
+    
+    
+    
+}
+
 
 
 -(void)loadData{
@@ -74,13 +154,14 @@ UIActivityIndicatorView *spinner;
                                                       prayerrequests2 = [prayerrequests2 sortedArrayUsingDescriptors:sortDescriptors];
                                                       
                                                   }
-                                                  [spinner stopAnimating];
+                                                  lastdataload = [[NSDate alloc]init];
                                                   [tableView reloadData];
                                                   [self dataSourceDidFinishLoadingNewData];
                                                   
                                               }
                                               failure:^(RKObjectRequestOperation *operation, NSError *error) {
                                                   NSLog(@"Encountered an error: %@", error);
+                                                  [self dataSourceDidFinishLoadingNewData];
                                               }];
     
 
@@ -163,6 +244,7 @@ UIActivityIndicatorView *spinner;
     cell.requestid = pRequest.requestid;
     cell.requestoremail = pRequest.requestoremail;
     cell.requesttext.text = pRequest.requesttext;
+    cell.requeststats.text = [pLAppUtils calculaterequeststats:pRequest.praycount commentcount:pRequest.commentcount];
     
     NSLog(@"Title Label: %@", [[cell.praybutton titleLabel] text ]);
     
@@ -203,7 +285,7 @@ UIActivityIndicatorView *spinner;
     
     CGFloat height = MAX(size.height, 19.0f);
     
-    return height + 110;
+    return height + 130;
 }
 
 
@@ -264,6 +346,7 @@ UIActivityIndicatorView *spinner;
         
         // Pass any objects to the view controller here, like...
         pLPrayerListItemCell * lic = (pLPrayerListItemCell*)sender;
+        vc.prayerrequest = NULL;
         vc.prayerrequestlistitem = lic.listitem;
         
 

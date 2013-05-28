@@ -9,12 +9,15 @@
 #import "pLSelectGroupforPostViewController.h"
 #import "pLAppUtils.h"
 #import "pLGroup.h"
+#import "pLGroupCell.H"
 
 @implementation pLSelectGroupforPostViewController
 
 @synthesize destgroupArray;
 @synthesize sourcegroups;
 
+UIImage *privateimg;
+UIImage *publicimg;
 
 - (void)viewDidLoad
 {
@@ -24,6 +27,9 @@
     [[UIImage imageNamed:@"background_iPhone5"] drawInRect:self.view.bounds];
     UIImage *image = UIGraphicsGetImageFromCurrentImageContext();
     UIGraphicsEndImageContext();
+    
+    privateimg = [UIImage imageNamed:@"privategroupicon.png"];
+    publicimg = [UIImage imageNamed:@"publicgroupicon.png"];
     
     self.view.backgroundColor = [UIColor colorWithPatternImage:image];
     
@@ -95,15 +101,25 @@
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     static NSString *CellIdentifier = @"Cell";
     
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
+    pLGroupCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
     if (cell == nil) {
-        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
+        cell = [[pLGroupCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
     }
     
     // Set the data for this cell:
     pLGroup * c;
     c = (pLGroup*)[sourcegroups objectAtIndex:indexPath.row];
-    cell.textLabel.text = c.groupname;
+    
+    cell.groupname.text = c.groupname;
+    cell.groupdesc.text = @"";
+    
+    if([c.grouptype isEqualToString:@"Private"]){
+        cell.img.image = privateimg;
+    }
+    else if ([c.grouptype isEqualToString:@"Public"]){
+        cell.img.image = publicimg;
+    }
+    
     
     int selectedindex = [destgroupArray indexOfObject:c];
     

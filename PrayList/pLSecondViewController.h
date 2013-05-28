@@ -13,7 +13,7 @@
 @interface pLSecondViewController : UIViewController <UITableViewDelegate>{
     
     IBOutlet UITableView *tableView;
-    
+    IBOutlet UIButton *notifbutton;
     EGORefreshTableHeaderView *refreshHeaderView;
     
 	BOOL checkForRefresh;

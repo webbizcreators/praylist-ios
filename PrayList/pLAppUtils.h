@@ -22,5 +22,11 @@
 +(NSString*)calculaterequeststats:(NSNumber*)praycount commentcount:(NSNumber*)commentcount;
 +(NSString*)fullnamefromEmail:(NSString*)email;
 +(NSArray*)getcontacts;
++(NSString*)devicetoken;
++(void)setDeviceToken:(NSString *)dtt;
++(void)setNotifCount:(NSNumber *)dtt;
++(NSNumber*)notifcount;
++(void)clearnotifs;
++(void)loadnotifcount;
 
 @end

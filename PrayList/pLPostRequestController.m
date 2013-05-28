@@ -82,11 +82,17 @@ UIActivityIndicatorView *spinner;
 
 -(IBAction)postbutton:(id)sender{
     
+    if([selectedgroups count]==0){
+    
+    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:nil message:@"Please select at least one group or person to send this prayer request to." delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil]; [alert show];
+    
+    }else
+    {
     [spinner startAnimating];
     
     NSMutableArray *groupids = [[NSMutableArray alloc]init];
     
-    for(pLGroup *cr in sourcegroups){
+    for(pLGroup *cr in selectedgroups){
         [groupids addObject:cr.groupid];
     }
     
@@ -114,7 +120,7 @@ UIActivityIndicatorView *spinner;
                                            
                                            
                                        }];
-    
+    }
     
 }
 

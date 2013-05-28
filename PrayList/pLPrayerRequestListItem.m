@@ -15,7 +15,7 @@
 @synthesize requestoremail;
 @synthesize requesttext;
 @synthesize requestdate;
-
+@synthesize commentcount;
 @synthesize praycount;
 @synthesize iprayed;
 

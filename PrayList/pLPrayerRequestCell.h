@@ -8,6 +8,8 @@
 
 #import <Foundation/Foundation.h>
 #import <QuartzCore/QuartzCore.h>
+#import "pLPrayerRequest.h"
+#import "pLFirstViewController.h"
 
 @interface pLPrayerRequestCell : UITableViewCell{
     
@@ -27,5 +29,8 @@
 @property (nonatomic, retain) IBOutlet UILabel *requestdate;
 @property (nonatomic, retain) IBOutlet UIImageView *img;
 @property (nonatomic, retain) IBOutlet UIView * mainview;
+@property (nonatomic, retain) pLPrayerRequest* listitem;
+
+- (void) configureView:(pLPrayerRequest*)li inTableViewController:(pLFirstViewController*)_tvc;
 
 @end

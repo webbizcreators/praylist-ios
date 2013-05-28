@@ -169,7 +169,7 @@ UIActivityIndicatorView *spinner;
             
             pLPrayerRequest *pRequest = prayerrequest;
             
-            pcell.requesttitle.text= pRequest.requestoremail;
+            pcell.requesttitle.text= [pLAppUtils fullnamefromEmail:pRequest.requestoremail];
             pcell.requesttext.text = pRequest.requesttext;
             pcell.requestdate.text = [pLAppUtils formatPostDate:pRequest.requestdate];
             pcell.img.image = [pLAppUtils userimgFromEmail: pRequest.requestoremail];
@@ -353,21 +353,33 @@ UIActivityIndicatorView *spinner;
 
         
         pLComment *comm = [[pLComment alloc] init];
+    
         
         comm.email = [pLAppUtils securitytoken].email;
         comm.commenttext = commentfield.text;
         comm.commentdate = [[NSDate alloc]init];
         if(prayerrequestlistitem){
             comm.requestid = prayerrequestlistitem.requestid;
+            comm.requestemail = prayerrequestlistitem.requestoremail;
         }
         else
         {
             comm.requestid = prayerrequest.requestid;
+            comm.requestemail = prayerrequest.requestoremail;
         }
     
         [[RKObjectManager sharedManager] putObject:comm path: nil parameters: nil success:^( RKObjectRequestOperation *operation , RKMappingResult *mappingResult){
             
             if(mappingResult.array.count>0){
+                
+                if(prayerrequestlistitem){
+                    prayerrequestlistitem.commentcount = [NSNumber numberWithFloat:([prayerrequestlistitem.commentcount floatValue] + [[NSNumber numberWithInt:1] floatValue])];
+                }
+                else{
+                    prayerrequest.commentcount = [NSNumber numberWithFloat:([prayerrequest.commentcount floatValue] + [[NSNumber numberWithInt:1] floatValue])];
+                }
+                
+                
                 
                 [spinner stopAnimating];
                 [self loadData:YES];

@@ -15,7 +15,7 @@
     IBOutlet UITextField *emailfield;
     IBOutlet UITextField *passwordfield;
     IBOutlet UIScrollView *scrollView;
-    
+    IBOutlet UISwitch *autologinsw;
 }
 
 @end

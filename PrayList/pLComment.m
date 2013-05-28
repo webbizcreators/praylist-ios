@@ -16,5 +16,6 @@
 @synthesize commentid;
 @synthesize commenttext;
 @synthesize commentdate;
+@synthesize requestemail;
 
 @end

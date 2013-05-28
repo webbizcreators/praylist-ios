@@ -9,9 +9,11 @@
 #import <UIKit/UIKit.h>
 #import <RestKit/RestKit.h>
 
-@interface pLAppDelegate : UIResponder <UIApplicationDelegate>
+@interface pLAppDelegate : UIResponder <UIApplicationDelegate,UITabBarControllerDelegate>{
+
+
+}
 
 @property (strong, nonatomic) UIWindow *window;
-
 
 @end

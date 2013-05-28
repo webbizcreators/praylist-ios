@@ -11,6 +11,11 @@
 #import "pLPrayerRequestCell.h"
 #import "pLAppUtils.h"
 #import "pLResponse.h"
+#import "BarButtonBadge.h"
+#import "CustomBadge.h"
+#import "FPPopoverController.h"
+#import "pLNotificationsPopupViewController.h"
+#import "pLRequestCommentViewController.h"
 
 #define FONT_SIZE 11.0f
 #define CELL_CONTENT_WIDTH 297.0f
@@ -26,7 +31,7 @@
 
 @implementation pLFirstViewController
 
-
+NSDate *lastdataload;
 NSMutableArray *prayerrequests;
 UIActivityIndicatorView *spinner;
 
@@ -47,8 +52,72 @@ UIActivityIndicatorView *spinner;
 	[vartableView addSubview:refreshHeaderView];
 	vartableView.showsVerticalScrollIndicator = YES;
     
+
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(updateNotificationBadge)
+                                                 name:@"NotificationUpdate"
+                                               object:nil];
+    
     
     [self loadData];
+    
+}
+
+- (void)updateNotificationBadge{
+    
+    for (UIView *subView in notifbutton.subviews)
+    {
+        if ([subView isKindOfClass:[CustomBadge class]])
+        {
+            [subView removeFromSuperview];
+        }
+    }
+    
+    NSNumber *notifcount = [pLAppUtils notifcount];
+    if([notifcount unsignedIntValue]>0){
+        [BarButtonBadge addBadgetoButton:notifbutton badgeString: [notifcount stringValue] atRight:NO];
+    }
+}
+
+
+- (void)viewWillAppear:(BOOL)animated {
+    
+    NSDate*now=[[NSDate alloc]init];
+    double intervalInSeconds = [now timeIntervalSinceDate:lastdataload];
+    
+    if(intervalInSeconds>10){
+        [self loadData];
+    }
+    
+    [self updateNotificationBadge];
+    
+}
+
+-(IBAction)opennotifs:(id)sender{
+    
+    [pLAppUtils clearnotifs];
+    
+    
+    NSArray *nib = [[NSBundle mainBundle] loadNibNamed:@"NotificationsPopupView" owner:self options:nil];
+    pLNotificationsPopupViewController*controller;
+    
+    for (id oneObject in nib)
+        if ([oneObject isKindOfClass:[pLNotificationsPopupViewController class]])
+            
+            controller = (pLNotificationsPopupViewController *)oneObject;
+    
+    controller.title = @"Notifications";
+    //our popover
+    FPPopoverController *popover = [[FPPopoverController alloc] initWithViewController:controller];
+    
+    popover.contentSizeForViewInPopover = CGSizeMake(280,350);
+    popover.contentSize = CGSizeMake(280,350);
+    
+    //the popover will be presented from the okButton view
+    [popover presentPopoverFromView:notifbutton.subviews[0]];
+    
+    
+    
     
 }
 
@@ -74,17 +143,17 @@ UIActivityIndicatorView *spinner;
                                                       prayerrequests = [NSMutableArray arrayWithArray:[prayerrequests sortedArrayUsingDescriptors:sortDescriptors]];
                                                       
                                                   }
-                                                  [spinner stopAnimating];
+                                                  lastdataload = [[NSDate alloc]init];
                                                   [vartableView reloadData];
                                                   [self dataSourceDidFinishLoadingNewData];
                                                   
                                               }
                                               failure:^(RKObjectRequestOperation *operation, NSError *error) {
                                                   NSLog(@"Encountered an error: %@", error);
+                                                  [self dataSourceDidFinishLoadingNewData];
                                               }];
     
 }
-
 
 
 #pragma mark State Changes
@@ -188,11 +257,12 @@ UIActivityIndicatorView *spinner;
     
     pLPrayerRequest *pRequest = [prayerrequests objectAtIndex:indexPath.row];
     
+    [cell configureView:pRequest inTableViewController:self];
     cell.requesttitle.text= [pLAppUtils fullnamefromEmail:pRequest.requestoremail];
     cell.requesttext.text = pRequest.requesttext;
     cell.requestdate.text = [pLAppUtils formatPostDate:pRequest.requestdate];
     cell.img.image = [pLAppUtils userimgFromEmail: pRequest.requestoremail];
-    cell.requeststats.text = [pLAppUtils calculaterequeststats:pRequest.praycount commentcount:[NSNumber numberWithInt:0]];
+    cell.requeststats.text = [pLAppUtils calculaterequeststats:pRequest.praycount commentcount:pRequest.commentcount];
     
     
     //NSString *text = pRequest.requesttext;
@@ -297,6 +367,24 @@ UIActivityIndicatorView *spinner;
 {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
+}
+
+
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
+{
+    // Make sure your segue name in storyboard is the same as this line
+    if ([[segue identifier] isEqualToString:@"showComments2"])
+    {
+        // Get reference to the destination view controller
+        pLRequestCommentViewController *vc = [segue destinationViewController];
+        
+        // Pass any objects to the view controller here, like...
+        pLPrayerRequestCell * lic = (pLPrayerRequestCell*)sender;
+        vc.prayerrequestlistitem = NULL;
+        vc.prayerrequest = lic.listitem;
+        
+        
+    }
 }
 
 @end

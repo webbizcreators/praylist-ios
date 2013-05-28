@@ -7,6 +7,7 @@
 //
 
 #import "pLPrayerRequestCell.h"
+#import "pLFirstViewController.h"
 
 @implementation pLPrayerRequestCell
 
@@ -15,6 +16,9 @@
 @synthesize requesttext;
 @synthesize requeststats;
 @synthesize img;
+@synthesize listitem;
+
+pLFirstViewController*tvc;
 
 - (id)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier
 {
@@ -32,6 +36,16 @@
     [super setSelected:selected animated:animated];
     
     // Configure the view for the selected state
+}
+
+- (void) configureView:(pLPrayerRequest*)li inTableViewController:(pLFirstViewController*)_tvc;
+{
+    tvc = _tvc;
+    listitem = li;
+}
+
+- (IBAction)opencomments:(UIButton *)sender {
+    [tvc performSegueWithIdentifier:@"showComments2" sender:self];
 }
 
 
