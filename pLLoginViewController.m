@@ -62,11 +62,13 @@ KeychainItemWrapper *keychainItem;
 
 -(void)autologin{
     
+    [pLAppUtils showActivityIndicatorWithMessage:@"Logging In"];
     pLLoginRequest *lr = [[pLLoginRequest alloc] init];
     
     lr.email = [keychainItem objectForKey:(__bridge id)kSecAttrAccount];
     lr.password = [keychainItem objectForKey:(__bridge id)kSecValueData];
     lr.devicetoken = [pLAppUtils devicetoken];
+    
     
     [[RKObjectManager sharedManager] postObject:lr path: nil parameters: nil success:^( RKObjectRequestOperation *operation , RKMappingResult *mappingResult){
         
@@ -81,16 +83,19 @@ KeychainItemWrapper *keychainItem;
             
             [pLAppUtils loadmycontacts];
             [pLAppUtils loadnotifcount];
+            [pLAppUtils loadgroups];
+            [pLAppUtils hideActivityIndicator];
             [self performSegueWithIdentifier: @"loginMainSegue" sender: self];
+            
             
         }
         
     }
                                         failure:^( RKObjectRequestOperation *operation , NSError *error ){
                                             
+                                            
                                             [keychainItem resetKeychainItem];
-                                            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:nil message:@"Login Failed" delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil];
-                                            [alert show];
+                                            [pLAppUtils hideActivityIndicatorWithMessage:@"Failed"];
                                             
                                         }];
     
@@ -101,7 +106,7 @@ KeychainItemWrapper *keychainItem;
 
 -(IBAction)loginbutton:(id)sender
 {
-    
+    [pLAppUtils showActivityIndicatorWithMessage:@"Logging In"];
     pLLoginRequest *lr = [[pLLoginRequest alloc] init];
     
     lr.email = emailfield.text;
@@ -126,6 +131,8 @@ KeychainItemWrapper *keychainItem;
             
             [pLAppUtils loadmycontacts];
             [pLAppUtils loadnotifcount];
+            [pLAppUtils loadgroups];
+            [pLAppUtils hideActivityIndicator];
             [self performSegueWithIdentifier: @"loginMainSegue" sender: self];
             
         }
@@ -133,8 +140,7 @@ KeychainItemWrapper *keychainItem;
     }
     failure:^( RKObjectRequestOperation *operation , NSError *error ){
     
-        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:nil message:@"Failed" delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil];
-        [alert show];
+        [pLAppUtils hideActivityIndicatorWithMessage:@"Failed"];
 
     }];
     

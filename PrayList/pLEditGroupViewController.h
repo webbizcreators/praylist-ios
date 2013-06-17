@@ -9,20 +9,34 @@
 #import <UIKit/UIKit.h>
 #import "pLGroup.h"
 
-@interface pLEditGroupViewController : UIViewController<UITableViewDelegate>{
+@interface pLEditGroupViewController : UITableViewController<UIActionSheetDelegate>{
     
-    IBOutlet UITextField* groupname;
+    IBOutlet UILabel* groupname;
+    IBOutlet UITextView *groupdescription;
+    IBOutlet UIImageView *grouptypeicon;
+    IBOutlet UILabel*grouptypelabel;
+    
+    IBOutlet UILabel*membercountlabel;
+    IBOutlet UILabel*inviteecountlabel;
+    IBOutlet UILabel*requestorcountlabel;
+    IBOutlet UIButton*actionbutton;
+    
     IBOutlet UIBarButtonItem *saveButton;
     IBOutlet UIBarButtonItem *cancelButton;
-    IBOutlet UITableView * groupmembertableView;
-    IBOutlet UIView *generalsubview;
-    IBOutlet UIView *membersubview;
-    IBOutlet UIImageView *grouptypeicon;
-    IBOutlet UILabel *grouptypedescription;
+    
+    IBOutlet UIButton*deletebutton;
+    
+    IBOutlet UITableViewCell *membercell;
+    IBOutlet UITableViewCell *inviteecell;
+    IBOutlet UITableViewCell *requestorcell;
+    
     
 }
 
 @property (nonatomic, retain) pLGroup *group;
-@property (nonatomic, retain) NSString *newgrouptype;
+
+@property (nonatomic, retain) IBOutletCollection(UIImageView) NSArray *groupmemberimages;
+@property (nonatomic, retain) IBOutletCollection(UIImageView) NSArray *groupinviteesimages;
+@property (nonatomic, retain) IBOutletCollection(UIImageView) NSArray *grouprequestorsimages;
 
 @end

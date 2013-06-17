@@ -11,6 +11,9 @@
 #import <QuartzCore/QuartzCore.h>
 #import "pLGroupMemberCell.h"
 #import "pLSelectGroupMemberViewController.h"
+#import "NSArray+sortBy.h"
+#import "pLAppDelegate.h"
+#import "pLViewGroupMembersViewController.h"
 
 @interface pLEditGroupViewController ()
 
@@ -19,12 +22,10 @@
 @implementation pLEditGroupViewController
 
 @synthesize group;
-@synthesize newgrouptype;
+@synthesize groupmemberimages;
+@synthesize groupinviteesimages;
+@synthesize grouprequestorsimages;
 
-NSMutableArray *groupmembers;
-NSMutableArray *groupinvitees;
-NSMutableArray *grouprequestors;
-NSMutableArray *listOfItems;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -35,63 +36,362 @@ NSMutableArray *listOfItems;
     return self;
 }
 
-
-- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
+- (void)viewDidLoad
+{
+    [super viewDidLoad];
     
-    return [listOfItems count];
+    
+    if(group){
+        groupname.text = group.groupname;
+        groupdescription.text = group.groupdescription;
+        
+        [self displaymembers];
+        
+        
+        if([group.grouptype isEqualToString:@"Private"]){
+            grouptypeicon.image = [UIImage imageNamed:@"privategroupicon.png"];
+            grouptypelabel.text = @"Private Group";
+        }else if([group.grouptype isEqualToString:@"Public"]){
+            grouptypeicon.image = [UIImage imageNamed:@"publicgroupicon.png"];
+            grouptypelabel.text = @"Public Group";
+        }
+       
+    }
+    
+    [self displayactionbutton];
+    
+    
+    
+    
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(didDismissGroupMemberController)
+                                                 name:@"ViewGroupMemberControllerDismissed"
+                                               object:nil];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(memberapprove:)
+                                                 name:@"MemberApprove"
+                                               object:nil];
+    
 }
 
 
-- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath;
+{
     
-    NSDictionary *dictionary = [listOfItems objectAtIndex:section];
-    NSArray *array = [dictionary objectForKey:@"People"];
-    return [array count];
+    NSString*useremail=[pLAppUtils securitytoken].email;
+    
+    CGFloat retval =0;
+    
+    if(indexPath.row==0){
+        retval=70;
+    }
+    else if(indexPath.row==1){
+        retval=45;
+    }
+    else if(indexPath.row==2){
+        retval=80;
+    }
+    
+    else if(indexPath.row==3){
+        retval=80;
+        if(![group.groupmembers containsObject:useremail]&&![group.invitees containsObject:useremail]){
+          retval =0;
+        membercell.hidden="YES";
+        }
+    }
+    else if(indexPath.row==4){
+        retval=80;
+        if(![group.groupmembers containsObject:useremail]&&![group.invitees containsObject:useremail])
+        {retval =0;
+        inviteecell.hidden="YES";
+        }
+    }
+    else if(indexPath.row==5){
+        retval=80;
+        if(![group.groupmembers containsObject:useremail]&&![group.invitees containsObject:useremail])
+        {retval =0;
+         requestorcell.hidden="YES";
+        }
+    }
+    
+    return retval;
+}
+
+-(void)displaymembers{
+    
+    
+    
+    membercountlabel.text = [[[NSNumber numberWithInt:[group.groupmembers count]] stringValue] stringByAppendingString:@" members"];
+    
+    inviteecountlabel.text = [[[NSNumber numberWithInt:[group.invitees count]] stringValue] stringByAppendingString:@" invited"];
+    
+    requestorcountlabel.text = [[[NSNumber numberWithInt:[group.requestors count]] stringValue] stringByAppendingString:@" requesting"];
+    
+    int i =0;
+    for (UIImageView *iview in [groupmemberimages sortByObjectTag]) {
+        [iview setImage:nil];
+        if(i<[group.groupmembers count])
+            [iview setImage:[pLAppUtils userimgFromEmail:[group.groupmembers objectAtIndex:i]]];
+        i++;
+    }
+    
+    i =0;
+    for (UIImageView *iview in [groupinviteesimages sortByObjectTag]) {
+        [iview setImage:nil];
+        if(i<[group.invitees count])
+            [iview setImage:[pLAppUtils userimgFromEmail:[group.invitees objectAtIndex:i]]];
+        i++;
+    }
+    
+    i =0;
+    for (UIImageView *iview in [grouprequestorsimages sortByObjectTag]) {
+        [iview setImage:nil];
+        if(i<[group.requestors count])
+            [iview setImage:[pLAppUtils userimgFromEmail:[group.requestors objectAtIndex:i]]];
+        i++;
+    }
+
+    
     
 }
 
-- (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section {
+-(void)displayactionbutton{
     
-    if(section == 0){
-        return @"Invited";
+    deletebutton.hidden = YES;
+    if([group.owneremail isEqualToString:[pLAppUtils securitytoken].email])
+        deletebutton.hidden=NO;
+
+    
+    [actionbutton setEnabled:YES];
+    
+    if([group.grouptype isEqualToString:@"Private"]){
+        if ([group.invitees containsObject:[pLAppUtils securitytoken].email]){
+            [actionbutton setTitle:@"Join" forState:UIControlStateNormal];
+        }
+        else if ([group.groupmembers containsObject:[pLAppUtils securitytoken].email]){
+            [actionbutton setTitle:@"Leave" forState:UIControlStateNormal];
+            if([group.owneremail isEqualToString:[pLAppUtils securitytoken].email])
+                actionbutton.hidden=YES;
+        }
+        else if ([group.requestors containsObject:[pLAppUtils securitytoken].email]){
+            [actionbutton setTitle:@"Requested" forState:UIControlStateNormal];
+            [actionbutton setEnabled:NO];
+        }
+        else {
+            [actionbutton setTitle:@"Request" forState:UIControlStateNormal];
+        }
     }
-    else if(section == 1){
-        return @"Requested";
+    else
+    {
+        if ([group.groupmembers containsObject:[pLAppUtils securitytoken].email]){
+            [actionbutton setTitle:@"Leave" forState:UIControlStateNormal];
+            if([group.owneremail isEqualToString:[pLAppUtils securitytoken].email])
+                actionbutton.hidden=YES;
+        }
+        else {
+            [actionbutton setTitle:@"Join" forState:UIControlStateNormal];
+        }
+        
     }
-    else{
-        return @"Members";
-    }
+    
+    
+    
 }
 
 
-- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    
-    
-    if(indexPath.section == 1){
-    
-        pLGroupMemberCell *cell = [tableView dequeueReusableCellWithIdentifier:@"requestorgroupmember"];
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
+{
+    // Make sure your segue name in storyboard is the same as this line
+    if ([[segue identifier] isEqualToString:@"viewrequestors"])
+    {
+        pLViewGroupMembersViewController *vc = [segue destinationViewController];
+        vc.mode = @"requestor";
+        vc.group = group;
+    }else if ([[segue identifier] isEqualToString:@"viewinvitees"]){
         
-        NSDictionary *dictionary = [listOfItems objectAtIndex:indexPath.section];
-        NSArray *array = [dictionary objectForKey:@"People"];
-        NSString *c = [array objectAtIndex:indexPath.row];
-        cell.img.image = [pLAppUtils userimgFromEmail: c];
-        cell.username.text = [pLAppUtils fullnamefromEmail:c];
-        cell.email = c;
-        return cell;
-    
+        pLViewGroupMembersViewController *vc = [segue destinationViewController];
+        vc.mode = @"invitee";
+        vc.group = group;
+        
+    }else if ([[segue identifier] isEqualToString:@"viewmembers"]){
+        
+        pLViewGroupMembersViewController *vc = [segue destinationViewController];
+        vc.mode = @"member";
+        vc.group = group;
     }
-    else{
-        pLGroupMemberCell *cell = [tableView dequeueReusableCellWithIdentifier:@"groupmember"];
+    
+    
+    
+}
+
+
+- (void)memberapprove:(NSNotification *)membercell {
+    
+    id cellid=[membercell object];
+    pLGroupMemberCell*cell = (pLGroupMemberCell*)cellid;
+    NSString*email = cell.email;
+    
+    [group.requestors removeObject:email];
+    [group.groupmembers addObject:email];
+    
+    
+}
+
+
+-(void)didDismissGroupMemberController {
+    
+    [self displaymembers];
+
+}
+
+-(IBAction)actionbutton:(id)sender{
+    
+    if([actionbutton.titleLabel.text isEqualToString:@"Join"]){
+        [self joingroup];
+    } else if ([actionbutton.titleLabel.text isEqualToString:@"Leave"]){
+        [self leavegroup];
+    } else if ([actionbutton.titleLabel.text isEqualToString:@"Request"]){
+        [self requestgroup];
+    }
+    
+    
+}
+-(IBAction)deletegroup:(id)sender{
+    
+    
+    
+    UIActionSheet *popupQuery = [[UIActionSheet alloc] initWithTitle:@"Do you want to delete this group?" delegate:self cancelButtonTitle:@"Cancel Button" destructiveButtonTitle:@"Delete Group" otherButtonTitles:nil];
+    popupQuery.actionSheetStyle = UIActionSheetStyleDefault;
+    [popupQuery showFromTabBar:self.tabBarController.tabBar];
+    
+    
+}
+
+- (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex{
+    
+    if(buttonIndex==0){
+        [self deletegroupconf];
+    }
+    
+}
+
+-(void)deletegroupconf{
+    
+    [pLAppUtils showActivityIndicatorWithMessage:@"Deleting"];
+    
+    [[RKObjectManager sharedManager] deleteObject:group path: nil parameters: nil success:^( RKObjectRequestOperation *operation , RKMappingResult *mappingResult){
         
-        NSDictionary *dictionary = [listOfItems objectAtIndex:indexPath.section];
-        NSArray *array = [dictionary objectForKey:@"People"];
-        NSString *c = [array objectAtIndex:indexPath.row];
-        cell.img.image = [pLAppUtils userimgFromEmail: c];
-        cell.username.text = [pLAppUtils fullnamefromEmail:c];
-        cell.email = c;
-        return cell;
+        if(mappingResult.array.count>0){
+            
+            [pLAppUtils hideActivityIndicatorWithMessage:@"Done"];
+            
+            [[NSNotificationCenter defaultCenter] postNotificationName:@"EditGroupViewControllerDismissed"
+                                                                object:nil
+                                                              userInfo:nil];
+            
+            [self.navigationController popViewControllerAnimated:YES];
+            
+        }
         
     }
+                                          failure:^( RKObjectRequestOperation *operation , NSError *error ){
+                                              
+                                              [pLAppUtils hideActivityIndicatorWithMessage:@"Failed"];
+                                          }];
+
+    
+    
+}
+
+-(void)joingroup{
+    
+    [pLAppUtils showActivityIndicatorWithMessage:@"Joining Group"];
+    NSString *objectpath = @"groups/";
+    NSString *path = [[[[objectpath stringByAppendingString: [pLAppUtils securitytoken].orgid] stringByAppendingString:@"/"] stringByAppendingString:group.groupid] stringByAppendingString:@"/join"];
+
+    
+    [[RKObjectManager sharedManager] getObjectsAtPath:path
+                                           parameters:nil
+     
+                                              success:^(RKObjectRequestOperation *operation, RKMappingResult *mappingResult) {
+                                                  
+                                                  NSMutableArray*newmembers = [NSMutableArray arrayWithArray:group.groupmembers];
+                                                  [newmembers addObject:[pLAppUtils securitytoken].email];
+                                                  group.groupmembers = newmembers;
+                                                  
+                                                  NSMutableArray*newinvitees = [NSMutableArray arrayWithArray:group.invitees];
+                                                  [newinvitees removeObject:[pLAppUtils securitytoken].email];
+                                                  group.invitees = newinvitees;
+                                                  
+                                                  [self displaymembers];
+                                                  [pLAppUtils hideActivityIndicatorWithMessage:@"Done"];
+                                                  [self displayactionbutton];
+                                              }
+                                              failure:^(RKObjectRequestOperation *operation, NSError *error) {
+                                                  NSLog(@"Encountered an error: %@", error);
+                                                  [pLAppUtils hideActivityIndicatorWithMessage:@"Failed"];
+                                              }];
+
+    
+}
+
+-(void)leavegroup{
+    
+
+    [pLAppUtils showActivityIndicatorWithMessage:@"Leaving Group"];
+    NSString *objectpath = @"groups/";
+    NSString *path = [[[[objectpath stringByAppendingString: [pLAppUtils securitytoken].orgid] stringByAppendingString:@"/"] stringByAppendingString:group.groupid] stringByAppendingString:@"/leave"];
+
+    
+    [[RKObjectManager sharedManager] getObjectsAtPath:path
+                                           parameters:nil
+     
+                                              success:^(RKObjectRequestOperation *operation, RKMappingResult *mappingResult) {
+                                                  
+                                                  NSMutableArray*newmembers = [NSMutableArray arrayWithArray:group.groupmembers];
+                                                  [newmembers removeObject:[pLAppUtils securitytoken].email];
+                                                  group.groupmembers = newmembers;
+                                                  
+                                                  [self displaymembers];
+                                                  [pLAppUtils hideActivityIndicatorWithMessage:@"Done"];
+                                                  [self displayactionbutton];
+                                              }
+                                              failure:^(RKObjectRequestOperation *operation, NSError *error) {
+                                                  NSLog(@"Encountered an error: %@", error);
+                                                  [pLAppUtils hideActivityIndicatorWithMessage:@"Failed"];
+                                              }];
+    
+    
+}
+
+-(void)requestgroup{
+    
+    
+    [pLAppUtils showActivityIndicatorWithMessage:@"Sending Request"];
+    NSString *objectpath = @"groups/";
+    NSString *path = [[[[objectpath stringByAppendingString: [pLAppUtils securitytoken].orgid] stringByAppendingString:@"/"] stringByAppendingString:group.groupid] stringByAppendingString:@"/request"];
+    
+    
+    [[RKObjectManager sharedManager] getObjectsAtPath:path
+                                           parameters:nil
+     
+                                              success:^(RKObjectRequestOperation *operation, RKMappingResult *mappingResult) {
+                                                  
+                                                  NSMutableArray*newrequestors = [NSMutableArray arrayWithArray:group.requestors];
+                                                  [newrequestors addObject:[pLAppUtils securitytoken].email];
+                                                  group.requestors = newrequestors;
+                                                  
+                                                  [self displaymembers];
+                                                  [pLAppUtils hideActivityIndicatorWithMessage:@"Sent"];
+                                                  [self displayactionbutton];
+                                              }
+                                              failure:^(RKObjectRequestOperation *operation, NSError *error) {
+                                                  NSLog(@"Encountered an error: %@", error);
+                                                  [pLAppUtils hideActivityIndicatorWithMessage:@"Failed"];
+                                              }];
+    
     
 }
 
@@ -100,45 +400,9 @@ NSMutableArray *listOfItems;
     
     //[spinner startAnimating];
     
-    if(!group){
-    
-    pLGroup *gp = [[pLGroup alloc] init];
-    
-    gp.owneremail = [pLAppUtils securitytoken].email;
-    gp.groupname = groupname.text;
-    gp.orgid = [pLAppUtils securitytoken].orgid;
-    gp.groupmembers = groupmembers;
-        gp.invitees = groupinvitees;
-    gp.grouptype = newgrouptype;
-    
-    [[RKObjectManager sharedManager] putObject:gp path: nil parameters: nil success:^( RKObjectRequestOperation *operation , RKMappingResult *mappingResult){
-        
-        if(mappingResult.array.count>0){
-            
-            [[NSNotificationCenter defaultCenter] postNotificationName:@"EditGroupViewControllerDismissed"
-                                                                object:nil
-                                                              userInfo:nil];
-            //[spinner stopAnimating];
-            [self.navigationController popViewControllerAnimated:YES];
-            
-        }
-        
-    }
-                                       failure:^( RKObjectRequestOperation *operation , NSError *error ){
-                                           
-                                           
-                                       }];
-        
-    }
-    else{
-        
-        
         pLGroup *gp = group;
-        
+    
         gp.groupname = groupname.text;
-        gp.groupmembers = groupmembers;
-        gp.invitees = groupinvitees;
-        gp.requestors = grouprequestors;
         
         [[RKObjectManager sharedManager] postObject:gp path: nil parameters: nil success:^( RKObjectRequestOperation *operation , RKMappingResult *mappingResult){
             
@@ -159,140 +423,14 @@ NSMutableArray *listOfItems;
                                            }];
         
         
-        
-    }
-}
-
-
-- (void)viewDidLoad
-{
-    [super viewDidLoad];
-    
-    UIGraphicsBeginImageContext(self.view.frame.size);
-    [[UIImage imageNamed:@"background_iPhone5"] drawInRect:self.view.bounds];
-    UIImage *image = UIGraphicsGetImageFromCurrentImageContext();
-    UIGraphicsEndImageContext();
-    
-    self.view.backgroundColor = [UIColor colorWithPatternImage:image];
-    
-    generalsubview.layer.cornerRadius = 5.0;
-    generalsubview.layer.masksToBounds = YES;
-    
-    membersubview.layer.cornerRadius = 5.0;
-    membersubview.layer.masksToBounds = YES;
-    
-    if(group){
-        groupname.text = group.groupname;
-        groupmembers = [NSMutableArray arrayWithArray:group.groupmembers];
-        groupinvitees = [NSMutableArray arrayWithArray:group.invitees];
-        grouprequestors = [NSMutableArray arrayWithArray:group.requestors];
-        if([group.grouptype isEqualToString:@"Private"]){
-            grouptypeicon.image = [UIImage imageNamed:@"privategroupicon_title.png"];
-            grouptypedescription.text = @"Private Group";
-        }else if([group.grouptype isEqualToString:@"Public"]){
-            grouptypeicon.image = [UIImage imageNamed:@"publicgroupicon_title.png"];
-            grouptypedescription.text = @"Public Group";
-        }
        
-    }
-    else
-    {
-        
-        if([newgrouptype isEqualToString:@"Private"]){
-            grouptypeicon.image = [UIImage imageNamed:@"privategroupicon_title.png"];
-            grouptypedescription.text = @"Private Group";
-        }else if([newgrouptype isEqualToString:@"Public"]){
-            grouptypeicon.image = [UIImage imageNamed:@"publicgroupicon_title.png"];
-            grouptypedescription.text = @"Public Group";
-        }
-        
-        groupmembers = [[NSMutableArray alloc]init];
-        groupinvitees = [[NSMutableArray alloc]init];
-    }
-    
-    
-    [[NSNotificationCenter defaultCenter] addObserver:self
-                                             selector:@selector(didDismissGroupMemberController)
-                                                 name:@"GroupMemberControllerDismissed"
-                                               object:nil];
-    
-    [[NSNotificationCenter defaultCenter] addObserver:self
-                                             selector:@selector(memberapprove:)
-                                                 name:@"MemberApprove"
-                                               object:nil];
-    
-    listOfItems = [[NSMutableArray alloc] init];
-    
-
-    NSDictionary *membersdict = [NSDictionary dictionaryWithObject:groupmembers forKey:@"People"];
-    NSDictionary *inviteesdict = [NSDictionary dictionaryWithObject:groupinvitees forKey:@"People"];
-    NSDictionary *requestorsdict = [NSDictionary dictionaryWithObject:grouprequestors forKey:@"People"];
-    
-    [listOfItems addObject:inviteesdict];
-    [listOfItems addObject:requestorsdict];
-    [listOfItems addObject:membersdict];
-    
 }
-
-
-- (void)memberapprove:(NSNotification *)membercell {
-    
-    id cellid=[membercell object];
-    pLGroupMemberCell*cell = (pLGroupMemberCell*)cellid;
-    NSString*email = cell.email;
-    
-    [grouprequestors removeObject:email];
-    [groupmembers addObject:email];
-    [groupmembertableView reloadData];
-    
-    
-}
-
-- (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    return YES;
-}
-
-
-- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    if (editingStyle == UITableViewCellEditingStyleDelete)
-    {
-        
-                [groupmembers removeObjectAtIndex:indexPath.row];
-                [groupmembertableView deleteRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationFade];
-
-    }
-}
-
-
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
-{
-    // Make sure your segue name in storyboard is the same as this line
-    if ([[segue identifier] isEqualToString:@"addmembersegue"])
-    {
-        
-        pLSelectGroupMemberViewController *vc = [segue destinationViewController];
-        
-        vc.groupmembersadd = groupinvitees;
-        
-    }
-    
-    
-    
-}
-
--(void)didDismissGroupMemberController {
-    
-    
-    [groupmembertableView reloadData];
-}
-
 
 - (void)didReceiveMemoryWarning
 {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
+
 
 @end

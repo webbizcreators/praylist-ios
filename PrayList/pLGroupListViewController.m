@@ -43,10 +43,6 @@ UIImage *publicimg;
 {
     [super viewDidLoad];
     
-    UITapGestureRecognizer* tapGestureRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(handleTap:)];
-    [self.view addGestureRecognizer:tapGestureRecognizer];
-    
-    buttonview.hidden=YES;
     privateimg = [UIImage imageNamed:@"privategroupicon.png"];
     publicimg = [UIImage imageNamed:@"publicgroupicon.png"];
     
@@ -61,15 +57,20 @@ UIImage *publicimg;
                                                object:nil];
     
     [[NSNotificationCenter defaultCenter] addObserver:self
-                                             selector:@selector(loadgroups)
+                                             selector:@selector(groupsChanged)
                                                  name:@"GroupsChanged"
                                                object:nil];
     
-    [self loadGroups];
+    [self loadDatawithIndicator:YES];
 
 	// Do any additional setup after loading the view.
 }
 
+-(void)groupsChanged{
+    
+    [self loadDatawithIndicator:NO];
+    
+}
 
 
 - (void)requestgroup:(NSNotification *)groupcell {
@@ -89,7 +90,7 @@ UIImage *publicimg;
     
     if([c.grouptype isEqualToString:@"Private"]){
         if ([c.invitees containsObject:[pLAppUtils securitytoken].email]){
-   
+            [pLAppUtils showActivityIndicatorWithMessage:@"Joining Group"];
             NSString *objectpath = @"groups/";
             NSString *path = [[[[objectpath stringByAppendingString: [pLAppUtils securitytoken].orgid] stringByAppendingString:@"/"] stringByAppendingString:c.groupid] stringByAppendingString:@"/join"];
             [spinner startAnimating];
@@ -103,17 +104,18 @@ UIImage *publicimg;
                                                           [ar addObject:[pLAppUtils securitytoken].email];
                                                           c.groupmembers = ar;
                                                           [tableView reloadRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationNone];
-                                                          [spinner stopAnimating];
+                                                          [pLAppUtils hideActivityIndicatorWithMessage:@"Done"];
                                                           
                                                       }
                                                       failure:^(RKObjectRequestOperation *operation, NSError *error) {
                                                           NSLog(@"Encountered an error: %@", error);
-                                                          [spinner stopAnimating];
+                                                          [pLAppUtils hideActivityIndicatorWithMessage:@"Failed"];
                                                       }];
 
             
         }
         else if ([c.groupmembers containsObject:[pLAppUtils securitytoken].email]){
+            [pLAppUtils showActivityIndicatorWithMessage:@"Leaving Group"];
                 NSString *objectpath = @"groups/";
                 NSString *path = [[[[objectpath stringByAppendingString: [pLAppUtils securitytoken].orgid] stringByAppendingString:@"/"] stringByAppendingString:c.groupid] stringByAppendingString:@"/leave"];
                 [spinner startAnimating];
@@ -127,16 +129,16 @@ UIImage *publicimg;
                                                               [ar removeObject:[pLAppUtils securitytoken].email];
                                                               c.groupmembers = ar;
                                                               [tableView reloadRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationNone];
-                                                              [spinner stopAnimating];
+                                                              [pLAppUtils hideActivityIndicatorWithMessage:@"Done"];
                                                               
                                                           }
                                                           failure:^(RKObjectRequestOperation *operation, NSError *error) {
                                                               NSLog(@"Encountered an error: %@", error);
-                                                              [spinner stopAnimating];
+                                                              [pLAppUtils hideActivityIndicatorWithMessage:@"Failed"];
                                                           }];
         }
         else {
-            
+            [pLAppUtils showActivityIndicatorWithMessage:@"Sending Request"];
                 NSString *objectpath = @"groups/";
                 NSString *path = [[[[objectpath stringByAppendingString: [pLAppUtils securitytoken].orgid] stringByAppendingString:@"/"] stringByAppendingString:c.groupid] stringByAppendingString:@"/request"];
                 [spinner startAnimating];
@@ -150,12 +152,12 @@ UIImage *publicimg;
                                                               [ar addObject:[pLAppUtils securitytoken].email];
                                                               c.requestors = ar;
                                                               [tableView reloadRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationNone];
-                                                              [spinner stopAnimating];
+                                                              [pLAppUtils hideActivityIndicatorWithMessage:@"Done"];
                                                               
                                                           }
                                                           failure:^(RKObjectRequestOperation *operation, NSError *error) {
                                                               NSLog(@"Encountered an error: %@", error);
-                                                              [spinner stopAnimating];
+                                                              [pLAppUtils hideActivityIndicatorWithMessage:@"Failed"];
                                                           }];
             
         }
@@ -163,6 +165,7 @@ UIImage *publicimg;
     else
     {
         if ([c.groupmembers containsObject:[pLAppUtils securitytoken].email]){
+            [pLAppUtils showActivityIndicatorWithMessage:@"Leaving Group"];
             NSString *objectpath = @"groups/";
             NSString *path = [[[[objectpath stringByAppendingString: [pLAppUtils securitytoken].orgid] stringByAppendingString:@"/"] stringByAppendingString:c.groupid] stringByAppendingString:@"/leave"];
             [spinner startAnimating];
@@ -176,16 +179,16 @@ UIImage *publicimg;
                                                           [ar removeObject:[pLAppUtils securitytoken].email];
                                                           c.groupmembers = ar;
                                                           [tableView reloadRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationNone];
-                                                          [spinner stopAnimating];
+                                                          [pLAppUtils hideActivityIndicatorWithMessage:@"Done"];
                                                           
                                                       }
                                                       failure:^(RKObjectRequestOperation *operation, NSError *error) {
                                                           NSLog(@"Encountered an error: %@", error);
-                                                          [spinner stopAnimating];
+                                                          [pLAppUtils hideActivityIndicatorWithMessage:@"Failed"];
                                                       }];
         }
         else {
-            
+            [pLAppUtils showActivityIndicatorWithMessage:@"Joining Group"];
             NSString *objectpath = @"groups/";
             NSString *path = [[[[objectpath stringByAppendingString: [pLAppUtils securitytoken].orgid] stringByAppendingString:@"/"] stringByAppendingString:c.groupid] stringByAppendingString:@"/join"];
             [spinner startAnimating];
@@ -199,12 +202,12 @@ UIImage *publicimg;
                                                           [ar addObject:[pLAppUtils securitytoken].email];
                                                           c.groupmembers = ar;
                                                           [tableView reloadRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationNone];
-                                                          [spinner stopAnimating];
+                                                          [pLAppUtils hideActivityIndicatorWithMessage:@"Done"];
                                                           
                                                       }
                                                       failure:^(RKObjectRequestOperation *operation, NSError *error) {
                                                           NSLog(@"Encountered an error: %@", error);
-                                                          [spinner stopAnimating];
+                                                          [pLAppUtils hideActivityIndicatorWithMessage:@"Failed"];
                                                       }];
         }
             
@@ -214,9 +217,8 @@ UIImage *publicimg;
     
 }
 
--(void)loadGroups{
-    spinner = [pLAppUtils addspinnertoview:self.view];
-
+-(void)loadDatawithIndicator:(BOOL)withindicator{
+    if(withindicator)[pLAppUtils showActivityIndicatorWithMessage:@"Loading"];
 
     privategroups = [[NSMutableArray alloc]init];
     publicgroups = [[NSMutableArray alloc]init];
@@ -258,7 +260,7 @@ UIImage *publicimg;
                                                       
                                                   }
                                                   
-                                                  [spinner stopAnimating];
+                                                  if(withindicator)[pLAppUtils hideActivityIndicator];
 
                                                   [tableView reloadData];
                                                   
@@ -346,46 +348,25 @@ UIImage *publicimg;
     
 }
 
--(IBAction)addgroupbutton:(id)sender
-{
-    if(buttonview.hidden==YES){
-       buttonview.hidden=NO; 
-    }
-    else{
-        buttonview.hidden=YES;
-    }
-    
-}
-
--(IBAction)addprivategroup:(id)sender
-{
-    [self performSegueWithIdentifier: @"addGroup" sender: addprivategroupbtn];
-    buttonview.hidden=YES;
-}
-
--(IBAction)addpublicgroup:(id)sender
-{
-    [self performSegueWithIdentifier: @"addGroup" sender: addpublicgroupbtn];
-    buttonview.hidden=YES;
-}
 
 -(IBAction)refreshgroups:(id)sender
 {
-    [self loadGroups];
+    [self loadDatawithIndicator:YES];
 }
 
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
 {
+    
+    
     // Make sure your segue name in storyboard is the same as this line
-    if ([[segue identifier] isEqualToString:@"editGroup"])
+    if ([[segue identifier] isEqualToString:@"editgroup"])
     {
-        // Get reference to the destination view controller
-        pLEditGroupViewController *vc = [segue destinationViewController];
-        
+
         UITableViewCell *cell = (UITableViewCell*)sender;
         NSIndexPath *indexPath = [tableView indexPathForCell: cell];
-        // Pass any objects to the view controller here, like...
+        
+        pLEditGroupViewController *vc = [segue destinationViewController];
         
         if(typeselect.selectedSegmentIndex==0){
             vc.group = [privategroups objectAtIndex:indexPath.row];
@@ -399,35 +380,29 @@ UIImage *publicimg;
         
     }else if ([[segue identifier] isEqualToString:@"addGroup"]){
         
-        // Get reference to the destination view controller
+        
+    }else if ([[segue identifier] hasPrefix:@"viewgroup"]){
+    
+        UITableViewCell *cell = (UITableViewCell*)sender;
+        NSIndexPath *indexPath = [tableView indexPathForCell: cell];
+        
         pLEditGroupViewController *vc = [segue destinationViewController];
         
-        UIButton* btn = (UIButton*)sender;
-        
-        if([btn.titleLabel.text isEqualToString:@"Private"])
-        vc.newgrouptype = @"Private";
-        else
-        {
-         vc.newgrouptype = @"Public";   
+        if(typeselect.selectedSegmentIndex==0){
+            vc.group = [privategroups objectAtIndex:indexPath.row];
         }
-        
-        
+        else if (typeselect.selectedSegmentIndex==1) {
+            vc.group = [publicgroups objectAtIndex:indexPath.row];
+        }
         
     }
     
-    
-    
-}
-
--(void)handleTap:(UITapGestureRecognizer*)tapRecognizer
-{
-  buttonview.hidden=YES;  
 }
 
 
 -(void)didDismissGroupEditViewController{
 
-    [self loadGroups];
+    [self loadDatawithIndicator:NO];
     
 }
 

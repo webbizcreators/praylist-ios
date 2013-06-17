@@ -19,21 +19,21 @@
 {
     
 
-    //RKObjectManager *objectManager = [RKObjectManager managerWithBaseURL:[NSURL URLWithString:@"http://praylistws.elasticbeanstalk.com/rest/"]];
+    RKObjectManager *objectManager = [RKObjectManager managerWithBaseURL:[NSURL URLWithString:@"http://praylistws.elasticbeanstalk.com/rest/"]];
     
     //RKObjectManager *objectManager = [RKObjectManager managerWithBaseURL:[NSURL URLWithString:@"http://127.0.0.1:8080/praylistws/rest/"]];
     
-    RKObjectManager *objectManager = [RKObjectManager managerWithBaseURL:[NSURL URLWithString:@"http://mbpro.local:8080/praylistws/rest/"]];
+    //RKObjectManager *objectManager = [RKObjectManager managerWithBaseURL:[NSURL URLWithString:@"http://mbpro.local:8080/praylist_webservices/rest/"]];
     
     objectManager.requestSerializationMIMEType = RKMIMETypeJSON;
                                 
     
     [pLAppUtils registerObjectMappings];
     
-    
+
     //self.window.rootViewController = self.viewController;
 	[self.window makeKeyAndVisible];
-    
+
 	// Let the device know we want to receive push notifications
 	[[UIApplication sharedApplication] registerForRemoteNotificationTypes:
      (UIRemoteNotificationTypeBadge | UIRemoteNotificationTypeSound | UIRemoteNotificationTypeAlert)];
@@ -50,6 +50,9 @@
 
     return YES;
 }
+
+
+
 
 - (void)application:(UIApplication*)application didReceiveRemoteNotification:(NSDictionary*)userInfo
 {
@@ -110,6 +113,8 @@
     [pLAppUtils setDeviceToken:[deviceToken description]];
 	NSLog(@"My token is: %@", deviceToken);
     NSLog(@"AppUtils token is: %@", [pLAppUtils devicetoken]);
+
+    
 }
 
 - (void)application:(UIApplication*)application didFailToRegisterForRemoteNotificationsWithError:(NSError*)error

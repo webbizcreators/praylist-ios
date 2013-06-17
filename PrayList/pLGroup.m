@@ -18,5 +18,29 @@
 @synthesize groupid;
 @synthesize invitees;
 @synthesize requestors;
+@synthesize groupdescription;
+
+
+-(NSMutableArray*)getgroupmembers{
+    return [NSMutableArray arrayWithArray:groupmembers];
+}
+-(void)setgroupmembers:(NSArray *)value {
+    groupmembers = [NSMutableArray arrayWithArray:value];
+}
+
+-(NSMutableArray*)getinvitees{
+    return [NSMutableArray arrayWithArray:invitees];
+}
+-(void)setinvitees:(NSArray *)value {
+    invitees = [NSMutableArray arrayWithArray:value];
+}
+
+
+-(NSMutableArray*)getrequestors{
+    return [NSMutableArray arrayWithArray:requestors];
+}
+-(void)setrequestors:(NSArray *)value {
+    requestors = [NSMutableArray arrayWithArray:value];
+}
 
 @end

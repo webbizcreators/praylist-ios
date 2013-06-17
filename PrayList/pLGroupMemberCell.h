@@ -10,8 +10,10 @@
 
 @interface pLGroupMemberCell : UITableViewCell
 
+
 @property (nonatomic, retain) IBOutlet UILabel *username;
 @property (nonatomic, retain) IBOutlet UIImageView *img;
 @property (nonatomic, retain) NSString*email;
+@property (nonatomic, retain) IBOutlet UIButton*removebutton;
 
 @end

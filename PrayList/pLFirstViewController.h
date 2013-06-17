@@ -27,5 +27,5 @@
 
 - (void)dataSourceDidFinishLoadingNewData;
 - (void) showReloadAnimationAnimated:(BOOL)animated;
-
+-(void)opencommentsfromsender:(id)sender;
 @end

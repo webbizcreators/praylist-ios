@@ -15,9 +15,10 @@
 #import "CustomBadge.h"
 #import "FPPopoverController.h"
 #import "pLNotificationsPopupViewController.h"
-#import "pLRequestCommentViewController.h"
+#import "pLViewRequestViewController.h"
+#import "pLAppDelegate.h"
 
-#define FONT_SIZE 11.0f
+#define FONT_SIZE 13.0f
 #define CELL_CONTENT_WIDTH 297.0f
 #define CELL_CONTENT_MARGIN 24.0f
 
@@ -59,7 +60,7 @@ UIActivityIndicatorView *spinner;
                                                object:nil];
     
     
-    [self loadData];
+    [self loadDatawithIndicator:YES];
     
 }
 
@@ -86,7 +87,7 @@ UIActivityIndicatorView *spinner;
     double intervalInSeconds = [now timeIntervalSinceDate:lastdataload];
     
     if(intervalInSeconds>10){
-        [self loadData];
+        [self loadDatawithIndicator:NO];
     }
     
     [self updateNotificationBadge];
@@ -96,32 +97,14 @@ UIActivityIndicatorView *spinner;
 -(IBAction)opennotifs:(id)sender{
     
     [pLAppUtils clearnotifs];
-    
-    
-    NSArray *nib = [[NSBundle mainBundle] loadNibNamed:@"NotificationsPopupView" owner:self options:nil];
-    pLNotificationsPopupViewController*controller;
-    
-    for (id oneObject in nib)
-        if ([oneObject isKindOfClass:[pLNotificationsPopupViewController class]])
-            
-            controller = (pLNotificationsPopupViewController *)oneObject;
-    
-    controller.title = @"Notifications";
-    //our popover
-    FPPopoverController *popover = [[FPPopoverController alloc] initWithViewController:controller];
-    
-    popover.contentSizeForViewInPopover = CGSizeMake(280,350);
-    popover.contentSize = CGSizeMake(280,350);
-    
-    //the popover will be presented from the okButton view
-    [popover presentPopoverFromView:notifbutton.subviews[0]];
-    
-    
-    
+    [pLAppUtils shownotifsfromview:notifbutton.subviews[0]];
     
 }
 
--(void)loadData{
+-(void)loadDatawithIndicator:(BOOL)withindicator{
+    
+    if(withindicator)
+    [pLAppUtils showActivityIndicatorWithMessage:@"Loading"];
     
     NSString *objectpath = @"prayerrequests/";
     NSString *path = [objectpath stringByAppendingString: [pLAppUtils securitytoken].email];
@@ -146,7 +129,7 @@ UIActivityIndicatorView *spinner;
                                                   lastdataload = [[NSDate alloc]init];
                                                   [vartableView reloadData];
                                                   [self dataSourceDidFinishLoadingNewData];
-                                                  
+                                                  if(withindicator) [pLAppUtils hideActivityIndicator];
                                               }
                                               failure:^(RKObjectRequestOperation *operation, NSError *error) {
                                                   NSLog(@"Encountered an error: %@", error);
@@ -180,7 +163,7 @@ UIActivityIndicatorView *spinner;
 
 - (void) reloadTableViewDataSource
 {
-	[self loadData];
+	[self loadDatawithIndicator:NO];
     
 }
 
@@ -207,14 +190,14 @@ UIActivityIndicatorView *spinner;
 {
     if (editingStyle == UITableViewCellEditingStyleDelete)
     {
-        
+        [pLAppUtils showActivityIndicatorWithMessage:@"Deleting"];
         pLPrayerRequest *pr = [prayerrequests objectAtIndex:indexPath.row];
         
         [[RKObjectManager sharedManager] deleteObject:pr path: nil parameters: nil success:^( RKObjectRequestOperation *operation , RKMappingResult *mappingResult){
             
             if(mappingResult.array.count>0){
                 
-                    
+                [pLAppUtils hideActivityIndicatorWithMessage:@"Done"];
                     [prayerrequests removeObjectAtIndex:indexPath.row];
                     [vartableView deleteRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationFade];
                 
@@ -223,7 +206,7 @@ UIActivityIndicatorView *spinner;
         }
                                               failure:^( RKObjectRequestOperation *operation , NSError *error ){
                                                   
-                                                  
+                                                  [pLAppUtils hideActivityIndicatorWithMessage:@"Failed"];
                                               }];
     }
 }
@@ -264,6 +247,14 @@ UIActivityIndicatorView *spinner;
     cell.img.image = [pLAppUtils userimgFromEmail: pRequest.requestoremail];
     cell.requeststats.text = [pLAppUtils calculaterequeststats:pRequest.praycount commentcount:pRequest.commentcount];
     
+    NSString*groupnames=@"";
+    
+    for(NSString*s in pRequest.groupids){
+        if(![[pLAppUtils groupnamefromID:s] isEqualToString:@""]){
+            groupnames = [[groupnames stringByAppendingString:[pLAppUtils groupnamefromID:s]] stringByAppendingString:@", "];
+        }
+    }
+    cell.groupnames.text = groupnames;
     
     //NSString *text = pRequest.requesttext;
     
@@ -312,7 +303,9 @@ UIActivityIndicatorView *spinner;
 
 
 -(void)didDismissPostViewController {
-    [self loadData];
+    [pLAppUtils hideActivityIndicatorWithMessage:@"Saved"];
+    [self loadDatawithIndicator:YES];
+    
 }
 
 
@@ -370,21 +363,31 @@ UIActivityIndicatorView *spinner;
 }
 
 
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    // Make sure your segue name in storyboard is the same as this line
-    if ([[segue identifier] isEqualToString:@"showComments2"])
-    {
-        // Get reference to the destination view controller
-        pLRequestCommentViewController *vc = [segue destinationViewController];
-        
-        // Pass any objects to the view controller here, like...
-        pLPrayerRequestCell * lic = (pLPrayerRequestCell*)sender;
-        vc.prayerrequestlistitem = NULL;
-        vc.prayerrequest = lic.listitem;
-        
-        
-    }
+    [self opencommentsfromsender:[tableView cellForRowAtIndexPath:indexPath]];
+}
+
+-(void)opencommentsfromsender:(id)sender{
+    
+    pLPrayerRequestCell * lic = (pLPrayerRequestCell*)sender;
+    
+    [pLAppUtils showActivityIndicatorWithMessage:@"Loading"];
+    
+    
+    UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"MainStoryboard" bundle: nil];
+    pLViewRequestViewController *lvc = [storyboard instantiateViewControllerWithIdentifier:@"postDetail"];
+    lvc.prayerrequestlistitem = NULL;
+    lvc.prayerrequest = lic.listitem;
+    
+    pLAppDelegate *appDelegate = (pLAppDelegate *)[[UIApplication sharedApplication] delegate];
+    
+    UIViewController*pv=appDelegate.window.rootViewController.presentedViewController;
+    
+    [pv presentViewController:lvc animated:YES completion:nil];
+    
+    [pLAppUtils hideActivityIndicator];
+
 }
 
 @end

@@ -33,7 +33,63 @@ UIImage *publicimg;
     
     self.view.backgroundColor = [UIColor colorWithPatternImage:image];
     
+    [self getgroups];
+    
 }
+
+
+-(void)getgroups{
+    
+    [pLAppUtils showActivityIndicatorWithMessage:@"Loading"];
+    
+    NSString *objectpath = @"groups/";
+    NSString *path = [objectpath stringByAppendingString: [pLAppUtils securitytoken].email];
+    
+    
+    [[RKObjectManager sharedManager] getObjectsAtPath:path
+                                           parameters:nil
+     
+                                              success:^(RKObjectRequestOperation *operation, RKMappingResult *mappingResult) {
+                                                  
+                                                  sourcegroups = [[NSMutableArray alloc] initWithArray:mappingResult.array];
+                                                  NSMutableArray *groupstodelete=[[NSMutableArray alloc]init];
+                                                  
+                                                  if(sourcegroups.count>0){
+                                                      
+                                                      
+                                                      for(pLGroup*g in sourcegroups){
+                                                          if(![g.groupmembers containsObject:[pLAppUtils securitytoken].email]){
+                                                              [groupstodelete addObject:g];
+                                                          }
+                                                      }
+                                                      
+                                                      [sourcegroups removeObjectsInArray:groupstodelete];
+                                                      
+                                                      
+                                                      NSSortDescriptor *sortDescriptor;
+                                                      sortDescriptor = [[NSSortDescriptor alloc] initWithKey:@"groupname"
+                                                                                                   ascending:YES];
+                                                      NSArray *sortDescriptors = [NSArray arrayWithObject:sortDescriptor];
+                                                      sourcegroups = [[NSMutableArray alloc] initWithArray:[sourcegroups sortedArrayUsingDescriptors:sortDescriptors]];
+                                                      
+                                                      
+                                                      
+                                                      [tableView reloadData];
+                                                      [pLAppUtils hideActivityIndicatorWithMessage:@"Done"];
+                                                  }
+                                                  
+                                              }
+                                              failure:^(RKObjectRequestOperation *operation, NSError *error) {
+                                                  NSLog(@"Encountered an error: %@", error);
+                                                  [pLAppUtils hideActivityIndicatorWithMessage:@"Failed"];
+                                              }];
+    
+    
+    
+}
+
+
+
 
 - (void)didReceiveMemoryWarning
 {
@@ -125,8 +181,7 @@ UIImage *publicimg;
     
     if(selectedindex!=2147483647){
         [tableView selectRowAtIndexPath:indexPath animated:YES scrollPosition:UITableViewScrollPositionNone];
-        cell.accessoryView.hidden = NO;
-        cell.accessoryType = UITableViewCellAccessoryCheckmark;
+        [tableView.delegate tableView:tableView didSelectRowAtIndexPath:indexPath];
     }
     
 

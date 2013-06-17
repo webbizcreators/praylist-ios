@@ -28,5 +28,13 @@
 +(NSNumber*)notifcount;
 +(void)clearnotifs;
 +(void)loadnotifcount;
++(void) showActivityIndicatorWithMessage:(NSString*)message;
++(void) hideActivityIndicator;
++(void) showCheckboxIndicatorWithMessage:(NSString*)message;
++(void) hideActivityIndicatorWithMessage:(NSString*)message;
++(void) shownotifsfromview:(UIView*)view;
++(void)dismissnotifs;
++(void)loadgroups;
++(NSString*)groupnamefromID:(NSString*)id;
 
 @end

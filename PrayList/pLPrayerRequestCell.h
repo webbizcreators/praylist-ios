@@ -26,10 +26,13 @@
 @property (nonatomic, retain) IBOutlet UILabel *requesttitle;
 @property (nonatomic, retain) IBOutlet UILabel *requesttext;
 @property (nonatomic, retain) IBOutlet UILabel *requeststats;
+@property (nonatomic, retain) IBOutlet UILabel *groupnames;
 @property (nonatomic, retain) IBOutlet UILabel *requestdate;
 @property (nonatomic, retain) IBOutlet UIImageView *img;
 @property (nonatomic, retain) IBOutlet UIView * mainview;
 @property (nonatomic, retain) pLPrayerRequest* listitem;
+@property (nonatomic, retain) NSString *requestoremail;
+@property (nonatomic, retain) NSString *requestid;
 
 - (void) configureView:(pLPrayerRequest*)li inTableViewController:(pLFirstViewController*)_tvc;
 

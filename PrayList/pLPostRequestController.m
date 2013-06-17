@@ -10,14 +10,15 @@
 #import "pLAppUtils.h"
 #import "pLPrayerRequest.h"
 #import "pLSelectGroupforPostViewController.h"
-#import "pLGroupCollectionCell.h"
+#import "pLGroupCell.h"
 #import "pLGroup.h"
 
 @implementation pLPostRequestController
 
-NSMutableArray *sourcegroups;
 NSMutableArray *selectedgroups;
-UIActivityIndicatorView *spinner;
+
+UIImage*privateimg;
+UIImage*publicimg;
 
 - (void)viewDidLoad
 {
@@ -32,10 +33,11 @@ UIActivityIndicatorView *spinner;
     self.view.backgroundColor = [UIColor colorWithPatternImage:image];
     
     
-    spinner = [pLAppUtils addspinnertoview:self.view];
     userImage.image = [pLAppUtils userimgFromEmail: [pLAppUtils securitytoken].email];
     selectedgroups = [[NSMutableArray alloc]init];
-    [self getgroups];
+    
+    privateimg = [UIImage imageNamed:@"privategroupicon.png"];
+    publicimg = [UIImage imageNamed:@"publicgroupicon.png"];
     
 }
 
@@ -43,40 +45,6 @@ UIActivityIndicatorView *spinner;
     
     [self dismissModalViewControllerAnimated:YES];
  
-}
-
--(void)getgroups{
-    
-    
-    NSString *objectpath = @"groups/";
-    NSString *path = [objectpath stringByAppendingString: [pLAppUtils securitytoken].email];
-    
-    
-    [[RKObjectManager sharedManager] getObjectsAtPath:path
-                                           parameters:nil
-     
-                                              success:^(RKObjectRequestOperation *operation, RKMappingResult *mappingResult) {
-
-                                                  sourcegroups = [[NSMutableArray alloc] initWithArray:mappingResult.array];
-                                                  
-                                                  
-                                                  if(sourcegroups.count>0){
-                                                      
-                                                      NSSortDescriptor *sortDescriptor;
-                                                      sortDescriptor = [[NSSortDescriptor alloc] initWithKey:@"groupname"
-                                                                                                   ascending:YES];
-                                                      NSArray *sortDescriptors = [NSArray arrayWithObject:sortDescriptor];
-                                                      sourcegroups = [[NSMutableArray alloc] initWithArray:[sourcegroups sortedArrayUsingDescriptors:sortDescriptors]];
-                                                      [spinner stopAnimating];
-                                                  }
-                                                  
-                                              }
-                                              failure:^(RKObjectRequestOperation *operation, NSError *error) {
-                                                  NSLog(@"Encountered an error: %@", error);
-                                              }];
-    
-    
-    
 }
 
 
@@ -88,7 +56,7 @@ UIActivityIndicatorView *spinner;
     
     }else
     {
-    [spinner startAnimating];
+        [pLAppUtils showActivityIndicatorWithMessage:@"Posting Prayer Request"];
     
     NSMutableArray *groupids = [[NSMutableArray alloc]init];
     
@@ -110,8 +78,7 @@ UIActivityIndicatorView *spinner;
             [[NSNotificationCenter defaultCenter] postNotificationName:@"PostViewControllerDismissed"
                                                                 object:nil
                                                               userInfo:nil];
-            [spinner stopAnimating];
-            [self dismissModalViewControllerAnimated:YES];
+            
             
         }
         
@@ -120,6 +87,9 @@ UIActivityIndicatorView *spinner;
                                            
                                            
                                        }];
+        
+        [self dismissModalViewControllerAnimated:YES];
+        
     }
     
 }
@@ -136,7 +106,6 @@ UIActivityIndicatorView *spinner;
         
         // Pass any objects to the view controller here, like...
         vc.destgroupArray = selectedgroups;
-        vc.sourcegroups = sourcegroups;
         
         [[NSNotificationCenter defaultCenter] addObserver:self
                                                  selector:@selector(didDismissGroupSelectViewController)
@@ -148,7 +117,7 @@ UIActivityIndicatorView *spinner;
 
 -(void)didDismissGroupSelectViewController{
     
-    [groupView reloadData];
+    [tableView reloadData];
     
 }
 
@@ -159,42 +128,57 @@ UIActivityIndicatorView *spinner;
     // Dispose of any resources that can be recreated.
 }
 
-
-
-- (NSInteger)collectionView:(UICollectionView *)view numberOfItemsInSection:(NSInteger)section {
-
-    return [selectedgroups count];
-}
-
-- (NSInteger)numberOfSectionsInCollectionView: (UICollectionView *)collectionView {
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
+    // Return the number of sections.
     return 1;
 }
 
-- (pLGroupCollectionCell *)collectionView:(UICollectionView *)cv cellForItemAtIndexPath:(NSIndexPath *)indexPath {
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
+    // Return the number of rows in the section.
+    // If you're serving data from an array, return the length of the array:
+    return [selectedgroups count];
+}
+
+// Customize the appearance of table view cells.
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
+    static NSString *CellIdentifier = @"groupcollectioncell";
     
+    pLGroupCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
+    if (cell == nil) {
+        cell = [[pLGroupCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
+    }
     
-    [groupView registerClass:[pLGroupCollectionCell class] forCellWithReuseIdentifier:@"groupsCell"];
-    [groupView registerNib:[UINib nibWithNibName:@"pLGroupCollectionCell" bundle:[NSBundle mainBundle]]  forCellWithReuseIdentifier:@"groupsCell"];
+    // Set the data for this cell:
+    pLGroup * c;
+    c = (pLGroup*)[selectedgroups objectAtIndex:indexPath.row];
     
+    cell.groupname.text = c.groupname;
+    cell.groupdesc.text = c.grouptype;
     
-    pLGroupCollectionCell *cell = [cv dequeueReusableCellWithReuseIdentifier:@"groupsCell" forIndexPath:indexPath];
+    if([c.grouptype isEqualToString:@"Private"]){
+        cell.img.image = privateimg;
+    }
+    else if ([c.grouptype isEqualToString:@"Public"]){
+        cell.img.image = publicimg;
+    }
     
-    pLGroup *cc = [selectedgroups objectAtIndex:indexPath.row];
-    
-    cell.title.text = cc.groupname;
-    //cell.backgroundColor = [UIColor whiteColor];
     
     return cell;
 }
 
 
-- (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath {
-    pLGroup *cc = [selectedgroups objectAtIndex:indexPath.row];
-    NSNumber *charlength = [NSNumber numberWithInt:[cc.groupname length]];
-    CGSize retval;
-    retval.height = 20;
-    retval.width = [charlength floatValue] * [[NSNumber numberWithInt:8] floatValue];
-    return retval;
+- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    if (editingStyle == UITableViewCellEditingStyleDelete)
+    {
+        
+                
+                
+                [selectedgroups removeObjectAtIndex:indexPath.row];
+                [tableView deleteRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationFade];
+                
+            
+    }
 }
 
 @end

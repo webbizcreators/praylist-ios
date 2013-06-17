@@ -11,13 +11,14 @@
 #import "pLPrayerListItemCell.h"
 #import "pLSecurityToken.h"
 #import "pLAppUtils.h"
-#import "pLRequestCommentViewController.h"
+#import "pLViewRequestViewController.h"
 #import "BarButtonBadge.h"
 #import "CustomBadge.h"
 #import "pLNotificationsPopupViewController.h"
 #import "FPPopoverController.h"
+#import "pLAppDelegate.h"
 
-#define FONT_SIZE 11.0f
+#define FONT_SIZE 13.0f
 #define CELL_CONTENT_WIDTH 297.0f
 #define CELL_CONTENT_MARGIN 24.0f
 
@@ -60,7 +61,7 @@ UIActivityIndicatorView *spinner;
                                                object:nil];
 
     
-    [self loadData];
+    [self loadDatawithIndicator:YES];
     
 }
 
@@ -87,7 +88,7 @@ UIActivityIndicatorView *spinner;
     double intervalInSeconds = [now timeIntervalSinceDate:lastdataload];
     
     if(intervalInSeconds>10){
-        [self loadData];
+        [self loadDatawithIndicator:NO];
     }
     
     [self updateNotificationBadge];
@@ -133,8 +134,10 @@ UIActivityIndicatorView *spinner;
 
 
 
--(void)loadData{
+-(void)loadDatawithIndicator:(BOOL)withindicator{
 
+    if(withindicator)[pLAppUtils showActivityIndicatorWithMessage:@"Loading"];
+    
     NSString *objectpath = @"lists/myprayerlist/";
     NSString *path = [objectpath stringByAppendingString: [pLAppUtils securitytoken].email];
     
@@ -157,6 +160,7 @@ UIActivityIndicatorView *spinner;
                                                   lastdataload = [[NSDate alloc]init];
                                                   [tableView reloadData];
                                                   [self dataSourceDidFinishLoadingNewData];
+                                                  if(withindicator)[pLAppUtils hideActivityIndicator];
                                                   
                                               }
                                               failure:^(RKObjectRequestOperation *operation, NSError *error) {
@@ -193,7 +197,7 @@ UIActivityIndicatorView *spinner;
 
 - (void) reloadTableViewDataSource
 {
-	[self loadData];
+	[self loadDatawithIndicator:NO];
     
 }
 
@@ -246,7 +250,14 @@ UIActivityIndicatorView *spinner;
     cell.requesttext.text = pRequest.requesttext;
     cell.requeststats.text = [pLAppUtils calculaterequeststats:pRequest.praycount commentcount:pRequest.commentcount];
     
-    NSLog(@"Title Label: %@", [[cell.praybutton titleLabel] text ]);
+    NSString*groupnames=@"";
+    
+    //for(NSString*s in pRequest.groupids){
+        
+    //    [[groupnames stringByAppendingString:[pLAppUtils groupnamefromID:s]] stringByAppendingString:@", "];
+        
+    //}
+    cell.groupnames.text = groupnames;
     
     if([pRequest.iprayed isEqualToNumber:[NSNumber numberWithInt:1]]){
         [cell.praybutton setHighlighted:YES];
@@ -254,6 +265,7 @@ UIActivityIndicatorView *spinner;
     else{
         [cell.praybutton setHighlighted:NO];
     }
+    
     
     cell.img.image = [pLAppUtils userimgFromEmail: pRequest.requestoremail];
     
@@ -336,23 +348,33 @@ UIActivityIndicatorView *spinner;
 }
 
 
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    // Make sure your segue name in storyboard is the same as this line
-    if ([[segue identifier] isEqualToString:@"showComments"])
-    {
-        // Get reference to the destination view controller
-        pLRequestCommentViewController *vc = [segue destinationViewController];
-        
-        // Pass any objects to the view controller here, like...
-        pLPrayerListItemCell * lic = (pLPrayerListItemCell*)sender;
-        vc.prayerrequest = NULL;
-        vc.prayerrequestlistitem = lic.listitem;
-        
-
-    }
+    [self opencommentsfromsender:[tableView cellForRowAtIndexPath:indexPath]];
 }
 
+-(void)opencommentsfromsender:(id)sender{
+    
+    pLPrayerListItemCell * lic = (pLPrayerListItemCell*)sender;
+    
+    [pLAppUtils showActivityIndicatorWithMessage:@"Loading"];
+    
+    
+    UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"MainStoryboard" bundle: nil];
+    pLViewRequestViewController *lvc = [storyboard instantiateViewControllerWithIdentifier:@"postDetail"];
+    lvc.prayerrequestlistitem = lic.listitem;
+    lvc.prayerrequest = NULL;
+    
+    pLAppDelegate *appDelegate = (pLAppDelegate *)[[UIApplication sharedApplication] delegate];
+    
+    UIViewController*pv=appDelegate.window.rootViewController.presentedViewController;
+    
+    [pv presentViewController:lvc animated:YES completion:nil];
+    
+    [pLAppUtils hideActivityIndicator];
+
+    
+}
 
 - (void)didReceiveMemoryWarning
 {

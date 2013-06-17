@@ -7,14 +7,16 @@
 //
 
 #import "pLGroupMemberCell.h"
+#import "pLAppUtils.h"
 
 @implementation pLGroupMemberCell
+@synthesize email;
 
 - (id)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier
 {
     self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];
     if (self) {
-        // Initialization code
+
     }
     return self;
 }
@@ -26,9 +28,32 @@
     // Configure the view for the selected state
 }
 
--(IBAction)actionbutton:(id)sender{
+
+-(IBAction)removeButton:(id)sender{
+ 
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"removeMember"
+                                                        object:self
+                                                      userInfo:nil];
+}
+
+
+-(IBAction)cancelinviteButton:(id)sender{
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"cancelInvite"
+                                                        object:self
+                                                      userInfo:nil];
+}
+
+-(IBAction)acceptButton:(id)sender{
+ 
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"acceptMember"
+                                                        object:self
+                                                      userInfo:nil];
     
-    [[NSNotificationCenter defaultCenter] postNotificationName:@"MemberApprove"
+}
+
+-(IBAction)declineButton:(id)sender{
+    
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"declineMember"
                                                         object:self
                                                       userInfo:nil];
     

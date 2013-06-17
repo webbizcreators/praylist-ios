@@ -7,10 +7,12 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "pLNotification.h"
 
 @interface pLNotificationCell : UITableViewCell
 
 
+@property (nonatomic, retain) pLNotification*notif;
 @property (nonatomic, retain) IBOutlet UILabel *notificationtext;
 @property (nonatomic, retain) IBOutlet UILabel *notificationdate;
 @property (nonatomic, retain) IBOutlet UIImageView *img;

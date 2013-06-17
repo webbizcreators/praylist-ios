@@ -21,7 +21,7 @@
 
 @synthesize groupmembersadd;
 
-NSArray*groupcontacts;
+NSMutableArray*groupcontacts;
 UIActivityIndicatorView *spinner;
 
 - (id)initWithStyle:(UITableViewStyle)style
@@ -35,6 +35,7 @@ UIActivityIndicatorView *spinner;
 
 
 -(IBAction)doneButton:(id)sender{
+    
     
     [groupmembersadd removeAllObjects];
     
@@ -50,6 +51,7 @@ UIActivityIndicatorView *spinner;
         [groupmembersadd addObject: person.email];
     }
     
+    
     [self.navigationController popViewControllerAnimated:YES];
     
     [[NSNotificationCenter defaultCenter] postNotificationName:@"GroupMemberControllerDismissed"
@@ -61,7 +63,20 @@ UIActivityIndicatorView *spinner;
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    groupcontacts = [NSArray arrayWithArray:[pLAppUtils getcontacts]];
+    groupcontacts = [NSMutableArray arrayWithArray:[pLAppUtils getcontacts]];
+    pLPerson*selfp;
+    int i = 0;
+    for(pLPerson*p in groupcontacts){
+        
+        if([groupmembersadd containsObject:p.email]){
+            NSIndexPath*indexPath = [NSIndexPath indexPathForRow:i inSection:0];
+            [self.tableView selectRowAtIndexPath:indexPath animated:YES scrollPosition:UITableViewScrollPositionTop];
+            [self.tableView.delegate tableView:self.tableView didSelectRowAtIndexPath:indexPath];
+        }
+        if([p.email isEqualToString:[pLAppUtils securitytoken].email]){selfp=p;}
+        i++;
+    }
+    [groupcontacts removeObject:selfp];
     
     
     // Uncomment the following line to preserve selection between presentations.

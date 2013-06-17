@@ -9,13 +9,13 @@
 #import <UIKit/UIKit.h>
 #import <RestKit/RestKit.h>
 
-@interface pLPostRequestController : UIViewController<UICollectionViewDataSource, UICollectionViewDelegateFlowLayout>{
+@interface pLPostRequestController : UIViewController<UITableViewDataSource,UITableViewDelegate>{
     
     IBOutlet UIBarButtonItem *cancelButton;
     IBOutlet UIBarButtonItem *postButton;
     IBOutlet UIImageView *userImage;
     IBOutlet UITextView *requestText;
-    IBOutlet UICollectionView *groupView;
+    IBOutlet UITableView *tableView;
     
 }
 

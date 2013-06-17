@@ -1,26 +1,27 @@
 //
-//  pLPrayerListItemCell.m
+//  pLViewPrayerItemCell.m
 //  PrayList
 //
-//  Created by Peter Opheim on 11/16/12.
-//  Copyright (c) 2012 Peter Opheim. All rights reserved.
+//  Created by Peter Opheim on 6/7/13.
+//  Copyright (c) 2013 Peter Opheim. All rights reserved.
 //
 
-#import "pLPrayerListItemCell.h"
+#import "pLViewPrayerItemCell.h"
 #import "pLResponse.h"
 
-@implementation pLPrayerListItemCell
+@implementation pLViewPrayerItemCell
+
 
 @synthesize requestdate;
 @synthesize requesttitle;
 @synthesize requesttext;
+@synthesize groupnames;
 @synthesize img;
 @synthesize requestoremail;
 @synthesize requestid;
 @synthesize praybutton;
 @synthesize listitem;
 @synthesize requeststats;
-@synthesize groupnames;
 
 pLSecondViewController*tvc2;
 
@@ -43,7 +44,7 @@ pLSecondViewController*tvc2;
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated
 {
     [super setSelected:selected animated:animated];
-
+    
     // Configure the view for the selected state
 }
 
@@ -59,28 +60,28 @@ pLSecondViewController*tvc2;
     
     
     if(![listitem.iprayed isEqualToNumber:[NSNumber numberWithInt:1]]){
-    
-    NSString *objectpath = @"prayerrequests/prayfor/";
-    NSString *path = [objectpath stringByAppendingString: [requestoremail stringByAppendingString:[@"/" stringByAppendingString:requestid]]];
-    
-    
-    [[RKObjectManager sharedManager] getObjectsAtPath:path
-                                           parameters:nil
-                                              success:^(RKObjectRequestOperation *operation, RKMappingResult *mappingResult) {
-                                                  
-                                                  pLResponse *result = mappingResult.firstObject;
-                                                  
-                                                  
+        
+        NSString *objectpath = @"prayerrequests/prayfor/";
+        NSString *path = [objectpath stringByAppendingString: [requestoremail stringByAppendingString:[@"/" stringByAppendingString:requestid]]];
+        
+        
+        [[RKObjectManager sharedManager] getObjectsAtPath:path
+                                               parameters:nil
+                                                  success:^(RKObjectRequestOperation *operation, RKMappingResult *mappingResult) {
+                                                      
+                                                      pLResponse *result = mappingResult.firstObject;
+                                                      
+                                                      
                                                       [praybutton setHighlighted:YES];
                                                       listitem.iprayed = [NSNumber numberWithInt:1];
                                                       listitem.praycount = [NSNumber numberWithFloat:([listitem.praycount floatValue] + [[NSNumber numberWithInt:1] floatValue])];
-                                                  
-                                                  
-                                              }
-                                              failure:^(RKObjectRequestOperation *operation, NSError *error) {
-                                                  NSLog(@"Encountered an error: %@", error);
-                                              }];
-    
+                                                      
+                                                      
+                                                  }
+                                                  failure:^(RKObjectRequestOperation *operation, NSError *error) {
+                                                      NSLog(@"Encountered an error: %@", error);
+                                                  }];
+        
     }
     else
     {
@@ -95,8 +96,8 @@ pLSecondViewController*tvc2;
                                                       pLResponse *result = mappingResult.firstObject;
                                                       
                                                       
-                                                          [praybutton setHighlighted:NO];
-                                                          listitem.iprayed = [NSNumber numberWithInt:0];
+                                                      [praybutton setHighlighted:NO];
+                                                      listitem.iprayed = [NSNumber numberWithInt:0];
                                                       
                                                       
                                                   }
@@ -105,8 +106,8 @@ pLSecondViewController*tvc2;
                                                   }];
     }
     
-        
-        
+    
+    
 }
 
 @end

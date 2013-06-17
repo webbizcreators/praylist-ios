@@ -17,6 +17,11 @@
 #import "pLComment.h"
 #import "pLNotification.h"
 #import "pLNotificationCount.h"
+#import "pLAppDelegate.h"
+#import "MBProgressHUD.h"
+#import "pLNotificationsPopupViewController.h"
+#import "FPPopoverController.h"
+#import "pLRequestCommentViewController.h"
 
 
 @implementation pLAppUtils
@@ -24,9 +29,14 @@
 pLSecurityToken* st = nil;
 NSMutableDictionary *userImages;
 NSMutableDictionary *contacts;
+NSMutableDictionary *groups;
 NSMutableArray *notifications;
 NSNumber *notifcount;
 NSString *dt = @"";
+FPPopoverController *popover;
+
+UIView*v;
+MBProgressHUD *hud;
 
 +(NSArray*)getcontacts{
     NSArray*contactsarray = [contacts allValues];
@@ -178,6 +188,12 @@ NSString *dt = @"";
     
     RKResponseDescriptor *responseDescriptor = [RKResponseDescriptor responseDescriptorWithMapping:responseMapping
                                                                                        pathPattern:@"lists/myprayerlist/:email"
+                                                                                           keyPath: nil
+                                                                                       statusCodes:datastatuscodes];
+    
+    [objectManager addResponseDescriptor: responseDescriptor];
+    
+    responseDescriptor = [RKResponseDescriptor responseDescriptorWithMapping:responseMapping pathPattern:@"lists/:email/:requestid"
                                                                                            keyPath: nil
                                                                                        statusCodes:datastatuscodes];
     
@@ -355,6 +371,7 @@ NSString *dt = @"";
     [responseMapping addAttributeMappingsFromDictionary:@{
      @"owneremail": @"owneremail",
      @"groupname": @"groupname",
+     @"groupdescription": @"groupdescription",
      @"groupmembers": @"groupmembers",
      @"grouptype": @"grouptype",
      @"orgid": @"orgid",
@@ -408,6 +425,7 @@ NSString *dt = @"";
     [requestMapping addAttributeMappingsFromDictionary:@{
      @"owneremail": @"owneremail",
      @"groupname": @"groupname",
+     @"groupdescription": @"groupdescription",
      @"groupmembers": @"groupmembers",
      @"grouptype": @"grouptype",
      @"orgid": @"orgid",
@@ -436,7 +454,10 @@ NSString *dt = @"";
                                              pathPattern:@"groups"
                                              method:RKRequestMethodPOST]] ;
     
-    
+    [objectManager.router.routeSet addRoute:[RKRoute
+                                             routeWithClass:[pLGroup class]
+                                             pathPattern:@"groups/:orgid/:groupid"
+                                             method:RKRequestMethodDELETE]] ;
     
     
     //******************************************************************
@@ -541,6 +562,11 @@ NSString *dt = @"";
                                              pathPattern:@"prayerrequests/:requestemail/:requestid/comments"
                                              method:RKRequestMethodPUT]];
     
+    [objectManager.router.routeSet addRoute:[RKRoute
+                                             routeWithClass:[pLComment class]
+                                             pathPattern:@"prayerrequests/:requestemail/:requestid/comments/:commentid"
+                                             method:RKRequestMethodDELETE]];
+    
     
     
     
@@ -554,6 +580,7 @@ NSString *dt = @"";
      @"notificationdate": @"notificationdate",
      @"notiftext": @"notiftext",
      @"entityid": @"entityid",
+     @"requestoremail": @"requestoremail",
      @"openedflag": @"openedflag",
      @"fromemail": @"fromemail",
      @"notiftype": @"notiftype",
@@ -650,6 +677,18 @@ NSString *dt = @"";
     }
 }
 
++(NSString*)groupnamefromID:(NSString*)id{
+    
+    pLGroup*g=[groups objectForKey:id];
+    
+    if(g){
+        return g.groupname;
+    }
+    else{
+        return @"";
+    }
+}
+
 +(void)loadmycontacts{
     
     contacts = [[NSMutableDictionary alloc] init];
@@ -676,6 +715,36 @@ NSString *dt = @"";
                                               failure:^(RKObjectRequestOperation *operation, NSError *error) {
                                                   NSLog(@"Encountered an error: %@", error);
                                               }];
+    
+}
+
++(void)loadgroups{
+    
+    groups = [[NSMutableDictionary alloc] init];
+    
+    NSString *objectpath = @"groups/";
+    NSString *path = [objectpath stringByAppendingString: [pLAppUtils securitytoken].email];
+    
+    
+    [[RKObjectManager sharedManager] getObjectsAtPath:path
+                                           parameters:nil
+     
+                                              success:^(RKObjectRequestOperation *operation, RKMappingResult *mappingResult) {
+                                                  
+                                                  NSMutableArray*grouparray = [[NSMutableArray alloc] initWithArray:mappingResult.array];
+                                                  
+                                                  if(grouparray.count>0){
+                                                      for(pLGroup*g in grouparray){
+                                                          [groups setObject:g forKey:g.groupid];
+                                                      }
+                                                  }
+                                                  
+                                              }
+                                              failure:^(RKObjectRequestOperation *operation, NSError *error) {
+                                                  NSLog(@"Encountered an error: %@", error);
+                                              }];
+    
+    
     
 }
 
@@ -774,6 +843,83 @@ NSString *dt = @"";
     
     return retval;
     
+}
+
+
+
++(void) showActivityIndicatorWithMessage:(NSString*)message{
+    
+    pLAppDelegate *appDelegate = (pLAppDelegate *)[[UIApplication sharedApplication] delegate];
+        hud = [[MBProgressHUD alloc] initWithWindow:appDelegate.window];
+        [appDelegate.window addSubview:hud];
+    
+
+        hud.mode = MBProgressHUDModeIndeterminate;
+        hud.labelText = message;
+    
+        [hud show:YES];
+
+}
+
++(void) hideActivityIndicator{
+    [hud hide:YES];
+}
+
++(void) showCheckboxIndicatorWithMessage:(NSString*)message{
+    
+    
+        pLAppDelegate *appDelegate = (pLAppDelegate *)[[UIApplication sharedApplication] delegate];
+        hud = [[MBProgressHUD alloc] initWithWindow:appDelegate.window];
+        [appDelegate.window addSubview:hud];
+    
+
+        hud.customView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"37x-Checkmark.png"]];
+        hud.mode = MBProgressHUDModeCustomView;
+        hud.labelText = message;
+    
+        [hud show:YES];
+        [hud hide:YES afterDelay:0.5];
+
+}
+
++(void) hideActivityIndicatorWithMessage:(NSString*)message{
+    
+	hud.customView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"37x-Checkmark.png"]];
+    
+	hud.mode = MBProgressHUDModeCustomView;
+    
+	hud.labelText = message;
+    
+	[hud show:YES];
+	[hud hide:YES afterDelay:0.5];
+}
+
+
++(void) shownotifsfromview:(UIView*)view{
+    
+    NSArray *nib = [[NSBundle mainBundle] loadNibNamed:@"NotificationsPopupView" owner:self options:nil];
+    pLNotificationsPopupViewController*controller;
+    
+    for (id oneObject in nib)
+        if ([oneObject isKindOfClass:[pLNotificationsPopupViewController class]])
+            
+            controller = (pLNotificationsPopupViewController *)oneObject;
+    
+    controller.title = @"Notifications";
+    //our popover
+    popover = [[FPPopoverController alloc] initWithViewController:controller];
+    
+    popover.contentSizeForViewInPopover = CGSizeMake(280,350);
+    popover.contentSize = CGSizeMake(280,350);
+    
+    //the popover will be presented from the okButton view
+    [popover presentPopoverFromView:view];
+    
+}
+
++(void)dismissnotifs{
+    
+    [popover dismissPopoverAnimated:YES];
 }
 
 @end

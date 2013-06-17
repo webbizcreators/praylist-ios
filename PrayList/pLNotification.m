@@ -14,6 +14,7 @@
 @synthesize notificationdate;
 @synthesize notiftext;
 @synthesize entityid;
+@synthesize requestoremail;
 @synthesize openedflag;
 @synthesize fromemail;
 @synthesize notiftype;

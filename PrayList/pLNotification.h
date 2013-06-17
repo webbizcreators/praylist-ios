@@ -14,6 +14,7 @@
 @property (nonatomic, retain) NSDate* notificationdate;
 @property (nonatomic, retain) NSString* notiftext;
 @property (nonatomic, retain) NSString* entityid;
+@property (nonatomic, retain) NSString* requestoremail;
 @property (nonatomic, retain) NSNumber* openedflag;
 @property (nonatomic, retain) NSString* fromemail;
 @property (nonatomic, retain) NSString* notiftype;

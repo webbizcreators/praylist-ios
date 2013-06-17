@@ -15,8 +15,11 @@
 @synthesize requesttitle;
 @synthesize requesttext;
 @synthesize requeststats;
+@synthesize requestoremail;
+@synthesize requestid;
 @synthesize img;
 @synthesize listitem;
+@synthesize groupnames;
 
 pLFirstViewController*tvc;
 
@@ -45,7 +48,7 @@ pLFirstViewController*tvc;
 }
 
 - (IBAction)opencomments:(UIButton *)sender {
-    [tvc performSegueWithIdentifier:@"showComments2" sender:self];
+    [tvc opencommentsfromsender:self];
 }
 
 

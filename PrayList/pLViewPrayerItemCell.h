@@ -1,9 +1,9 @@
 //
-//  pLPrayerListItemCell.h
+//  pLViewPrayerItemCell.h
 //  PrayList
 //
-//  Created by Peter Opheim on 11/16/12.
-//  Copyright (c) 2012 Peter Opheim. All rights reserved.
+//  Created by Peter Opheim on 6/7/13.
+//  Copyright (c) 2013 Peter Opheim. All rights reserved.
 //
 
 #import <UIKit/UIKit.h>
@@ -11,7 +11,7 @@
 #import "pLSecondViewController.h"
 #import "pLPrayerRequestListItem.h"
 
-@interface pLPrayerListItemCell : UITableViewCell{
+@interface pLViewPrayerItemCell : UITableViewCell{
     
     
     UILabel *requesttitle;
@@ -35,6 +35,5 @@
 @property (nonatomic, retain) pLPrayerRequestListItem* listitem;
 
 - (void) configureView:(pLPrayerRequestListItem*)li inTableViewController:(pLSecondViewController*)_tvc;
-
 
 @end
