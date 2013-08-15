@@ -22,7 +22,10 @@
 #import "pLNotificationsPopupViewController.h"
 #import "FPPopoverController.h"
 #import "pLRequestCommentViewController.h"
-
+#import "pLuser.h"
+#import "pLPasswordUpdateRequest.h"
+#import "pLDrawerController.h"
+#import "KeychainItemWrapper.h"
 
 @implementation pLAppUtils
 
@@ -35,8 +38,12 @@ NSNumber *notifcount;
 NSString *dt = @"";
 FPPopoverController *popover;
 
+BOOL groupsloaded=NO;
+BOOL peopleloaded=NO;
+
 UIView*v;
 MBProgressHUD *hud;
+KeychainItemWrapper *keychainItem;
 
 +(NSArray*)getcontacts{
     NSArray*contactsarray = [contacts allValues];
@@ -137,11 +144,12 @@ MBProgressHUD *hud;
     
 
     
-         return [value stringByAppendingString:@" ago"];
+        return [value stringByAppendingString:@" ago"];
+        //return value;
     }
     else
     {
-        return @"Don't know.";
+        return @"?";
     }
     
     //NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
@@ -160,7 +168,7 @@ MBProgressHUD *hud;
     NSMutableIndexSet *datastatuscodes = [NSMutableIndexSet indexSetWithIndex:200];
     
     NSDateFormatter *dateFormatter = [NSDateFormatter new];
-    [dateFormatter setDateFormat:@"yyyy-MM-dd'T'HH:mm:ss.SSS'Z'"];
+    [dateFormatter setDateFormat:@"yyyy-MM-dd'T'HH:mm:ss.SSSZ"];
     dateFormatter.timeZone = [NSTimeZone timeZoneWithAbbreviation:@"UTC"];
     dateFormatter.locale = [[NSLocale alloc] initWithLocaleIdentifier:@"en_US_POSIX"];
     
@@ -176,18 +184,36 @@ MBProgressHUD *hud;
     //pLPrayerRequestListItem ********************************************
     RKObjectMapping *responseMapping = [RKObjectMapping mappingForClass:[pLPrayerRequestListItem class]];
     [responseMapping addAttributeMappingsFromDictionary:@{
+     @"email": @"email",
+     @"requestdate":@"requestdate",
      @"requestid": @"requestid",
      @"requestoremail": @"requestoremail",
      @"requesttext": @"requesttext",
-     @"email": @"email",
-     @"requestdate":@"requestdate",
-     @"praycount":@"praycount",
+     @"groupids": @"groupids",
+     @"praycount": @"praycount",
+     @"totalpraycount": @"totalpraycount",
+     @"peopleprayed": @"peopleprayed",
+     @"answer": @"answer",
+     @"commentcount": @"commentcount",
+     @"startplanon": @"startplanon",
+     @"prayinterval": @"prayinterval",
      @"iprayed":@"iprayed",
-     @"commentcount":@"commentcount",
+     @"scheduleddate": @"scheduleddate",
+     @"lastupdateddate": @"lastupdateddate",
+     @"senttoemails": @"senttoemails",
+     @"requesttype": @"requesttype",
+     @"scheduleitemid": @"scheduleitemid",
      }];
     
     RKResponseDescriptor *responseDescriptor = [RKResponseDescriptor responseDescriptorWithMapping:responseMapping
                                                                                        pathPattern:@"lists/myprayerlist/:email"
+                                                                                           keyPath: nil
+                                                                                       statusCodes:datastatuscodes];
+    
+    [objectManager addResponseDescriptor: responseDescriptor];
+    
+    responseDescriptor = [RKResponseDescriptor responseDescriptorWithMapping:responseMapping
+                                                                                       pathPattern:@"schedule/:email"
                                                                                            keyPath: nil
                                                                                        statusCodes:datastatuscodes];
     
@@ -199,6 +225,67 @@ MBProgressHUD *hud;
     
     [objectManager addResponseDescriptor: responseDescriptor];
     
+    
+    responseDescriptor = [RKResponseDescriptor responseDescriptorWithMapping:responseMapping
+                                                                 pathPattern:@"prayerrequests/answer/:email/:requestid"
+                                                                     keyPath: nil
+                                                                 statusCodes:datastatuscodes];
+    
+    [objectManager addResponseDescriptor: responseDescriptor];
+    
+    responseDescriptor = [RKResponseDescriptor responseDescriptorWithMapping:responseMapping
+                                                                 pathPattern:@"prayerrequests"
+                                                                     keyPath: nil
+                                                                 statusCodes:datastatuscodes];
+    
+    [objectManager addResponseDescriptor: responseDescriptor];
+    
+    RKObjectMapping *requestMapping = [RKObjectMapping requestMapping];
+    [requestMapping addAttributeMappingsFromDictionary:@{
+     @"email": @"email",
+     @"requestdate":@"requestdate",
+     @"requestid": @"requestid",
+     @"requestoremail": @"requestoremail",
+     @"requesttext": @"requesttext",
+     @"groupids": @"groupids",
+     @"peopleprayed": @"peopleprayed",
+     @"answer": @"answer",
+     @"commentcount": @"commentcount",
+     @"startplanon": @"startplanon",
+     @"prayinterval": @"prayinterval",
+     @"iprayed":@"iprayed",
+     @"scheduleddate": @"scheduleddate",
+     @"lastupdateddate": @"lastupdateddate",
+     @"senttoemails": @"senttoemails",
+     @"requesttype": @"requesttype",
+     @"scheduleitemid": @"scheduleitemid",
+     }];
+    
+    
+    RKRequestDescriptor *requestDescriptor = [RKRequestDescriptor requestDescriptorWithMapping:requestMapping
+                                                                                   objectClass:[pLPrayerRequestListItem class]
+                                                                                   rootKeyPath: nil];
+    
+    
+    [objectManager addRequestDescriptor:requestDescriptor];
+    
+    [objectManager.router.routeSet addRoute:[RKRoute
+                                             routeWithClass:[pLPrayerRequestListItem class]
+                                             pathPattern:@"prayerrequests/d/:requestoremail/:requestid"
+                                             method:RKRequestMethodDELETE]] ;
+    
+    
+    [objectManager.router.routeSet addRoute:[RKRoute
+                                             routeWithClass:[pLPrayerRequestListItem class]
+                                             pathPattern:@"prayerrequests"
+                                             method:RKRequestMethodPUT]] ;
+    
+    [objectManager.router.routeSet addRoute:[RKRoute
+                                             routeWithClass:[pLPrayerRequestListItem class]
+                                             pathPattern:@"prayerrequests/:requestoremail/:requestid"
+                                             method:RKRequestMethodPOST]] ;
+    
+    
     //******************************************************************
     
     
@@ -208,7 +295,7 @@ MBProgressHUD *hud;
     
     //pLLoginRequest ******************************************************************
     
-    RKObjectMapping *requestMapping = [RKObjectMapping requestMapping];
+    requestMapping = [RKObjectMapping requestMapping];
     [requestMapping addAttributeMappingsFromDictionary:@{
      @"email": @"email",
      @"password": @"password",
@@ -216,7 +303,7 @@ MBProgressHUD *hud;
      }];
     
     
-    RKRequestDescriptor *requestDescriptor = [RKRequestDescriptor requestDescriptorWithMapping:requestMapping
+    requestDescriptor = [RKRequestDescriptor requestDescriptorWithMapping:requestMapping
                                                                                    objectClass:[pLLoginRequest class]
                                                                                    rootKeyPath: nil];
     
@@ -232,6 +319,35 @@ MBProgressHUD *hud;
     
     
     //******************************************************************
+    
+    
+    //pLPasswordUpdateRequest ******************************************************************
+    
+    requestMapping = [RKObjectMapping requestMapping];
+    [requestMapping addAttributeMappingsFromDictionary:@{
+     @"email": @"email",
+     @"oldpassword": @"oldpassword",
+     @"newpassword": @"newpassword",
+     }];
+    
+    
+    requestDescriptor = [RKRequestDescriptor requestDescriptorWithMapping:requestMapping
+                                                              objectClass:[pLPasswordUpdateRequest class]
+                                                              rootKeyPath: nil];
+    
+    
+    [objectManager addRequestDescriptor:requestDescriptor];
+    
+    
+    
+    [objectManager.router.routeSet addRoute:[RKRoute
+                                             routeWithClass:[pLPasswordUpdateRequest class]
+                                             pathPattern:@"users/changepassword/:email"
+                                             method:RKRequestMethodPOST]] ;
+    
+    
+    //******************************************************************
+
     
     
     
@@ -269,102 +385,7 @@ MBProgressHUD *hud;
     
     [objectManager addResponseDescriptor:responseDescriptor];
     // ******************************************************************
-    
-    
-    
-    
-    
-    
-    //pLPrayerRequest ********************************************
-    responseMapping = [RKObjectMapping mappingForClass:[pLPrayerRequest class]];
-    [responseMapping addAttributeMappingsFromDictionary:@{
-     @"requestid": @"requestid",
-     @"requestoremail": @"requestoremail",
-     @"requesttext": @"requesttext",
-     @"requestdate":@"requestdate",
-     @"groupids":@"groupids",
-     @"praycount":@"praycount",
-     @"orgid":@"orgid",
-     @"peopleprayed":@"peopleprayed",
-     @"answer":@"answer",
-     @"commentcount":@"commentcount",
-     }];
-    
-    responseDescriptor = [RKResponseDescriptor responseDescriptorWithMapping:responseMapping
-                                                                                       pathPattern:@"prayerrequests/:requestoremail/:requestid"
-                                                                                           keyPath: nil
-                                                                                       statusCodes:[NSIndexSet indexSetWithIndex:200]];
-    
-    [objectManager addResponseDescriptor: responseDescriptor];
-    
-    
-    
-    responseDescriptor = [RKResponseDescriptor responseDescriptorWithMapping:responseMapping
-                                                                 pathPattern:@"prayerrequests/:requestoremail"
-                                                                     keyPath: nil
-                                                                 statusCodes:datastatuscodes];
-    
-    [objectManager addResponseDescriptor: responseDescriptor];
-    
-    
-    responseDescriptor = [RKResponseDescriptor responseDescriptorWithMapping:responseMapping
-                                                                 pathPattern:@"prayerrequests"
-                                                                     keyPath: nil
-                                                                 statusCodes:[NSIndexSet indexSetWithIndex:200]];
-    
-    [objectManager addResponseDescriptor: responseDescriptor];
-    
-    
-    
-    requestMapping = [RKObjectMapping requestMapping];
-    [requestMapping addAttributeMappingsFromDictionary:@{
-     @"requestid": @"requestid",
-     @"requestoremail": @"requestoremail",
-     @"requesttext": @"requesttext",
-     @"requestdate":@"requestdate",
-     @"groupids":@"groupids",
-     @"praycount":@"praycount",
-     @"orgid":@"orgid",
-     @"peopleprayed":@"peopleprayed",
-     @"answer":@"answer",
-     @"commentcount":@"commentcount",
-     }];
-    
-    
-    requestDescriptor = [RKRequestDescriptor requestDescriptorWithMapping:requestMapping
-                                                                                   objectClass:[pLPrayerRequest class]
-                                                                                   rootKeyPath: nil];
-    
-    
-    [objectManager addRequestDescriptor:requestDescriptor];
-    
-    
-    
-    [objectManager.router.routeSet addRoute:[RKRoute
-                                             routeWithClass:[pLPrayerRequest class]
-                                             pathPattern:@"prayerrequests"
-                                             method:RKRequestMethodPUT]] ;
-    
-    [objectManager.router.routeSet addRoute:[RKRoute
-                                             routeWithClass:[pLPrayerRequest class]
-                                             pathPattern:@"prayerrequests/:requestoremail/:requestid"
-                                             method:RKRequestMethodPOST]] ;
-    
-    [objectManager.router.routeSet addRoute:[RKRoute
-                                             routeWithClass:[pLPrayerRequest class]
-                                             pathPattern:@"prayerrequests/d/:requestoremail/:requestid"
-                                             method:RKRequestMethodDELETE]] ;
-    
-    
-    
-    
-    //******************************************************************
-    
-    
-    
-    
-    
-    
+
     
     //pLGroup ********************************************
     responseMapping = [RKObjectMapping mappingForClass:[pLGroup class]];
@@ -378,6 +399,8 @@ MBProgressHUD *hud;
      @"groupid": @"groupid",
      @"invitees": @"invitees",
      @"requestors": @"requestors",
+     @"notifyall": @"notifyall",
+     @"notifyurgent": @"notifyurgent",
      }];
     
     responseDescriptor = [RKResponseDescriptor responseDescriptorWithMapping:responseMapping
@@ -469,6 +492,7 @@ MBProgressHUD *hud;
      @"email": @"email",
      @"fullname": @"fullname",
      @"orgid": @"orgid",
+     @"description": @"description",
      }];
     
     responseDescriptor = [RKResponseDescriptor responseDescriptorWithMapping:responseMapping
@@ -477,6 +501,51 @@ MBProgressHUD *hud;
                                                                  statusCodes:datastatuscodes];
     
     [objectManager addResponseDescriptor: responseDescriptor];
+    
+    //*****************************************************
+    
+    //pLUser ********************************************
+    responseMapping = [RKObjectMapping mappingForClass:[pLUser class]];
+    [responseMapping addAttributeMappingsFromDictionary:@{
+     @"email": @"email",
+     @"fullname": @"fullname",
+     @"orgid": @"orgid",
+     @"description": @"description",
+     @"emailaddress": @"emailaddress",
+     }];
+    
+    responseDescriptor = [RKResponseDescriptor responseDescriptorWithMapping:responseMapping
+                                                                 pathPattern:@"users/:email"
+                                                                     keyPath: nil
+                                                                 statusCodes:datastatuscodes];
+    
+    [objectManager addResponseDescriptor: responseDescriptor];
+    
+    
+    requestMapping = [RKObjectMapping requestMapping];
+    [requestMapping addAttributeMappingsFromDictionary:@{
+     @"email": @"email",
+     @"fullname": @"fullname",
+     @"orgid": @"orgid",
+     @"description": @"description",
+     @"emailaddress": @"emailaddress",
+     }];
+    
+    
+    requestDescriptor = [RKRequestDescriptor requestDescriptorWithMapping:requestMapping
+                                                              objectClass:[pLUser class]
+                                                              rootKeyPath: nil];
+    
+    
+    [objectManager addRequestDescriptor:requestDescriptor];
+    
+    
+    
+    [objectManager.router.routeSet addRoute:[RKRoute
+                                             routeWithClass:[pLUser class]
+                                             pathPattern:@"users/:email"
+                                             method:RKRequestMethodPOST]];
+    
     
     //*****************************************************
     
@@ -497,6 +566,13 @@ MBProgressHUD *hud;
     
     responseDescriptor = [RKResponseDescriptor responseDescriptorWithMapping:responseMapping
                                                                  pathPattern:@"prayerrequests/unprayfor/:email/:requestid"
+                                                                     keyPath: nil
+                                                                 statusCodes:[NSIndexSet indexSetWithIndex:200]];
+    
+    [objectManager addResponseDescriptor: responseDescriptor];
+    
+    responseDescriptor = [RKResponseDescriptor responseDescriptorWithMapping:responseMapping
+                                                                 pathPattern:@"users/changepassword/:email"
                                                                      keyPath: nil
                                                                  statusCodes:[NSIndexSet indexSetWithIndex:200]];
     
@@ -621,6 +697,99 @@ MBProgressHUD *hud;
     
 }
 
+
++(void)performloginwithEmail:(NSString*)email password:(NSString*)password savelogin:(BOOL)savelogin fromauto:(BOOL)fromauto{
+    
+    keychainItem = [[KeychainItemWrapper alloc] initWithIdentifier:@"PrayListLogin" accessGroup:nil];
+    
+    pLAppDelegate *appDelegate = (pLAppDelegate *)[[UIApplication sharedApplication] delegate];
+    UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"MainStoryboard" bundle:nil];
+    
+    [pLAppUtils showActivityIndicatorWithMessage:@"Logging In"];
+    pLLoginRequest *lr = [[pLLoginRequest alloc] init];
+    
+    lr.email = email;
+    lr.password = password;
+    lr.devicetoken = [pLAppUtils devicetoken];
+    
+    [[RKObjectManager sharedManager] postObject:lr path: nil parameters: nil success:^( RKObjectRequestOperation *operation , RKMappingResult *mappingResult){
+        
+        if(mappingResult.array.count>0){
+            
+            pLLoginResponse *lr = (pLLoginResponse*)mappingResult.firstObject;
+            if([lr.errordescription isEqualToString:@"Login Succeeded"]){
+                [pLAppUtils setSecurityToken: lr.securitytoken];
+                NSDictionary *headers = [RKObjectManager sharedManager].defaultHeaders;
+                [headers setValue:[pLAppUtils securitytoken].tokenId forKey:@"securitytoken"];
+                [headers setValue:[pLAppUtils securitytoken].email forKey:@"securityemail"];
+                
+                if(savelogin){
+                    [keychainItem setObject:password forKey:(__bridge id)kSecValueData];
+                    [keychainItem setObject:email forKey:(__bridge id)kSecAttrAccount];
+                }
+                
+                [self loadmycontactsWithLogin:YES];
+                [self loadnotifcount];
+                [self loadgroupsWithLogin:YES];
+                
+                
+            }
+            else{
+                [keychainItem resetKeychainItem];
+                [pLAppUtils hideActivityIndicatorWithMessage:@"Failed"];
+                if(fromauto){
+                    pLDrawerController *mainViewController = [storyboard instantiateViewControllerWithIdentifier:@"logincontroller"];
+                    
+                    appDelegate.window.rootViewController = mainViewController;
+                }
+            }
+        }
+        
+    }
+                                        failure:^( RKObjectRequestOperation *operation , NSError *error ){
+                                            [keychainItem resetKeychainItem];
+                                            [pLAppUtils hideActivityIndicatorWithMessage:@"Failed"];
+                                            if(fromauto){
+                                                pLDrawerController *mainViewController = [storyboard instantiateViewControllerWithIdentifier:@"logincontroller"];
+                                                
+                                                appDelegate.window.rootViewController = mainViewController;
+                                            };
+                                            
+                                        }];
+
+    
+}
+
++(void)trycompletelogin{
+    
+    if(peopleloaded&&groupsloaded){
+        
+        [pLAppUtils hideActivityIndicator];
+        pLAppDelegate *appDelegate = (pLAppDelegate *)[[UIApplication sharedApplication] delegate];
+        UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"MainStoryboard" bundle:nil];
+    
+        pLDrawerController *mainViewController = [storyboard instantiateViewControllerWithIdentifier:@"drawercontroller"];
+    
+        appDelegate.window.rootViewController = mainViewController;
+    
+    }
+}
+
++(void)performautologin{
+    
+    keychainItem = [[KeychainItemWrapper alloc] initWithIdentifier:@"PrayListLogin" accessGroup:nil];
+    
+    NSString*email = [keychainItem objectForKey:(__bridge id)kSecAttrAccount];
+    NSString*password = [keychainItem objectForKey:(__bridge id)kSecValueData];
+    
+    [self performloginwithEmail:email password:password savelogin:YES fromauto:YES];
+
+}
+
++(void)setuserimgforEmail:(NSString*)email image:(UIImage*)image{
+    [userImages setObject:image forKey:email];
+}
+
 +(UIImage*)userimgFromEmail:(NSString*)email{
     
     if(userImages==nil){userImages = [[NSMutableDictionary alloc] init];}
@@ -665,6 +834,12 @@ MBProgressHUD *hud;
     
 }
 
++(void)setpersonforEmail:(NSString*)email person:(pLPerson*)person{
+    
+    [contacts setObject:person forKey:email];
+    
+}
+
 +(NSString*)fullnamefromEmail:(NSString*)email{
     
     pLPerson*person=[contacts objectForKey:email];
@@ -689,7 +864,11 @@ MBProgressHUD *hud;
     }
 }
 
-+(void)loadmycontacts{
++(NSDictionary*)getgroupdictionary{
+    return groups;
+}
+
++(void)loadmycontactsWithLogin:(BOOL)withlogin{
     
     contacts = [[NSMutableDictionary alloc] init];
     
@@ -711,6 +890,13 @@ MBProgressHUD *hud;
                                                       
                                                   }
                                                   
+                                                  peopleloaded=YES;
+                                                  
+                                                  if(withlogin){
+                                                      
+                                                      [pLAppUtils trycompletelogin];
+                                                  }
+                                                  
                                               }
                                               failure:^(RKObjectRequestOperation *operation, NSError *error) {
                                                   NSLog(@"Encountered an error: %@", error);
@@ -718,7 +904,7 @@ MBProgressHUD *hud;
     
 }
 
-+(void)loadgroups{
++(void)loadgroupsWithLogin:(BOOL)withlogin{
     
     groups = [[NSMutableDictionary alloc] init];
     
@@ -737,6 +923,13 @@ MBProgressHUD *hud;
                                                       for(pLGroup*g in grouparray){
                                                           [groups setObject:g forKey:g.groupid];
                                                       }
+                                                  }
+                                                  
+                                                  groupsloaded=YES;
+                                                  
+                                                  if(withlogin){
+                                                      
+                                                      [self trycompletelogin];
                                                   }
                                                   
                                               }
@@ -817,17 +1010,27 @@ MBProgressHUD *hud;
     
 }
 
-+(NSString*)calculaterequeststats:(NSNumber*)praycount commentcount:(NSNumber*)commentcount{
++(NSString*)calculaterequeststats:(NSNumber*)praycount commentcount:(NSNumber*)commentcount totalpraycount:(NSNumber*)totalpraycount{
     
     NSString *retval = @"";
     
-    if([praycount compare:[NSNumber numberWithInt:0]]==NSOrderedDescending){
-        if([praycount compare:[NSNumber numberWithInt:1]]==NSOrderedSame){
-            retval = [[praycount stringValue] stringByAppendingString:@" person prayed. "];
+    if([totalpraycount compare:[NSNumber numberWithInt:0]]==NSOrderedDescending){
+        if([totalpraycount compare:[NSNumber numberWithInt:1]]==NSOrderedSame){
+            retval = [@"Prayed for " stringByAppendingString:[[totalpraycount stringValue] stringByAppendingString:@" time. "]];
         }
         else
         {
-            retval = [[praycount stringValue] stringByAppendingString:@" people prayed. "];
+            retval = [@"Prayed for " stringByAppendingString:[[totalpraycount stringValue] stringByAppendingString:@" times. "]];
+        }
+    }
+    
+    if([praycount compare:[NSNumber numberWithInt:0]]==NSOrderedDescending){
+        if([praycount compare:[NSNumber numberWithInt:1]]==NSOrderedSame){
+            retval = [retval stringByAppendingString:[[praycount stringValue] stringByAppendingString:@" person prayed. "]];
+        }
+        else
+        {
+            retval = [retval stringByAppendingString:[[praycount stringValue] stringByAppendingString:@" people prayed. "]];
         }
     }
     
@@ -914,6 +1117,7 @@ MBProgressHUD *hud;
     
     //the popover will be presented from the okButton view
     [popover presentPopoverFromView:view];
+    
     
 }
 

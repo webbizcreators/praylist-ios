@@ -9,17 +9,18 @@
 #import <Foundation/Foundation.h>
 #import "pLSecurityToken.h"
 #import <RestKit/RestKit.h>
+#import "pLPerson.h"
 
 @interface pLAppUtils : NSObject
 
 + (pLSecurityToken *) securitytoken;
 + (void)setSecurityToken:(pLSecurityToken *)stt;
 + (void)registerObjectMappings;
-+ (void)loadmycontacts;
++ (void)loadmycontactsWithLogin:(BOOL)withlogin;
 +(UIImage*)userimgFromEmail:(NSString*)email;
 +(NSString*)formatPostDate:(NSDate*)date;
 +(UIActivityIndicatorView*)addspinnertoview:(UIView*)view;
-+(NSString*)calculaterequeststats:(NSNumber*)praycount commentcount:(NSNumber*)commentcount;
++(NSString*)calculaterequeststats:(NSNumber*)praycount commentcount:(NSNumber*)commentcount totalpraycount:(NSNumber*)totalpraycount;
 +(NSString*)fullnamefromEmail:(NSString*)email;
 +(NSArray*)getcontacts;
 +(NSString*)devicetoken;
@@ -34,7 +35,13 @@
 +(void) hideActivityIndicatorWithMessage:(NSString*)message;
 +(void) shownotifsfromview:(UIView*)view;
 +(void)dismissnotifs;
-+(void)loadgroups;
++(void)loadgroupsWithLogin:(BOOL)withlogin;
 +(NSString*)groupnamefromID:(NSString*)id;
++(void)setuserimgforEmail:(NSString*)email image:(UIImage*)image;
++(void)setpersonforEmail:(NSString*)email person:(pLPerson*)person;
++(void)performautologin;
++(void)performloginwithEmail:(NSString*)email password:(NSString*)password savelogin:(BOOL)savelogin fromauto:(BOOL)fromauto;
++(NSDictionary*)getgroupdictionary;
+
 
 @end

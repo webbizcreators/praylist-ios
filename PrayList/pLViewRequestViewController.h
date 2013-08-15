@@ -16,13 +16,12 @@
     IBOutlet UIBarButtonItem *backbutton;
     IBOutlet UIBarButtonItem *postcommentbutton;
     IBOutlet UITableView *tableView;
-    IBOutlet UITextField *commentfield;
     
     IBOutlet UIView *listview;
     
 }
 
-
+@property (nonatomic, retain) IBOutlet UITextField *commentfield;
 @property (nonatomic, strong) pLPrayerRequest *prayerrequest;
 @property (nonatomic, strong) pLPrayerRequestListItem *prayerrequestlistitem;
 

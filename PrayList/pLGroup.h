@@ -19,5 +19,7 @@
 @property (nonatomic, retain) NSMutableArray* groupmembers;
 @property (nonatomic, retain) NSMutableArray* invitees;
 @property (nonatomic, retain) NSMutableArray* requestors;
+@property (nonatomic, retain) NSMutableArray* notifyurgent;
+@property (nonatomic, retain) NSMutableArray* notifyall;
 
 @end

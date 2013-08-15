@@ -173,7 +173,7 @@ UIActivityIndicatorView *spinner;
             pcell.requesttext.text = pRequest.requesttext;
             pcell.requestdate.text = [pLAppUtils formatPostDate:pRequest.requestdate];
             pcell.img.image = [pLAppUtils userimgFromEmail: pRequest.requestoremail];
-            pcell.requeststats.text = [pLAppUtils calculaterequeststats:pRequest.praycount commentcount:[NSNumber numberWithInt:0]];
+            pcell.requeststats.text = [pLAppUtils calculaterequeststats:pRequest.praycount commentcount:[NSNumber numberWithInt:0]totalpraycount:[NSNumber numberWithInt:0]];
             
             cell = pcell;
             
@@ -207,7 +207,7 @@ UIActivityIndicatorView *spinner;
             picell.requestid = pRequest.requestid;
             picell.requestoremail = pRequest.requestoremail;
             picell.requesttext.text = pRequest.requesttext;
-            picell.requeststats.text = [pLAppUtils calculaterequeststats:pRequest.praycount commentcount:[NSNumber numberWithInt:0]];
+            picell.requeststats.text = [pLAppUtils calculaterequeststats:pRequest.praycount commentcount:[NSNumber numberWithInt:0] totalpraycount:pRequest.totalpraycount];
             
             if([pRequest.iprayed isEqualToNumber:[NSNumber numberWithInt:1]]){
                 [picell.praybutton setTitle:@"Prayed" forState:UIControlStateNormal];
@@ -272,7 +272,7 @@ UIActivityIndicatorView *spinner;
         
         CGSize constraint = CGSizeMake(CELL_CONTENT_WIDTH - (CELL_CONTENT_MARGIN * 2), 20000.0f);
         
-        CGSize size = [text sizeWithFont:[UIFont systemFontOfSize:FONT_SIZE] constrainedToSize:constraint lineBreakMode:UILineBreakModeWordWrap];
+        CGSize size = [text sizeWithFont:[UIFont systemFontOfSize:FONT_SIZE] constrainedToSize:constraint lineBreakMode:NSLineBreakByWordWrapping];
         
         CGFloat height = MAX(size.height, 19.0f);
         
@@ -286,7 +286,7 @@ UIActivityIndicatorView *spinner;
             
             CGSize constraint = CGSizeMake(CELL_CONTENT_WIDTH - (CELL_CONTENT_MARGIN * 2), 20000.0f);
             
-            CGSize size = [text sizeWithFont:[UIFont systemFontOfSize:FONT_SIZE] constrainedToSize:constraint lineBreakMode:UILineBreakModeWordWrap];
+            CGSize size = [text sizeWithFont:[UIFont systemFontOfSize:FONT_SIZE] constrainedToSize:constraint lineBreakMode:NSLineBreakByWordWrapping];
             
             CGFloat height = MAX(size.height, 19.0f);
             
@@ -299,7 +299,7 @@ UIActivityIndicatorView *spinner;
             
             CGSize constraint = CGSizeMake(CELL_CONTENT_WIDTH - (CELL_CONTENT_MARGIN * 2), 20000.0f);
             
-            CGSize size = [text sizeWithFont:[UIFont systemFontOfSize:FONT_SIZE] constrainedToSize:constraint lineBreakMode:UILineBreakModeWordWrap];
+            CGSize size = [text sizeWithFont:[UIFont systemFontOfSize:FONT_SIZE] constrainedToSize:constraint lineBreakMode:NSLineBreakByWordWrapping];
             
             CGFloat height = MAX(size.height, 19.0f);
             
@@ -311,7 +311,7 @@ UIActivityIndicatorView *spinner;
 
 
 -(IBAction)backButton:(id)sender{
-    [self dismissModalViewControllerAnimated:YES];
+    [self dismissViewControllerAnimated:YES completion:nil];
 }
 
 -(void)handleTap:(UITapGestureRecognizer*)tapRecognizer

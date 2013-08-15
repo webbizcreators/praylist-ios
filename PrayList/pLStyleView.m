@@ -26,11 +26,11 @@
     
     if (self) {
         // border radius
-        [self.layer setCornerRadius:4.0f];
+        //[self.layer setCornerRadius:4.0f];
 
-        // border
-        //[self.layer setBorderColor:[UIColor lightGrayColor].CGColor];
-        //[self.layer setBorderWidth:0.5f];
+        //border
+        [self.layer setBorderColor:[UIColor lightGrayColor].CGColor];
+        [self.layer setBorderWidth:0.5f];
         
         // drop shadow
         //[self.layer setShadowColor:[UIColor blackColor].CGColor];

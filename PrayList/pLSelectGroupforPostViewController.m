@@ -117,11 +117,11 @@ UIImage *publicimg;
                                                         object:nil
                                                       userInfo:nil];
     
-    [self dismissModalViewControllerAnimated:YES];
+    [self.navigationController popViewControllerAnimated:YES];
 }
 
 -(IBAction)cancelButton:(id)sender{
-    [self dismissModalViewControllerAnimated:YES];
+    [self.navigationController popViewControllerAnimated:YES];
 }
 
 

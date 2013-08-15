@@ -10,7 +10,6 @@
 		D001A11C1725F25B004789CD /* pLRequestCommentViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D001A11B1725F25B004789CD /* pLRequestCommentViewController.m */; };
 		D005B3B4173DB882003259AC /* pLSelectGroupMemberViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D005B3B3173DB882003259AC /* pLSelectGroupMemberViewController.m */; };
 		D01341B017625EA800EEB873 /* pLViewPrayerItemCell.m in Sources */ = {isa = PBXBuildFile; fileRef = D01341AF17625EA700EEB873 /* pLViewPrayerItemCell.m */; };
-		D01341B217626BFD00EEB873 /* praybutton-highlighted.png in Resources */ = {isa = PBXBuildFile; fileRef = D01341B117626BFD00EEB873 /* praybutton-highlighted.png */; };
 		D01341B5176270AC00EEB873 /* pLViewPrayerButtonCell.m in Sources */ = {isa = PBXBuildFile; fileRef = D01341B4176270AB00EEB873 /* pLViewPrayerButtonCell.m */; };
 		D01341B8176270C900EEB873 /* pLViewPrayerStatsCell.m in Sources */ = {isa = PBXBuildFile; fileRef = D01341B7176270C900EEB873 /* pLViewPrayerStatsCell.m */; };
 		D01E39A41654AABD00C26BF0 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D01E39A31654AABD00C26BF0 /* UIKit.framework */; };
@@ -47,7 +46,30 @@
 		D01EA2FE16C719BB0050E152 /* PrayerRequestCellView.xib in Resources */ = {isa = PBXBuildFile; fileRef = D01EA2FD16C719BB0050E152 /* PrayerRequestCellView.xib */; };
 		D01EA30116D452E50050E152 /* pLPostRequestController.m in Sources */ = {isa = PBXBuildFile; fileRef = D01EA30016D452E50050E152 /* pLPostRequestController.m */; };
 		D0265B751721DA94005B99CA /* EGORefreshTableHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = D0265B741721DA94005B99CA /* EGORefreshTableHeaderView.m */; };
-		D03CE701172A1EAD00DC828F /* praybutton.png in Resources */ = {isa = PBXBuildFile; fileRef = D03CE700172A1EAD00DC828F /* praybutton.png */; };
+		D02E61A217976AC3003D1DCC /* icon_pencil.png in Resources */ = {isa = PBXBuildFile; fileRef = D02E61A117976AC3003D1DCC /* icon_pencil.png */; };
+		D02E61A817989528003D1DCC /* pLViewPeopleViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D02E61A717989527003D1DCC /* pLViewPeopleViewController.m */; };
+		D02E61AB179B62E4003D1DCC /* pLAnsweredRequestsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D02E61AA179B62E3003D1DCC /* pLAnsweredRequestsViewController.m */; };
+		D02E61B3179CF18A003D1DCC /* pLEditProfileViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D02E61B2179CF189003D1DCC /* pLEditProfileViewController.m */; };
+		D02E61B6179DED3A003D1DCC /* pLUser.m in Sources */ = {isa = PBXBuildFile; fileRef = D02E61B5179DED3A003D1DCC /* pLUser.m */; };
+		D02E61B9179E2274003D1DCC /* pLEditProfileValueViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D02E61B8179E2274003D1DCC /* pLEditProfileValueViewController.m */; };
+		D02E61BC179F8D92003D1DCC /* pLPasswordUpdateRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = D02E61BB179F8D92003D1DCC /* pLPasswordUpdateRequest.m */; };
+		D02E61BF179F9489003D1DCC /* pLEditProfileChangePasswordViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D02E61BE179F9488003D1DCC /* pLEditProfileChangePasswordViewController.m */; };
+		D02E61C2179FA80E003D1DCC /* pLStartupViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D02E61C1179FA80D003D1DCC /* pLStartupViewController.m */; };
+		D02E61C517A095D2003D1DCC /* pLGroupNotifSettingsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D02E61C417A095D0003D1DCC /* pLGroupNotifSettingsViewController.m */; };
+		D02F7DC517B1A08700BA708C /* pLPlanPrayerRequestDateViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D02F7DC417B1A08700BA708C /* pLPlanPrayerRequestDateViewController.m */; };
+		D02F7DDD17B1B7C200BA708C /* libTimesSquare.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D02F7DDA17B1B76D00BA708C /* libTimesSquare.a */; };
+		D02F7DE917B1C23600BA708C /* CalendarPreviousMonth.png in Resources */ = {isa = PBXBuildFile; fileRef = D02F7DDF17B1C23600BA708C /* CalendarPreviousMonth.png */; };
+		D02F7DEA17B1C23600BA708C /* CalendarPreviousMonth@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D02F7DE017B1C23600BA708C /* CalendarPreviousMonth@2x.png */; };
+		D02F7DEB17B1C23600BA708C /* CalendarRow.png in Resources */ = {isa = PBXBuildFile; fileRef = D02F7DE117B1C23600BA708C /* CalendarRow.png */; };
+		D02F7DEC17B1C23600BA708C /* CalendarRow@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D02F7DE217B1C23600BA708C /* CalendarRow@2x.png */; };
+		D02F7DED17B1C23600BA708C /* CalendarRowBottom.png in Resources */ = {isa = PBXBuildFile; fileRef = D02F7DE317B1C23600BA708C /* CalendarRowBottom.png */; };
+		D02F7DEE17B1C23600BA708C /* CalendarRowBottom@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D02F7DE417B1C23600BA708C /* CalendarRowBottom@2x.png */; };
+		D02F7DEF17B1C23600BA708C /* CalendarSelectedDate.png in Resources */ = {isa = PBXBuildFile; fileRef = D02F7DE517B1C23600BA708C /* CalendarSelectedDate.png */; };
+		D02F7DF017B1C23600BA708C /* CalendarSelectedDate@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D02F7DE617B1C23600BA708C /* CalendarSelectedDate@2x.png */; };
+		D02F7DF117B1C23600BA708C /* CalendarTodaysDate.png in Resources */ = {isa = PBXBuildFile; fileRef = D02F7DE717B1C23600BA708C /* CalendarTodaysDate.png */; };
+		D02F7DF217B1C23600BA708C /* CalendarTodaysDate@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D02F7DE817B1C23600BA708C /* CalendarTodaysDate@2x.png */; };
+		D02F7DF517B1C27700BA708C /* TSQTACalendarRowCell.m in Sources */ = {isa = PBXBuildFile; fileRef = D02F7DF417B1C27700BA708C /* TSQTACalendarRowCell.m */; };
+		D02F7DFB17B1CB2300BA708C /* icon-pencil-grey.png in Resources */ = {isa = PBXBuildFile; fileRef = D02F7DFA17B1CB2300BA708C /* icon-pencil-grey.png */; };
 		D03CE705172B240B00DC828F /* prayerlisticon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D03CE704172B240B00DC828F /* prayerlisticon@2x.png */; };
 		D03CE707172B255300DC828F /* prayerlisticon.png in Resources */ = {isa = PBXBuildFile; fileRef = D03CE706172B255300DC828F /* prayerlisticon.png */; };
 		D04760161668785D00D13E64 /* me.png in Resources */ = {isa = PBXBuildFile; fileRef = D04760151668785D00D13E64 /* me.png */; };
@@ -55,6 +77,20 @@
 		D0544EA816DD8829004EDC8C /* pLSelectGroupforPostViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D0544EA716DD8829004EDC8C /* pLSelectGroupforPostViewController.m */; };
 		D0544EAA16DD992C004EDC8C /* pLGroupCollectionCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = D0544EA916DD992C004EDC8C /* pLGroupCollectionCell.xib */; };
 		D0544EAD16DEB581004EDC8C /* pLGroupCollectionCell.m in Sources */ = {isa = PBXBuildFile; fileRef = D0544EAC16DEB581004EDC8C /* pLGroupCollectionCell.m */; };
+		D059185917702D7100353FB2 /* icon_arrow_down.png in Resources */ = {isa = PBXBuildFile; fileRef = D059185617702D7100353FB2 /* icon_arrow_down.png */; };
+		D059185A17702D7100353FB2 /* icon_users.png in Resources */ = {isa = PBXBuildFile; fileRef = D059185717702D7100353FB2 /* icon_users.png */; };
+		D059185B17702D7100353FB2 /* icon_add.png in Resources */ = {isa = PBXBuildFile; fileRef = D059185817702D7100353FB2 /* icon_add.png */; };
+		D0591860177035AB00353FB2 /* icon_forum.png in Resources */ = {isa = PBXBuildFile; fileRef = D059185F177035AB00353FB2 /* icon_forum.png */; };
+		D05918631770377F00353FB2 /* icon_arrow_left.png in Resources */ = {isa = PBXBuildFile; fileRef = D05918611770377F00353FB2 /* icon_arrow_left.png */; };
+		D05918641770377F00353FB2 /* icon_arrow_right.png in Resources */ = {isa = PBXBuildFile; fileRef = D05918621770377F00353FB2 /* icon_arrow_right.png */; };
+		D0591867177038C000353FB2 /* pLPrayerPlannerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D0591866177038C000353FB2 /* pLPrayerPlannerViewController.m */; };
+		D05918701770EE7D00353FB2 /* icon_calendar.png in Resources */ = {isa = PBXBuildFile; fileRef = D059186C1770EE7C00353FB2 /* icon_calendar.png */; };
+		D05918711770EE7D00353FB2 /* icon_calendar@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D059186D1770EE7C00353FB2 /* icon_calendar@2x.png */; };
+		D05918721770EE7D00353FB2 /* icon_comment.png in Resources */ = {isa = PBXBuildFile; fileRef = D059186E1770EE7C00353FB2 /* icon_comment.png */; };
+		D05918731770EE7D00353FB2 /* icon_comment@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D059186F1770EE7C00353FB2 /* icon_comment@2x.png */; };
+		D05918761771007400353FB2 /* pLViewPrayerAnswerCell.m in Sources */ = {isa = PBXBuildFile; fileRef = D05918751771007300353FB2 /* pLViewPrayerAnswerCell.m */; };
+		D05918791772691400353FB2 /* pLPostAnswerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D05918781772691400353FB2 /* pLPostAnswerViewController.m */; };
+		D059187C17738B4300353FB2 /* pLPlanPrayerRequestViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D059187B17738B4300353FB2 /* pLPlanPrayerRequestViewController.m */; };
 		D05D3B98173A1EAB009D5FD1 /* pLGroupCell.m in Sources */ = {isa = PBXBuildFile; fileRef = D05D3B97173A1EAB009D5FD1 /* pLGroupCell.m */; };
 		D06E202C16BA3A590002F17B /* pLLoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D06E202B16BA3A590002F17B /* pLLoginViewController.m */; };
 		D06EF3B51702476D00B06270 /* pLPerson.m in Sources */ = {isa = PBXBuildFile; fileRef = D06EF3B41702476D00B06270 /* pLPerson.m */; };
@@ -66,6 +102,7 @@
 		D070848C17619F73001864FC /* pLViewRequestViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D070848B17619F72001864FC /* pLViewRequestViewController.m */; };
 		D073270716BC950E00169F24 /* pLSettingsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D073270616BC950E00169F24 /* pLSettingsViewController.m */; };
 		D073270C16BCFB8500169F24 /* pLLoginRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = D073270B16BCFB8500169F24 /* pLLoginRequest.m */; };
+		D078164F17A20AB40004E08A /* icon_forum_highlighted.png in Resources */ = {isa = PBXBuildFile; fileRef = D078164E17A20AB40004E08A /* icon_forum_highlighted.png */; };
 		D07ACFF71707C9C40095B402 /* pLResponse.m in Sources */ = {isa = PBXBuildFile; fileRef = D07ACFF61707C9C40095B402 /* pLResponse.m */; };
 		D07B3FFC1727327700BA5401 /* pLCommentCellView.xib in Resources */ = {isa = PBXBuildFile; fileRef = D07B3FFB1727327700BA5401 /* pLCommentCellView.xib */; };
 		D07B3FFF172732E500BA5401 /* pLCommentCell.m in Sources */ = {isa = PBXBuildFile; fileRef = D07B3FFE172732E500BA5401 /* pLCommentCell.m */; };
@@ -105,13 +142,35 @@
 		D0B177DC16FBD649005EEC82 /* pLEditGroupViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D0B177DB16FBD649005EEC82 /* pLEditGroupViewController.m */; };
 		D0B177DF16FE7780005EEC82 /* pLLoginResponse.m in Sources */ = {isa = PBXBuildFile; fileRef = D0B177DE16FE7780005EEC82 /* pLLoginResponse.m */; };
 		D0B31B261729D64E00AE0055 /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D0B31B251729D64E00AE0055 /* Default-568h@2x.png */; };
-		D0B31B2A1729D88500AE0055 /* Default@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D0B31B291729D88500AE0055 /* Default@2x.png */; };
 		D0B31B2E1729DBE500AE0055 /* background_iPhone5.png in Resources */ = {isa = PBXBuildFile; fileRef = D0B31B2D1729DBE500AE0055 /* background_iPhone5.png */; };
 		D0B31B321729E09A00AE0055 /* logintitle.png in Resources */ = {isa = PBXBuildFile; fileRef = D0B31B311729E09A00AE0055 /* logintitle.png */; };
+		D0B59B3317B492D500BA7E60 /* pLRequestFeedHeaderCellView.xib in Resources */ = {isa = PBXBuildFile; fileRef = D0B59B3217B492D500BA7E60 /* pLRequestFeedHeaderCellView.xib */; };
+		D0B59B3917B4976100BA7E60 /* pLAnswerFeedHeaderCellView.xib in Resources */ = {isa = PBXBuildFile; fileRef = D0B59B3817B4976100BA7E60 /* pLAnswerFeedHeaderCellView.xib */; };
+		D0B59B3E17B4A67600BA7E60 /* icon_calendar_selected.png in Resources */ = {isa = PBXBuildFile; fileRef = D0B59B3A17B4A67600BA7E60 /* icon_calendar_selected.png */; };
+		D0B59B3F17B4A67600BA7E60 /* icon_calendar_selected@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D0B59B3B17B4A67600BA7E60 /* icon_calendar_selected@2x.png */; };
+		D0B59B4017B4A67600BA7E60 /* praybutton-highlighted.png in Resources */ = {isa = PBXBuildFile; fileRef = D0B59B3C17B4A67600BA7E60 /* praybutton-highlighted.png */; };
+		D0B59B4117B4A67600BA7E60 /* praybutton-highlighted@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D0B59B3D17B4A67600BA7E60 /* praybutton-highlighted@2x.png */; };
+		D0B59B4417B4A6B000BA7E60 /* praybutton.png in Resources */ = {isa = PBXBuildFile; fileRef = D0B59B4217B4A6B000BA7E60 /* praybutton.png */; };
+		D0B59B4517B4A6B000BA7E60 /* praybutton@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D0B59B4317B4A6B000BA7E60 /* praybutton@2x.png */; };
+		D0B70BA6176FB8A40052DBDB /* pLDrawerController.m in Sources */ = {isa = PBXBuildFile; fileRef = D0B70BA5176FB8A40052DBDB /* pLDrawerController.m */; };
+		D0B70BA7176FB8A40052DBDB /* pLDrawerController.m in Sources */ = {isa = PBXBuildFile; fileRef = D0B70BA5176FB8A40052DBDB /* pLDrawerController.m */; };
+		D0B70BAC176FBB720052DBDB /* ECSlidingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D0B70BA9176FBB720052DBDB /* ECSlidingViewController.m */; };
+		D0B70BAD176FBB720052DBDB /* ECSlidingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D0B70BA9176FBB720052DBDB /* ECSlidingViewController.m */; };
+		D0B70BAE176FBB720052DBDB /* UIImage+ImageWithUIView.m in Sources */ = {isa = PBXBuildFile; fileRef = D0B70BAB176FBB720052DBDB /* UIImage+ImageWithUIView.m */; };
+		D0B70BAF176FBB720052DBDB /* UIImage+ImageWithUIView.m in Sources */ = {isa = PBXBuildFile; fileRef = D0B70BAB176FBB720052DBDB /* UIImage+ImageWithUIView.m */; };
+		D0B70BB1176FC1FE0052DBDB /* icon_user.png in Resources */ = {isa = PBXBuildFile; fileRef = D0B70BB0176FC1FE0052DBDB /* icon_user.png */; };
+		D0B70BB2176FC1FE0052DBDB /* icon_user.png in Resources */ = {isa = PBXBuildFile; fileRef = D0B70BB0176FC1FE0052DBDB /* icon_user.png */; };
+		D0B70BB8176FC6D50052DBDB /* pLSideMenuViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D0B70BB7176FC6D50052DBDB /* pLSideMenuViewController.m */; };
+		D0B70BB9176FC6D50052DBDB /* pLSideMenuViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D0B70BB7176FC6D50052DBDB /* pLSideMenuViewController.m */; };
 		D0CEC75716C1F3D600B62807 /* libRestKit.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D0EE961116C1EF9A00D8021A /* libRestKit.a */; settings = {ATTRIBUTES = (Required, ); }; };
+		D0D75D53178F637F00EA4F34 /* pLPrayerRequestScheduleItemCell.m in Sources */ = {isa = PBXBuildFile; fileRef = D0D75D52178F637F00EA4F34 /* pLPrayerRequestScheduleItemCell.m */; };
+		D0D75D58178F63A400EA4F34 /* PrayerRequestScheduleItemCellView.xib in Resources */ = {isa = PBXBuildFile; fileRef = D0D75D57178F63A300EA4F34 /* PrayerRequestScheduleItemCellView.xib */; };
+		D0D75D5A1794A98100EA4F34 /* pLScheduleDateCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = D0D75D591794A98100EA4F34 /* pLScheduleDateCell.xib */; };
+		D0D75D5D1794AE5400EA4F34 /* pLScheduleDateCell.m in Sources */ = {isa = PBXBuildFile; fileRef = D0D75D5C1794AE5400EA4F34 /* pLScheduleDateCell.m */; };
 		D0DE5CEC174DE9E700F48410 /* pLNotificationCellView.xib in Resources */ = {isa = PBXBuildFile; fileRef = D0DE5CEB174DE9E700F48410 /* pLNotificationCellView.xib */; };
 		D0DE5CEF174DEA0C00F48410 /* pLNotificationCell.m in Sources */ = {isa = PBXBuildFile; fileRef = D0DE5CEE174DEA0C00F48410 /* pLNotificationCell.m */; };
 		D0DE5CF717541E7800F48410 /* KeychainItemWrapper.m in Sources */ = {isa = PBXBuildFile; fileRef = D0DE5CF617541E7800F48410 /* KeychainItemWrapper.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		D0EDB23C177A1DF1008E3945 /* icon_calendar2.png in Resources */ = {isa = PBXBuildFile; fileRef = D0EDB23B177A1DF1008E3945 /* icon_calendar2.png */; };
 		D0EE960516C1E6F100D8021A /* pLSecurityToken.m in Sources */ = {isa = PBXBuildFile; fileRef = D0EE960416C1E6F100D8021A /* pLSecurityToken.m */; };
 		D0F38956175556E200FA0530 /* Praylist icon.png in Resources */ = {isa = PBXBuildFile; fileRef = D0F389541755569800FA0530 /* Praylist icon.png */; };
 		D0F3895917557F5D00FA0530 /* pLCreateGroupViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D0F3895817557F5D00FA0530 /* pLCreateGroupViewController.m */; };
@@ -128,6 +187,20 @@
 			proxyType = 1;
 			remoteGlobalIDString = D01E399E1654AABD00C26BF0;
 			remoteInfo = PrayList;
+		};
+		D02F7DD917B1B76D00BA708C /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = D02F7DD417B1B76D00BA708C /* TimesSquare.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = A806805B16700FD70071C71E;
+			remoteInfo = TimesSquare;
+		};
+		D02F7DDB17B1B7B900BA708C /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = D02F7DD417B1B76D00BA708C /* TimesSquare.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = A806805A16700FD70071C71E;
+			remoteInfo = TimesSquare;
 		};
 		D0CEC75416C1F3C500B62807 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
@@ -173,7 +246,6 @@
 		D005B3B3173DB882003259AC /* pLSelectGroupMemberViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = pLSelectGroupMemberViewController.m; sourceTree = "<group>"; };
 		D01341AE17625EA700EEB873 /* pLViewPrayerItemCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = pLViewPrayerItemCell.h; sourceTree = "<group>"; };
 		D01341AF17625EA700EEB873 /* pLViewPrayerItemCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = pLViewPrayerItemCell.m; sourceTree = "<group>"; };
-		D01341B117626BFD00EEB873 /* praybutton-highlighted.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "praybutton-highlighted.png"; sourceTree = "<group>"; };
 		D01341B3176270AB00EEB873 /* pLViewPrayerButtonCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = pLViewPrayerButtonCell.h; sourceTree = "<group>"; };
 		D01341B4176270AB00EEB873 /* pLViewPrayerButtonCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = pLViewPrayerButtonCell.m; sourceTree = "<group>"; };
 		D01341B6176270C900EEB873 /* pLViewPrayerStatsCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = pLViewPrayerStatsCell.h; sourceTree = "<group>"; };
@@ -224,7 +296,41 @@
 		D01EA30016D452E50050E152 /* pLPostRequestController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = pLPostRequestController.m; sourceTree = "<group>"; };
 		D0265B731721DA94005B99CA /* EGORefreshTableHeaderView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EGORefreshTableHeaderView.h; sourceTree = "<group>"; };
 		D0265B741721DA94005B99CA /* EGORefreshTableHeaderView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EGORefreshTableHeaderView.m; sourceTree = "<group>"; };
-		D03CE700172A1EAD00DC828F /* praybutton.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = praybutton.png; path = "../../../Google Drive/PrayList Artwork/Optimized/praybutton.png"; sourceTree = "<group>"; };
+		D02E61A117976AC3003D1DCC /* icon_pencil.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = icon_pencil.png; sourceTree = "<group>"; };
+		D02E61A617989527003D1DCC /* pLViewPeopleViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = pLViewPeopleViewController.h; sourceTree = "<group>"; };
+		D02E61A717989527003D1DCC /* pLViewPeopleViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = pLViewPeopleViewController.m; sourceTree = "<group>"; };
+		D02E61A9179B62E3003D1DCC /* pLAnsweredRequestsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = pLAnsweredRequestsViewController.h; sourceTree = "<group>"; };
+		D02E61AA179B62E3003D1DCC /* pLAnsweredRequestsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = pLAnsweredRequestsViewController.m; sourceTree = "<group>"; };
+		D02E61B1179CF189003D1DCC /* pLEditProfileViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = pLEditProfileViewController.h; sourceTree = "<group>"; };
+		D02E61B2179CF189003D1DCC /* pLEditProfileViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = pLEditProfileViewController.m; sourceTree = "<group>"; };
+		D02E61B4179DED39003D1DCC /* pLUser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = pLUser.h; sourceTree = "<group>"; };
+		D02E61B5179DED3A003D1DCC /* pLUser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = pLUser.m; sourceTree = "<group>"; };
+		D02E61B7179E2273003D1DCC /* pLEditProfileValueViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = pLEditProfileValueViewController.h; sourceTree = "<group>"; };
+		D02E61B8179E2274003D1DCC /* pLEditProfileValueViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = pLEditProfileValueViewController.m; sourceTree = "<group>"; };
+		D02E61BA179F8D92003D1DCC /* pLPasswordUpdateRequest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = pLPasswordUpdateRequest.h; sourceTree = "<group>"; };
+		D02E61BB179F8D92003D1DCC /* pLPasswordUpdateRequest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = pLPasswordUpdateRequest.m; sourceTree = "<group>"; };
+		D02E61BD179F9488003D1DCC /* pLEditProfileChangePasswordViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = pLEditProfileChangePasswordViewController.h; sourceTree = "<group>"; };
+		D02E61BE179F9488003D1DCC /* pLEditProfileChangePasswordViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = pLEditProfileChangePasswordViewController.m; sourceTree = "<group>"; };
+		D02E61C0179FA80C003D1DCC /* pLStartupViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = pLStartupViewController.h; sourceTree = "<group>"; };
+		D02E61C1179FA80D003D1DCC /* pLStartupViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = pLStartupViewController.m; sourceTree = "<group>"; };
+		D02E61C317A095CF003D1DCC /* pLGroupNotifSettingsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = pLGroupNotifSettingsViewController.h; sourceTree = "<group>"; };
+		D02E61C417A095D0003D1DCC /* pLGroupNotifSettingsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = pLGroupNotifSettingsViewController.m; sourceTree = "<group>"; };
+		D02F7DC317B1A08700BA708C /* pLPlanPrayerRequestDateViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = pLPlanPrayerRequestDateViewController.h; sourceTree = "<group>"; };
+		D02F7DC417B1A08700BA708C /* pLPlanPrayerRequestDateViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = pLPlanPrayerRequestDateViewController.m; sourceTree = "<group>"; };
+		D02F7DD417B1B76D00BA708C /* TimesSquare.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = TimesSquare.xcodeproj; path = "../../Downloads/objc-TimesSquare-master/TimesSquare.xcodeproj"; sourceTree = "<group>"; };
+		D02F7DDF17B1C23600BA708C /* CalendarPreviousMonth.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = CalendarPreviousMonth.png; sourceTree = "<group>"; };
+		D02F7DE017B1C23600BA708C /* CalendarPreviousMonth@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "CalendarPreviousMonth@2x.png"; sourceTree = "<group>"; };
+		D02F7DE117B1C23600BA708C /* CalendarRow.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = CalendarRow.png; sourceTree = "<group>"; };
+		D02F7DE217B1C23600BA708C /* CalendarRow@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "CalendarRow@2x.png"; sourceTree = "<group>"; };
+		D02F7DE317B1C23600BA708C /* CalendarRowBottom.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = CalendarRowBottom.png; sourceTree = "<group>"; };
+		D02F7DE417B1C23600BA708C /* CalendarRowBottom@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "CalendarRowBottom@2x.png"; sourceTree = "<group>"; };
+		D02F7DE517B1C23600BA708C /* CalendarSelectedDate.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = CalendarSelectedDate.png; sourceTree = "<group>"; };
+		D02F7DE617B1C23600BA708C /* CalendarSelectedDate@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "CalendarSelectedDate@2x.png"; sourceTree = "<group>"; };
+		D02F7DE717B1C23600BA708C /* CalendarTodaysDate.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = CalendarTodaysDate.png; sourceTree = "<group>"; };
+		D02F7DE817B1C23600BA708C /* CalendarTodaysDate@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "CalendarTodaysDate@2x.png"; sourceTree = "<group>"; };
+		D02F7DF317B1C27700BA708C /* TSQTACalendarRowCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TSQTACalendarRowCell.h; sourceTree = "<group>"; };
+		D02F7DF417B1C27700BA708C /* TSQTACalendarRowCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TSQTACalendarRowCell.m; sourceTree = "<group>"; };
+		D02F7DFA17B1CB2300BA708C /* icon-pencil-grey.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon-pencil-grey.png"; sourceTree = "<group>"; };
 		D03CE704172B240B00DC828F /* prayerlisticon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "prayerlisticon@2x.png"; path = "../../../Google Drive/PrayList Artwork/Optimized/prayerlisticon@2x.png"; sourceTree = "<group>"; };
 		D03CE706172B255300DC828F /* prayerlisticon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = prayerlisticon.png; path = "../../../Google Drive/PrayList Artwork/Optimized/prayerlisticon.png"; sourceTree = "<group>"; };
 		D04760151668785D00D13E64 /* me.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = me.png; sourceTree = "<group>"; };
@@ -235,6 +341,24 @@
 		D0544EA916DD992C004EDC8C /* pLGroupCollectionCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = pLGroupCollectionCell.xib; sourceTree = "<group>"; };
 		D0544EAB16DEB581004EDC8C /* pLGroupCollectionCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = pLGroupCollectionCell.h; sourceTree = "<group>"; };
 		D0544EAC16DEB581004EDC8C /* pLGroupCollectionCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = pLGroupCollectionCell.m; sourceTree = "<group>"; };
+		D059185617702D7100353FB2 /* icon_arrow_down.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = icon_arrow_down.png; sourceTree = "<group>"; };
+		D059185717702D7100353FB2 /* icon_users.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = icon_users.png; sourceTree = "<group>"; };
+		D059185817702D7100353FB2 /* icon_add.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = icon_add.png; sourceTree = "<group>"; };
+		D059185F177035AB00353FB2 /* icon_forum.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = icon_forum.png; sourceTree = "<group>"; };
+		D05918611770377F00353FB2 /* icon_arrow_left.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = icon_arrow_left.png; sourceTree = "<group>"; };
+		D05918621770377F00353FB2 /* icon_arrow_right.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = icon_arrow_right.png; sourceTree = "<group>"; };
+		D0591865177038C000353FB2 /* pLPrayerPlannerViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = pLPrayerPlannerViewController.h; sourceTree = "<group>"; };
+		D0591866177038C000353FB2 /* pLPrayerPlannerViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = pLPrayerPlannerViewController.m; sourceTree = "<group>"; };
+		D059186C1770EE7C00353FB2 /* icon_calendar.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = icon_calendar.png; path = "../../../Google Drive/PrayList Artwork/Optimized/icon_calendar.png"; sourceTree = "<group>"; };
+		D059186D1770EE7C00353FB2 /* icon_calendar@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "icon_calendar@2x.png"; path = "../../../Google Drive/PrayList Artwork/Optimized/icon_calendar@2x.png"; sourceTree = "<group>"; };
+		D059186E1770EE7C00353FB2 /* icon_comment.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = icon_comment.png; path = "../../../Google Drive/PrayList Artwork/Optimized/icon_comment.png"; sourceTree = "<group>"; };
+		D059186F1770EE7C00353FB2 /* icon_comment@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "icon_comment@2x.png"; path = "../../../Google Drive/PrayList Artwork/Optimized/icon_comment@2x.png"; sourceTree = "<group>"; };
+		D05918741771007300353FB2 /* pLViewPrayerAnswerCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = pLViewPrayerAnswerCell.h; sourceTree = "<group>"; };
+		D05918751771007300353FB2 /* pLViewPrayerAnswerCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = pLViewPrayerAnswerCell.m; sourceTree = "<group>"; };
+		D05918771772691300353FB2 /* pLPostAnswerViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = pLPostAnswerViewController.h; sourceTree = "<group>"; };
+		D05918781772691400353FB2 /* pLPostAnswerViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = pLPostAnswerViewController.m; sourceTree = "<group>"; };
+		D059187A17738B4300353FB2 /* pLPlanPrayerRequestViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = pLPlanPrayerRequestViewController.h; sourceTree = "<group>"; };
+		D059187B17738B4300353FB2 /* pLPlanPrayerRequestViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = pLPlanPrayerRequestViewController.m; sourceTree = "<group>"; };
 		D05D3B96173A1EAB009D5FD1 /* pLGroupCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = pLGroupCell.h; sourceTree = "<group>"; };
 		D05D3B97173A1EAB009D5FD1 /* pLGroupCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = pLGroupCell.m; sourceTree = "<group>"; };
 		D06E202A16BA3A590002F17B /* pLLoginViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = pLLoginViewController.h; path = ../pLLoginViewController.h; sourceTree = "<group>"; };
@@ -256,6 +380,7 @@
 		D073270616BC950E00169F24 /* pLSettingsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = pLSettingsViewController.m; sourceTree = "<group>"; };
 		D073270A16BCFB8500169F24 /* pLLoginRequest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = pLLoginRequest.h; sourceTree = "<group>"; };
 		D073270B16BCFB8500169F24 /* pLLoginRequest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = pLLoginRequest.m; sourceTree = "<group>"; };
+		D078164E17A20AB40004E08A /* icon_forum_highlighted.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = icon_forum_highlighted.png; sourceTree = "<group>"; };
 		D07ACFF51707C9C40095B402 /* pLResponse.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = pLResponse.h; sourceTree = "<group>"; };
 		D07ACFF61707C9C40095B402 /* pLResponse.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = pLResponse.m; sourceTree = "<group>"; };
 		D07B3FFB1727327700BA5401 /* pLCommentCellView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = pLCommentCellView.xib; sourceTree = "<group>"; };
@@ -312,11 +437,35 @@
 		D0B31B291729D88500AE0055 /* Default@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Default@2x.png"; path = "../Default@2x.png"; sourceTree = "<group>"; };
 		D0B31B2D1729DBE500AE0055 /* background_iPhone5.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = background_iPhone5.png; path = "../../../Google Drive/PrayList Artwork/Optimized/background_iPhone5.png"; sourceTree = "<group>"; };
 		D0B31B311729E09A00AE0055 /* logintitle.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = logintitle.png; path = "../../../Google Drive/PrayList Artwork/Optimized/logintitle.png"; sourceTree = "<group>"; };
+		D0B59B3217B492D500BA7E60 /* pLRequestFeedHeaderCellView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = pLRequestFeedHeaderCellView.xib; sourceTree = "<group>"; };
+		D0B59B3817B4976100BA7E60 /* pLAnswerFeedHeaderCellView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = pLAnswerFeedHeaderCellView.xib; sourceTree = "<group>"; };
+		D0B59B3A17B4A67600BA7E60 /* icon_calendar_selected.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = icon_calendar_selected.png; path = "../../../Google Drive/PrayList Artwork/Optimized/icon_calendar_selected.png"; sourceTree = "<group>"; };
+		D0B59B3B17B4A67600BA7E60 /* icon_calendar_selected@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "icon_calendar_selected@2x.png"; path = "../../../Google Drive/PrayList Artwork/Optimized/icon_calendar_selected@2x.png"; sourceTree = "<group>"; };
+		D0B59B3C17B4A67600BA7E60 /* praybutton-highlighted.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "praybutton-highlighted.png"; path = "../../../Google Drive/PrayList Artwork/Optimized/praybutton-highlighted.png"; sourceTree = "<group>"; };
+		D0B59B3D17B4A67600BA7E60 /* praybutton-highlighted@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "praybutton-highlighted@2x.png"; path = "../../../Google Drive/PrayList Artwork/Optimized/praybutton-highlighted@2x.png"; sourceTree = "<group>"; };
+		D0B59B4217B4A6B000BA7E60 /* praybutton.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = praybutton.png; path = "../../../Google Drive/PrayList Artwork/Optimized/praybutton.png"; sourceTree = "<group>"; };
+		D0B59B4317B4A6B000BA7E60 /* praybutton@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "praybutton@2x.png"; path = "../../../Google Drive/PrayList Artwork/Optimized/praybutton@2x.png"; sourceTree = "<group>"; };
+		D0B70BA4176FB8A40052DBDB /* pLDrawerController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = pLDrawerController.h; sourceTree = "<group>"; };
+		D0B70BA5176FB8A40052DBDB /* pLDrawerController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = pLDrawerController.m; sourceTree = "<group>"; };
+		D0B70BA8176FBB720052DBDB /* ECSlidingViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ECSlidingViewController.h; sourceTree = "<group>"; };
+		D0B70BA9176FBB720052DBDB /* ECSlidingViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ECSlidingViewController.m; sourceTree = "<group>"; };
+		D0B70BAA176FBB720052DBDB /* UIImage+ImageWithUIView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+ImageWithUIView.h"; sourceTree = "<group>"; };
+		D0B70BAB176FBB720052DBDB /* UIImage+ImageWithUIView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+ImageWithUIView.m"; sourceTree = "<group>"; };
+		D0B70BB0176FC1FE0052DBDB /* icon_user.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = icon_user.png; sourceTree = "<group>"; };
+		D0B70BB6176FC6D50052DBDB /* pLSideMenuViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = pLSideMenuViewController.h; sourceTree = "<group>"; };
+		D0B70BB7176FC6D50052DBDB /* pLSideMenuViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = pLSideMenuViewController.m; sourceTree = "<group>"; };
+		D0D75D51178F637F00EA4F34 /* pLPrayerRequestScheduleItemCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = pLPrayerRequestScheduleItemCell.h; sourceTree = "<group>"; };
+		D0D75D52178F637F00EA4F34 /* pLPrayerRequestScheduleItemCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = pLPrayerRequestScheduleItemCell.m; sourceTree = "<group>"; };
+		D0D75D57178F63A300EA4F34 /* PrayerRequestScheduleItemCellView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PrayerRequestScheduleItemCellView.xib; sourceTree = "<group>"; };
+		D0D75D591794A98100EA4F34 /* pLScheduleDateCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = pLScheduleDateCell.xib; sourceTree = "<group>"; };
+		D0D75D5B1794AE5400EA4F34 /* pLScheduleDateCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = pLScheduleDateCell.h; sourceTree = "<group>"; };
+		D0D75D5C1794AE5400EA4F34 /* pLScheduleDateCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = pLScheduleDateCell.m; sourceTree = "<group>"; };
 		D0DE5CEB174DE9E700F48410 /* pLNotificationCellView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = pLNotificationCellView.xib; sourceTree = "<group>"; };
 		D0DE5CED174DEA0C00F48410 /* pLNotificationCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = pLNotificationCell.h; sourceTree = "<group>"; };
 		D0DE5CEE174DEA0C00F48410 /* pLNotificationCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = pLNotificationCell.m; sourceTree = "<group>"; };
 		D0DE5CF517541E7800F48410 /* KeychainItemWrapper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KeychainItemWrapper.h; sourceTree = "<group>"; };
 		D0DE5CF617541E7800F48410 /* KeychainItemWrapper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KeychainItemWrapper.m; sourceTree = "<group>"; };
+		D0EDB23B177A1DF1008E3945 /* icon_calendar2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = icon_calendar2.png; sourceTree = "<group>"; };
 		D0EE960316C1E6F100D8021A /* pLSecurityToken.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = pLSecurityToken.h; sourceTree = "<group>"; };
 		D0EE960416C1E6F100D8021A /* pLSecurityToken.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = pLSecurityToken.m; sourceTree = "<group>"; };
 		D0EE960616C1EF9900D8021A /* RestKit.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RestKit.xcodeproj; path = "../../Downloads/RestKit-0.20.0-rc1/RestKit.xcodeproj"; sourceTree = "<group>"; };
@@ -336,6 +485,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D02F7DDD17B1B7C200BA708C /* libTimesSquare.a in Frameworks */,
 				D01E3A0E1654AD2F00C26BF0 /* Security.framework in Frameworks */,
 				D0CEC75716C1F3D600B62807 /* libRestKit.a in Frameworks */,
 				D01E3A091654AD2F00C26BF0 /* CFNetwork.framework in Frameworks */,
@@ -366,6 +516,7 @@
 		D01E39941654AABD00C26BF0 = {
 			isa = PBXGroup;
 			children = (
+				D02F7DD417B1B76D00BA708C /* TimesSquare.xcodeproj */,
 				D0F389541755569800FA0530 /* Praylist icon.png */,
 				D0EE960616C1EF9900D8021A /* RestKit.xcodeproj */,
 				D01E3A021654AD2F00C26BF0 /* CFNetwork.framework */,
@@ -454,6 +605,12 @@
 		D01EA2F316C47B240050E152 /* AppObjects */ = {
 			isa = PBXGroup;
 			children = (
+				D02F7DF317B1C27700BA708C /* TSQTACalendarRowCell.h */,
+				D02F7DF417B1C27700BA708C /* TSQTACalendarRowCell.m */,
+				D0B70BA8176FBB720052DBDB /* ECSlidingViewController.h */,
+				D0B70BA9176FBB720052DBDB /* ECSlidingViewController.m */,
+				D0B70BAA176FBB720052DBDB /* UIImage+ImageWithUIView.h */,
+				D0B70BAB176FBB720052DBDB /* UIImage+ImageWithUIView.m */,
 				D0DE5CF517541E7800F48410 /* KeychainItemWrapper.h */,
 				D0DE5CF617541E7800F48410 /* KeychainItemWrapper.m */,
 				D0A7ACB9174D6D3100FD9644 /* ARCMacros.h */,
@@ -475,6 +632,14 @@
 				D0708482175FF3D0001864FC /* NSArray+sortBy.m */,
 			);
 			name = AppObjects;
+			sourceTree = "<group>";
+		};
+		D02F7DD517B1B76D00BA708C /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				D02F7DDA17B1B76D00BA708C /* libTimesSquare.a */,
+			);
+			name = Products;
 			sourceTree = "<group>";
 		};
 		D06F47581655A58100C2CD63 /* DataObjects */ = {
@@ -502,6 +667,10 @@
 				D0A7ACAF174C798900FD9644 /* pLNotification.m */,
 				D0A7ACB1174C7A9400FD9644 /* pLNotificationCount.h */,
 				D0A7ACB2174C7A9400FD9644 /* pLNotificationCount.m */,
+				D02E61B4179DED39003D1DCC /* pLUser.h */,
+				D02E61B5179DED3A003D1DCC /* pLUser.m */,
+				D02E61BA179F8D92003D1DCC /* pLPasswordUpdateRequest.h */,
+				D02E61BB179F8D92003D1DCC /* pLPasswordUpdateRequest.m */,
 			);
 			name = DataObjects;
 			sourceTree = "<group>";
@@ -542,6 +711,16 @@
 				D01341B7176270C900EEB873 /* pLViewPrayerStatsCell.m */,
 				D08EE3911767F21000DC8693 /* pLStyleView.h */,
 				D08EE3921767F21000DC8693 /* pLStyleView.m */,
+				D05918741771007300353FB2 /* pLViewPrayerAnswerCell.h */,
+				D05918751771007300353FB2 /* pLViewPrayerAnswerCell.m */,
+				D0D75D51178F637F00EA4F34 /* pLPrayerRequestScheduleItemCell.h */,
+				D0D75D52178F637F00EA4F34 /* pLPrayerRequestScheduleItemCell.m */,
+				D0D75D57178F63A300EA4F34 /* PrayerRequestScheduleItemCellView.xib */,
+				D0D75D591794A98100EA4F34 /* pLScheduleDateCell.xib */,
+				D0D75D5B1794AE5400EA4F34 /* pLScheduleDateCell.h */,
+				D0D75D5C1794AE5400EA4F34 /* pLScheduleDateCell.m */,
+				D0B59B3217B492D500BA7E60 /* pLRequestFeedHeaderCellView.xib */,
+				D0B59B3817B4976100BA7E60 /* pLAnswerFeedHeaderCellView.xib */,
 			);
 			name = Components;
 			sourceTree = "<group>";
@@ -579,6 +758,32 @@
 				D0708488175FF9C0001864FC /* pLViewGroupMembersViewController.m */,
 				D070848A17619F71001864FC /* pLViewRequestViewController.h */,
 				D070848B17619F72001864FC /* pLViewRequestViewController.m */,
+				D0B70BA4176FB8A40052DBDB /* pLDrawerController.h */,
+				D0B70BA5176FB8A40052DBDB /* pLDrawerController.m */,
+				D0B70BB6176FC6D50052DBDB /* pLSideMenuViewController.h */,
+				D0B70BB7176FC6D50052DBDB /* pLSideMenuViewController.m */,
+				D0591865177038C000353FB2 /* pLPrayerPlannerViewController.h */,
+				D0591866177038C000353FB2 /* pLPrayerPlannerViewController.m */,
+				D05918771772691300353FB2 /* pLPostAnswerViewController.h */,
+				D05918781772691400353FB2 /* pLPostAnswerViewController.m */,
+				D059187A17738B4300353FB2 /* pLPlanPrayerRequestViewController.h */,
+				D059187B17738B4300353FB2 /* pLPlanPrayerRequestViewController.m */,
+				D02E61A617989527003D1DCC /* pLViewPeopleViewController.h */,
+				D02E61A717989527003D1DCC /* pLViewPeopleViewController.m */,
+				D02E61A9179B62E3003D1DCC /* pLAnsweredRequestsViewController.h */,
+				D02E61AA179B62E3003D1DCC /* pLAnsweredRequestsViewController.m */,
+				D02E61B1179CF189003D1DCC /* pLEditProfileViewController.h */,
+				D02E61B2179CF189003D1DCC /* pLEditProfileViewController.m */,
+				D02E61B7179E2273003D1DCC /* pLEditProfileValueViewController.h */,
+				D02E61B8179E2274003D1DCC /* pLEditProfileValueViewController.m */,
+				D02E61BD179F9488003D1DCC /* pLEditProfileChangePasswordViewController.h */,
+				D02E61BE179F9488003D1DCC /* pLEditProfileChangePasswordViewController.m */,
+				D02E61C0179FA80C003D1DCC /* pLStartupViewController.h */,
+				D02E61C1179FA80D003D1DCC /* pLStartupViewController.m */,
+				D02E61C317A095CF003D1DCC /* pLGroupNotifSettingsViewController.h */,
+				D02E61C417A095D0003D1DCC /* pLGroupNotifSettingsViewController.m */,
+				D02F7DC317B1A08700BA708C /* pLPlanPrayerRequestDateViewController.h */,
+				D02F7DC417B1A08700BA708C /* pLPlanPrayerRequestDateViewController.m */,
 			);
 			name = "View Controllers";
 			sourceTree = "<group>";
@@ -586,7 +791,37 @@
 		D073270916BC973900169F24 /* Artwork */ = {
 			isa = PBXGroup;
 			children = (
-				D01341B117626BFD00EEB873 /* praybutton-highlighted.png */,
+				D0B59B4217B4A6B000BA7E60 /* praybutton.png */,
+				D0B59B4317B4A6B000BA7E60 /* praybutton@2x.png */,
+				D0B59B3A17B4A67600BA7E60 /* icon_calendar_selected.png */,
+				D0B59B3B17B4A67600BA7E60 /* icon_calendar_selected@2x.png */,
+				D0B59B3C17B4A67600BA7E60 /* praybutton-highlighted.png */,
+				D0B59B3D17B4A67600BA7E60 /* praybutton-highlighted@2x.png */,
+				D02F7DFA17B1CB2300BA708C /* icon-pencil-grey.png */,
+				D02F7DDF17B1C23600BA708C /* CalendarPreviousMonth.png */,
+				D02F7DE017B1C23600BA708C /* CalendarPreviousMonth@2x.png */,
+				D02F7DE117B1C23600BA708C /* CalendarRow.png */,
+				D02F7DE217B1C23600BA708C /* CalendarRow@2x.png */,
+				D02F7DE317B1C23600BA708C /* CalendarRowBottom.png */,
+				D02F7DE417B1C23600BA708C /* CalendarRowBottom@2x.png */,
+				D02F7DE517B1C23600BA708C /* CalendarSelectedDate.png */,
+				D02F7DE617B1C23600BA708C /* CalendarSelectedDate@2x.png */,
+				D02F7DE717B1C23600BA708C /* CalendarTodaysDate.png */,
+				D02F7DE817B1C23600BA708C /* CalendarTodaysDate@2x.png */,
+				D078164E17A20AB40004E08A /* icon_forum_highlighted.png */,
+				D02E61A117976AC3003D1DCC /* icon_pencil.png */,
+				D0EDB23B177A1DF1008E3945 /* icon_calendar2.png */,
+				D059186C1770EE7C00353FB2 /* icon_calendar.png */,
+				D059186D1770EE7C00353FB2 /* icon_calendar@2x.png */,
+				D059186E1770EE7C00353FB2 /* icon_comment.png */,
+				D059186F1770EE7C00353FB2 /* icon_comment@2x.png */,
+				D05918611770377F00353FB2 /* icon_arrow_left.png */,
+				D05918621770377F00353FB2 /* icon_arrow_right.png */,
+				D059185F177035AB00353FB2 /* icon_forum.png */,
+				D059185617702D7100353FB2 /* icon_arrow_down.png */,
+				D059185717702D7100353FB2 /* icon_users.png */,
+				D059185817702D7100353FB2 /* icon_add.png */,
+				D0B70BB0176FC1FE0052DBDB /* icon_user.png */,
 				D0F3896017580EF300FA0530 /* 37x-Checkmark.png */,
 				D0F3896117580EF300FA0530 /* 37x-Checkmark@2x.png */,
 				D0A7ACAC174C41E600FD9644 /* icon_settings.png */,
@@ -594,7 +829,6 @@
 				D0A7AC9D174AA7C600FD9644 /* icon_tag.png */,
 				D0A7AC9E174AA7C600FD9644 /* icon_blog.png */,
 				D0A7AC9F174AA7C600FD9644 /* icon_comment_ok.png */,
-				D03CE700172A1EAD00DC828F /* praybutton.png */,
 				D0B31B311729E09A00AE0055 /* logintitle.png */,
 				D0B31B2D1729DBE500AE0055 /* background_iPhone5.png */,
 				D0B31B291729D88500AE0055 /* Default@2x.png */,
@@ -644,6 +878,7 @@
 			buildRules = (
 			);
 			dependencies = (
+				D02F7DDC17B1B7B900BA708C /* PBXTargetDependency */,
 				D0CEC75516C1F3C500B62807 /* PBXTargetDependency */,
 			);
 			name = PrayList;
@@ -695,6 +930,10 @@
 					ProductGroup = D0EE960716C1EF9900D8021A /* Products */;
 					ProjectRef = D0EE960616C1EF9900D8021A /* RestKit.xcodeproj */;
 				},
+				{
+					ProductGroup = D02F7DD517B1B76D00BA708C /* Products */;
+					ProjectRef = D02F7DD417B1B76D00BA708C /* TimesSquare.xcodeproj */;
+				},
 			);
 			projectRoot = "";
 			targets = (
@@ -705,6 +944,13 @@
 /* End PBXProject section */
 
 /* Begin PBXReferenceProxy section */
+		D02F7DDA17B1B76D00BA708C /* libTimesSquare.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = libTimesSquare.a;
+			remoteRef = D02F7DD917B1B76D00BA708C /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
 		D0EE961116C1EF9A00D8021A /* libRestKit.a */ = {
 			isa = PBXReferenceProxy;
 			fileType = archive.ar;
@@ -755,10 +1001,8 @@
 				D0544EAA16DD992C004EDC8C /* pLGroupCollectionCell.xib in Resources */,
 				D07B3FFC1727327700BA5401 /* pLCommentCellView.xib in Resources */,
 				D0B31B261729D64E00AE0055 /* Default-568h@2x.png in Resources */,
-				D0B31B2A1729D88500AE0055 /* Default@2x.png in Resources */,
 				D0B31B2E1729DBE500AE0055 /* background_iPhone5.png in Resources */,
 				D0B31B321729E09A00AE0055 /* logintitle.png in Resources */,
-				D03CE701172A1EAD00DC828F /* praybutton.png in Resources */,
 				D03CE705172B240B00DC828F /* prayerlisticon@2x.png in Resources */,
 				D03CE707172B255300DC828F /* prayerlisticon.png in Resources */,
 				D09B9E31173C5B71002AF6E3 /* nouserimage.png in Resources */,
@@ -781,7 +1025,41 @@
 				D0F38956175556E200FA0530 /* Praylist icon.png in Resources */,
 				D0F3896217580EF300FA0530 /* 37x-Checkmark.png in Resources */,
 				D0F3896317580EF300FA0530 /* 37x-Checkmark@2x.png in Resources */,
-				D01341B217626BFD00EEB873 /* praybutton-highlighted.png in Resources */,
+				D0B70BB1176FC1FE0052DBDB /* icon_user.png in Resources */,
+				D059185917702D7100353FB2 /* icon_arrow_down.png in Resources */,
+				D059185A17702D7100353FB2 /* icon_users.png in Resources */,
+				D059185B17702D7100353FB2 /* icon_add.png in Resources */,
+				D0591860177035AB00353FB2 /* icon_forum.png in Resources */,
+				D05918631770377F00353FB2 /* icon_arrow_left.png in Resources */,
+				D05918641770377F00353FB2 /* icon_arrow_right.png in Resources */,
+				D05918701770EE7D00353FB2 /* icon_calendar.png in Resources */,
+				D05918711770EE7D00353FB2 /* icon_calendar@2x.png in Resources */,
+				D05918721770EE7D00353FB2 /* icon_comment.png in Resources */,
+				D05918731770EE7D00353FB2 /* icon_comment@2x.png in Resources */,
+				D0EDB23C177A1DF1008E3945 /* icon_calendar2.png in Resources */,
+				D0D75D58178F63A400EA4F34 /* PrayerRequestScheduleItemCellView.xib in Resources */,
+				D0D75D5A1794A98100EA4F34 /* pLScheduleDateCell.xib in Resources */,
+				D02E61A217976AC3003D1DCC /* icon_pencil.png in Resources */,
+				D078164F17A20AB40004E08A /* icon_forum_highlighted.png in Resources */,
+				D02F7DE917B1C23600BA708C /* CalendarPreviousMonth.png in Resources */,
+				D02F7DEA17B1C23600BA708C /* CalendarPreviousMonth@2x.png in Resources */,
+				D02F7DEB17B1C23600BA708C /* CalendarRow.png in Resources */,
+				D02F7DEC17B1C23600BA708C /* CalendarRow@2x.png in Resources */,
+				D02F7DED17B1C23600BA708C /* CalendarRowBottom.png in Resources */,
+				D02F7DEE17B1C23600BA708C /* CalendarRowBottom@2x.png in Resources */,
+				D02F7DEF17B1C23600BA708C /* CalendarSelectedDate.png in Resources */,
+				D02F7DF017B1C23600BA708C /* CalendarSelectedDate@2x.png in Resources */,
+				D02F7DF117B1C23600BA708C /* CalendarTodaysDate.png in Resources */,
+				D02F7DF217B1C23600BA708C /* CalendarTodaysDate@2x.png in Resources */,
+				D02F7DFB17B1CB2300BA708C /* icon-pencil-grey.png in Resources */,
+				D0B59B3317B492D500BA7E60 /* pLRequestFeedHeaderCellView.xib in Resources */,
+				D0B59B3917B4976100BA7E60 /* pLAnswerFeedHeaderCellView.xib in Resources */,
+				D0B59B3E17B4A67600BA7E60 /* icon_calendar_selected.png in Resources */,
+				D0B59B3F17B4A67600BA7E60 /* icon_calendar_selected@2x.png in Resources */,
+				D0B59B4017B4A67600BA7E60 /* praybutton-highlighted.png in Resources */,
+				D0B59B4117B4A67600BA7E60 /* praybutton-highlighted@2x.png in Resources */,
+				D0B59B4417B4A6B000BA7E60 /* praybutton.png in Resources */,
+				D0B59B4517B4A6B000BA7E60 /* praybutton@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -790,6 +1068,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				D01E39DD1654AABD00C26BF0 /* InfoPlist.strings in Resources */,
+				D0B70BB2176FC1FE0052DBDB /* icon_user.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -868,6 +1147,27 @@
 				D01341B5176270AC00EEB873 /* pLViewPrayerButtonCell.m in Sources */,
 				D01341B8176270C900EEB873 /* pLViewPrayerStatsCell.m in Sources */,
 				D08EE3931767F21000DC8693 /* pLStyleView.m in Sources */,
+				D0B70BA6176FB8A40052DBDB /* pLDrawerController.m in Sources */,
+				D0B70BAC176FBB720052DBDB /* ECSlidingViewController.m in Sources */,
+				D0B70BAE176FBB720052DBDB /* UIImage+ImageWithUIView.m in Sources */,
+				D0B70BB8176FC6D50052DBDB /* pLSideMenuViewController.m in Sources */,
+				D0591867177038C000353FB2 /* pLPrayerPlannerViewController.m in Sources */,
+				D05918761771007400353FB2 /* pLViewPrayerAnswerCell.m in Sources */,
+				D05918791772691400353FB2 /* pLPostAnswerViewController.m in Sources */,
+				D059187C17738B4300353FB2 /* pLPlanPrayerRequestViewController.m in Sources */,
+				D0D75D53178F637F00EA4F34 /* pLPrayerRequestScheduleItemCell.m in Sources */,
+				D0D75D5D1794AE5400EA4F34 /* pLScheduleDateCell.m in Sources */,
+				D02E61A817989528003D1DCC /* pLViewPeopleViewController.m in Sources */,
+				D02E61AB179B62E4003D1DCC /* pLAnsweredRequestsViewController.m in Sources */,
+				D02E61B3179CF18A003D1DCC /* pLEditProfileViewController.m in Sources */,
+				D02E61B6179DED3A003D1DCC /* pLUser.m in Sources */,
+				D02E61B9179E2274003D1DCC /* pLEditProfileValueViewController.m in Sources */,
+				D02E61BC179F8D92003D1DCC /* pLPasswordUpdateRequest.m in Sources */,
+				D02E61BF179F9489003D1DCC /* pLEditProfileChangePasswordViewController.m in Sources */,
+				D02E61C2179FA80E003D1DCC /* pLStartupViewController.m in Sources */,
+				D02E61C517A095D2003D1DCC /* pLGroupNotifSettingsViewController.m in Sources */,
+				D02F7DC517B1A08700BA708C /* pLPlanPrayerRequestDateViewController.m in Sources */,
+				D02F7DF517B1C27700BA708C /* TSQTACalendarRowCell.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -878,6 +1178,10 @@
 				D01E39E01654AABD00C26BF0 /* PrayListTests.m in Sources */,
 				D0A7AC95174AA14E00FD9644 /* BarButtonBadge.m in Sources */,
 				D0A7AC9B174AA15900FD9644 /* CustomBadge.m in Sources */,
+				D0B70BA7176FB8A40052DBDB /* pLDrawerController.m in Sources */,
+				D0B70BAD176FBB720052DBDB /* ECSlidingViewController.m in Sources */,
+				D0B70BAF176FBB720052DBDB /* UIImage+ImageWithUIView.m in Sources */,
+				D0B70BB9176FC6D50052DBDB /* pLSideMenuViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -888,6 +1192,11 @@
 			isa = PBXTargetDependency;
 			target = D01E399E1654AABD00C26BF0 /* PrayList */;
 			targetProxy = D01E39D61654AABD00C26BF0 /* PBXContainerItemProxy */;
+		};
+		D02F7DDC17B1B7B900BA708C /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = TimesSquare;
+			targetProxy = D02F7DDB17B1B7B900BA708C /* PBXContainerItemProxy */;
 		};
 		D0CEC75516C1F3C500B62807 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
@@ -981,15 +1290,21 @@
 		D01E39E41654AABD00C26BF0 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				CODE_SIGN_IDENTITY = "iPhone Developer: Peter Opheim (3N8T5L3KES)";
+				CODE_SIGN_IDENTITY = "iPhone Distribution: Sereno Software LLC";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "PrayList/PrayList-Prefix.pch";
 				HEADER_SEARCH_PATHS = "\"$(BUILT_PRODUCTS_DIR)/../../Headers\"";
 				INFOPLIST_FILE = "PrayList/PrayList-Info.plist";
-				OTHER_LDFLAGS = "-ObjC";
+				OTHER_LDFLAGS = (
+					"-ObjC",
+					"-all_load",
+				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "E8C544AF-2371-4358-92A2-F3AAAD967775";
+				PROVISIONING_PROFILE = "5921EC2E-4445-4D9D-9CD9-9A65B77F77EE";
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "";
 				TARGETED_DEVICE_FAMILY = 1;
+				USER_HEADER_SEARCH_PATHS = "../../Downloads/objc-TimesSquare-master";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
@@ -997,15 +1312,21 @@
 		D01E39E51654AABD00C26BF0 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				CODE_SIGN_IDENTITY = "iPhone Developer: Peter Opheim (3N8T5L3KES)";
+				CODE_SIGN_IDENTITY = "iPhone Distribution: Sereno Software LLC";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "PrayList/PrayList-Prefix.pch";
 				HEADER_SEARCH_PATHS = "\"$(BUILT_PRODUCTS_DIR)/../../Headers\"";
 				INFOPLIST_FILE = "PrayList/PrayList-Info.plist";
-				OTHER_LDFLAGS = "-ObjC";
+				OTHER_LDFLAGS = (
+					"-ObjC",
+					"-all_load",
+				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "E8C544AF-2371-4358-92A2-F3AAAD967775";
+				PROVISIONING_PROFILE = "5921EC2E-4445-4D9D-9CD9-9A65B77F77EE";
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "";
 				TARGETED_DEVICE_FAMILY = 1;
+				USER_HEADER_SEARCH_PATHS = "../../Downloads/objc-TimesSquare-master";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Release;

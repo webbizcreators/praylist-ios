@@ -19,6 +19,8 @@
 @synthesize invitees;
 @synthesize requestors;
 @synthesize groupdescription;
+@synthesize notifyurgent;
+@synthesize notifyall;
 
 
 -(NSMutableArray*)getgroupmembers{

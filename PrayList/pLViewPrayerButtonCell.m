@@ -8,17 +8,21 @@
 
 #import <RestKit/RestKit.h>
 #import "pLViewPrayerButtonCell.h"
+#import "pLAppUtils.h"
 
 @implementation pLViewPrayerButtonCell
 
 @synthesize listitem;
 @synthesize praybutton;
 @synthesize commentbutton;
+@synthesize vc;
 
 -(IBAction)praybutton:(id)sender{
         
         
         if(![listitem.iprayed isEqualToNumber:[NSNumber numberWithInt:1]]){
+            
+            [pLAppUtils showActivityIndicatorWithMessage:@"Saving"];
             
             NSString *objectpath = @"prayerrequests/prayfor/";
             NSString *path = [objectpath stringByAppendingString: [listitem.requestoremail stringByAppendingString:[@"/" stringByAppendingString:listitem.requestid]]];
@@ -31,16 +35,19 @@
                                                           [praybutton setHighlighted:YES];
                                                           listitem.iprayed = [NSNumber numberWithInt:1];
                                                           listitem.praycount = [NSNumber numberWithFloat:([listitem.praycount floatValue] + [[NSNumber numberWithInt:1] floatValue])];
-                                                          
+                                                          [pLAppUtils hideActivityIndicatorWithMessage:@"Done"];
                                                           
                                                       }
                                                       failure:^(RKObjectRequestOperation *operation, NSError *error) {
                                                           NSLog(@"Encountered an error: %@", error);
+                                                          [pLAppUtils hideActivityIndicatorWithMessage:@"Failed"];
                                                       }];
             
         }
         else
         {
+            
+            [pLAppUtils showActivityIndicatorWithMessage:@"Saving"];
             NSString *objectpath = @"prayerrequests/unprayfor/";
             NSString *path = [objectpath stringByAppendingString: [listitem.requestoremail stringByAppendingString:[@"/" stringByAppendingString:listitem.requestid]]];
             
@@ -52,11 +59,12 @@
                                                           
                                                           [praybutton setHighlighted:NO];
                                                           listitem.iprayed = [NSNumber numberWithInt:0];
-                                                          
+                                                          [pLAppUtils hideActivityIndicatorWithMessage:@"Done"];
                                                           
                                                       }
                                                       failure:^(RKObjectRequestOperation *operation, NSError *error) {
                                                           NSLog(@"Encountered an error: %@", error);
+                                                          [pLAppUtils hideActivityIndicatorWithMessage:@"Failed"];
                                                       }];
         }
         
@@ -68,6 +76,7 @@
 
 -(IBAction)commentbutton:(id)sender{
     
+    [vc.commentfield becomeFirstResponder];
     
 }
 

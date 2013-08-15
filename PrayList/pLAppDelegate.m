@@ -23,7 +23,7 @@
     
     //RKObjectManager *objectManager = [RKObjectManager managerWithBaseURL:[NSURL URLWithString:@"http://127.0.0.1:8080/praylistws/rest/"]];
     
-    //RKObjectManager *objectManager = [RKObjectManager managerWithBaseURL:[NSURL URLWithString:@"http://mbpro.local:8080/praylist_webservices/rest/"]];
+    //RKObjectManager *objectManager = [RKObjectManager managerWithBaseURL:[NSURL URLWithString:@"http://mbpro.local/java/praylist_webservices/rest/"]];
     
     objectManager.requestSerializationMIMEType = RKMIMETypeJSON;
                                 

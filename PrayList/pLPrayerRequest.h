@@ -21,5 +21,9 @@
 @property (nonatomic, retain) NSArray* peopleprayed;
 @property (nonatomic, retain) NSString* answer;
 @property (nonatomic, retain) NSNumber* commentcount;
+@property (nonatomic, retain) NSDate* startplanon;
+@property (nonatomic, retain) NSNumber* prayinterval;
+@property (nonatomic, retain) NSNumber* iprayed;
+@property (nonatomic, retain) NSMutableArray* senttoemails;
 
 @end

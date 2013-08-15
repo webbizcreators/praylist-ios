@@ -12,6 +12,10 @@
 #import "pLNotification.h"
 #import "pLViewRequestViewController.h"
 #import "pLAppDelegate.h"
+#import "ECSlidingViewController.h"
+#import "pLDrawerController.h"
+#import "pLGroup.h"
+#import "pLEditGroupViewController.h"
 
 @interface pLNotificationsPopupViewController ()
 
@@ -117,45 +121,13 @@ NSMutableArray*notifications;
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    pLNotificationCell *notifcell = [tableView cellForRowAtIndexPath:indexPath];
+    pLNotificationCell *notifcell = (pLNotificationCell*)[tableView cellForRowAtIndexPath:indexPath];
     
     if([notifcell.notif.notiftype isEqualToString:@"Prayed"]||[notifcell.notif.notiftype isEqualToString:@"Commented"]){
     
         [pLAppUtils dismissnotifs];
         [pLAppUtils showActivityIndicatorWithMessage:@"Loading"];
         
-        if([notifcell.notif.requestoremail isEqualToString:[pLAppUtils securitytoken].email]){
-        
-        NSString *objectpath = @"prayerrequests/";
-        NSString *path = [[[objectpath stringByAppendingString: [pLAppUtils securitytoken].email] stringByAppendingString:@"/"] stringByAppendingString:notifcell.notif.entityid];
-        
-        
-        [[RKObjectManager sharedManager] getObjectsAtPath:path
-                                               parameters:nil
-                                                  success:^(RKObjectRequestOperation *operation, RKMappingResult *mappingResult) {
-                                                      
-                                                      pLPrayerRequest*pr = mappingResult.firstObject;
-                                                      if(pr){
-                                                      UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"MainStoryboard" bundle: nil];
-                                                      pLViewRequestViewController *lvc = [storyboard instantiateViewControllerWithIdentifier:@"postDetail"];
-                                                      
-                                                      lvc.prayerrequest = pr;
-                                                      
-                                                      pLAppDelegate *appDelegate = (pLAppDelegate *)[[UIApplication sharedApplication] delegate];
-                                                      
-                                                      UIViewController*pv=appDelegate.window.rootViewController.presentedViewController;
-                                                      
-                                                      [pv presentViewController:lvc animated:YES completion:nil];
-                                                      }
-                                                      [pLAppUtils hideActivityIndicator];
-                                                  }
-                                                  failure:^(RKObjectRequestOperation *operation, NSError *error) {
-                                                      NSLog(@"Encountered an error: %@", error);
-                                                      [pLAppUtils hideActivityIndicator];
-                                                  }];
-        }
-        else{
-            
             NSString *objectpath = @"lists/";
             NSString *path = [[[objectpath stringByAppendingString: [pLAppUtils securitytoken].email] stringByAppendingString:@"/"] stringByAppendingString:notifcell.notif.entityid];
             
@@ -173,27 +145,100 @@ NSMutableArray*notifications;
                                                               
                                                               pLAppDelegate *appDelegate = (pLAppDelegate *)[[UIApplication sharedApplication] delegate];
                                                               
-                                                              UIViewController*pv=appDelegate.window.rootViewController.presentedViewController;
+                                                              pLDrawerController*pv=(pLDrawerController*)appDelegate.window.rootViewController;
+                                                              UINavigationController*navcontroller = (UINavigationController*)pv.topViewController;
                                                               
-                                                              [pv presentViewController:lvc animated:YES completion:nil];
+                                                              [navcontroller pushViewController:lvc animated:YES];
+                                                              [pLAppUtils dismissnotifs];
                                                           }
+                                                          
                                                           [pLAppUtils hideActivityIndicator];
+                                                          
                                                       }
                                                       failure:^(RKObjectRequestOperation *operation, NSError *error) {
                                                           NSLog(@"Encountered an error: %@", error);
+                                                          [pLAppUtils dismissnotifs];
                                                           [pLAppUtils hideActivityIndicator];
                                                       }];
             
-            
-            
-            
-            
-        }
+
+        
+    }else if([notifcell.notif.notiftype isEqualToString:@"GroupInvite"]){
+        
+        NSString *objectpath = @"groups/";
+        NSString *path = [objectpath stringByAppendingString: [[pLAppUtils securitytoken].orgid stringByAppendingString:[@"/" stringByAppendingString:notifcell.notif.entityid]]];
         
         
-    }else if([notifcell.notif.notiftype isEqualToString:@"Invited"]){
+        [[RKObjectManager sharedManager] getObjectsAtPath:path
+                                               parameters:nil
+         
+                                                  success:^(RKObjectRequestOperation *operation, RKMappingResult *mappingResult) {
+                                                      
+                                                      pLGroup* group = (pLGroup*)mappingResult.firstObject;
+                                                      
+                                                      if(group){
+                                                          UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"MainStoryboard" bundle: nil];
+                                                          pLEditGroupViewController *lvc = [storyboard instantiateViewControllerWithIdentifier:@"editgroupview"];
+                                                          
+                                                          lvc.group = group;
+                                                          
+                                                          pLAppDelegate *appDelegate = (pLAppDelegate *)[[UIApplication sharedApplication] delegate];
+                                                          
+                                                          pLDrawerController*pv=(pLDrawerController*)appDelegate.window.rootViewController;
+                                                          UINavigationController*navcontroller = (UINavigationController*)pv.topViewController;
+                                                          
+                                                          [navcontroller pushViewController:lvc animated:YES];
+                                                          [pLAppUtils dismissnotifs];
+                                                      }
+                                                      
+                                                      
+                                                      [pLAppUtils hideActivityIndicator];
+                                                      
+                                                  }
+                                                  failure:^(RKObjectRequestOperation *operation, NSError *error) {
+                                                      NSLog(@"Encountered an error: %@", error);
+                                                      [pLAppUtils dismissnotifs];
+                                                      [pLAppUtils hideActivityIndicator];
+                                                  }];
+
+        
+    }else if([notifcell.notif.notiftype isEqualToString:@"GroupRequest"]){
+        
+        NSString *objectpath = @"groups/";
+        NSString *path = [objectpath stringByAppendingString: [[pLAppUtils securitytoken].orgid stringByAppendingString:[@"/" stringByAppendingString:notifcell.notif.entityid]]];
         
         
+        [[RKObjectManager sharedManager] getObjectsAtPath:path
+                                               parameters:nil
+         
+                                                  success:^(RKObjectRequestOperation *operation, RKMappingResult *mappingResult) {
+                                                      
+                                                      pLGroup* group = (pLGroup*)mappingResult.firstObject;
+                                                      
+                                                      if(group){
+                                                          UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"MainStoryboard" bundle: nil];
+                                                          pLEditGroupViewController *lvc = [storyboard instantiateViewControllerWithIdentifier:@"editgroupview"];
+                                                          
+                                                          lvc.group = group;
+                                                          
+                                                          pLAppDelegate *appDelegate = (pLAppDelegate *)[[UIApplication sharedApplication] delegate];
+                                                          
+                                                          pLDrawerController*pv=(pLDrawerController*)appDelegate.window.rootViewController;
+                                                          UINavigationController*navcontroller = (UINavigationController*)pv.topViewController;
+                                                          
+                                                          [navcontroller pushViewController:lvc animated:YES];
+                                                          [pLAppUtils dismissnotifs];
+                                                      }
+                                                      
+                                                      
+                                                      [pLAppUtils hideActivityIndicator];
+                                                      
+                                                  }
+                                                  failure:^(RKObjectRequestOperation *operation, NSError *error) {
+                                                      NSLog(@"Encountered an error: %@", error);
+                                                      [pLAppUtils dismissnotifs];
+                                                      [pLAppUtils hideActivityIndicator];
+                                                  }];
         
     }
 

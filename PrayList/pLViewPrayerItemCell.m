@@ -69,9 +69,6 @@ pLSecondViewController*tvc2;
                                                parameters:nil
                                                   success:^(RKObjectRequestOperation *operation, RKMappingResult *mappingResult) {
                                                       
-                                                      pLResponse *result = mappingResult.firstObject;
-                                                      
-                                                      
                                                       [praybutton setHighlighted:YES];
                                                       listitem.iprayed = [NSNumber numberWithInt:1];
                                                       listitem.praycount = [NSNumber numberWithFloat:([listitem.praycount floatValue] + [[NSNumber numberWithInt:1] floatValue])];
@@ -92,9 +89,6 @@ pLSecondViewController*tvc2;
         [[RKObjectManager sharedManager] getObjectsAtPath:path
                                                parameters:nil
                                                   success:^(RKObjectRequestOperation *operation, RKMappingResult *mappingResult) {
-                                                      
-                                                      pLResponse *result = mappingResult.firstObject;
-                                                      
                                                       
                                                       [praybutton setHighlighted:NO];
                                                       listitem.iprayed = [NSNumber numberWithInt:0];

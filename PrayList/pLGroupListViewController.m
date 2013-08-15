@@ -14,6 +14,8 @@
 #import "plGroup.h"
 #import "pLEditGroupViewController.h"
 #import "pLGroupCell.h"
+#import "ECSlidingViewController.h"
+#import "pLSideMenuViewController.h"
 
 @interface pLGroupListViewController ()
 
@@ -64,6 +66,20 @@ UIImage *publicimg;
     [self loadDatawithIndicator:YES];
 
 	// Do any additional setup after loading the view.
+}
+
+-(void)viewDidAppear:(BOOL)animated{
+    
+    [super viewWillAppear:animated];
+    
+    if (![self.slidingViewController.underLeftViewController isKindOfClass:[pLSideMenuViewController class]]) {
+        self.slidingViewController.underLeftViewController  = [self.storyboard instantiateViewControllerWithIdentifier:@"Menu"];
+    }
+    
+    [self.view addGestureRecognizer:self.slidingViewController.panGesture];
+    [self.slidingViewController setAnchorRightPeekAmount:80.0f];
+
+    
 }
 
 -(void)groupsChanged{

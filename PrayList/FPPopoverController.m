@@ -243,7 +243,12 @@
         //keep the first subview
         if(_window.subviews.count > 0)
         {
-            _parentView = [_window.subviews objectAtIndex:0];
+            for(UIView*v in _window.subviews){
+                if([v isMemberOfClass:[UIView class]]){
+                    _parentView = v;
+                }
+            }
+            //_parentView = [_window.subviews objectAtIndex:1];
             [_parentView addSubview:self.view];
             [_viewController viewDidAppear:YES];
         }

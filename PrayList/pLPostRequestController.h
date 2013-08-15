@@ -16,6 +16,7 @@
     IBOutlet UIImageView *userImage;
     IBOutlet UITextView *requestText;
     IBOutlet UITableView *tableView;
+    IBOutlet UIButton*urgentbutton;
     
 }
 

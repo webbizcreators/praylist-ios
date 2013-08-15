@@ -9,12 +9,13 @@
 #import <UIKit/UIKit.h>
 #import <RestKit/RestKit.h>
 #import "pLPrayerRequestListItem.h"
+#import "pLViewRequestViewController.h"
 
 @interface pLViewPrayerButtonCell : UITableViewCell{
     
 }
 
-
+@property (nonatomic, retain) pLViewRequestViewController*vc;
 @property (nonatomic, retain) pLPrayerRequestListItem *listitem;
 @property (nonatomic, retain) IBOutlet UIButton *praybutton;
 @property (nonatomic, retain) IBOutlet UIButton *commentbutton;

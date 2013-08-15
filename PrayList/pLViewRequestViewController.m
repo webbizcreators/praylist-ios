@@ -14,6 +14,9 @@
 #import "pLPrayerListItemCell.h"
 #import "pLViewPrayerButtonCell.h"
 #import "pLViewPrayerStatsCell.h"
+#import "pLViewPrayerAnswerCell.h"
+#import "pLPostAnswerViewController.h"
+#import "pLViewPeopleViewController.h"
 
 #define FONT_SIZE 11.0f
 #define CELL_CONTENT_WIDTH 297.0f
@@ -34,6 +37,7 @@
 
 @synthesize prayerrequest;
 @synthesize prayerrequestlistitem;
+@synthesize commentfield;
 
 NSMutableArray *comments;
 BOOL stayup2 = NO;
@@ -58,9 +62,14 @@ BOOL isup2 = NO;
     
     [[NSNotificationCenter defaultCenter] addObserver:self  selector:@selector(orientationChanged:)  name:UIDeviceOrientationDidChangeNotification  object:nil];
     
+
+
     
-    UITapGestureRecognizer* tapGestureRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(handleTap:)];
-    [tableView addGestureRecognizer:tapGestureRecognizer];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(didDismissPostAnswerController)
+                                                 name:@"PostAnswerControllerDismissed"
+                                               object:nil];
     
     [self loadData:NO];
 	// Do any additional setup after loading the view.
@@ -102,7 +111,7 @@ BOOL isup2 = NO;
                                                   [tableView reloadData];
                                                   
                                                   if(scrolltobottom){
-                                                      NSIndexPath* ipath = [NSIndexPath indexPathForRow: comments.count inSection: 0];
+                                                      NSIndexPath* ipath = [NSIndexPath indexPathForRow: comments.count+3 inSection: 0];
                                                       [tableView scrollToRowAtIndexPath: ipath atScrollPosition: UITableViewScrollPositionBottom animated: YES];
                                                   }
                                                   
@@ -129,7 +138,7 @@ BOOL isup2 = NO;
 
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    NSInteger retval=[comments count]+3;
+    NSInteger retval=[comments count]+4;
     return retval;
 }
 
@@ -144,37 +153,7 @@ BOOL isup2 = NO;
     
     
     if( indexPath.row == 0 ) {
-        if(prayerrequest){
-            
-            static NSString *CustomCellIdentifier = @"PrayerRequestListItemCell";
-            pLPrayerListItemCell *pcell = (pLPrayerListItemCell *)[tableView dequeueReusableCellWithIdentifier: CustomCellIdentifier]; // typecast to customcell
-            
-            
-            pLPrayerRequest *pRequest = prayerrequest;
-            pcell.praybutton.hidden=YES;
-            pcell.commentbutton.hidden=YES;
-            pcell.requesttitle.text= [pLAppUtils fullnamefromEmail:pRequest.requestoremail];
-            pcell.requesttext.text = pRequest.requesttext;
-            pcell.requestdate.text = [pLAppUtils formatPostDate:pRequest.requestdate];
-            pcell.img.image = [pLAppUtils userimgFromEmail: pRequest.requestoremail];
-            pcell.requeststats.text = [pLAppUtils calculaterequeststats:pRequest.praycount commentcount:[NSNumber numberWithInt:0]];
-            
-            NSString*groupnames=@"";
-            
-            for(NSString*s in pRequest.groupids){
-                if(![[pLAppUtils groupnamefromID:s] isEqualToString:@""]){
-                    groupnames = [[groupnames stringByAppendingString:[pLAppUtils groupnamefromID:s]] stringByAppendingString:@", "];
-                }
-            }
-            pcell.groupnames.text = groupnames;
-            
-            cell = pcell;
-            
-        }
-        else
-        {
-            
-            
+
             static NSString *CustomCellIdentifier = @"PrayerRequestListItemCell";
             pLPrayerListItemCell *picell = (pLPrayerListItemCell *)[tableView dequeueReusableCellWithIdentifier: CustomCellIdentifier]; // typecast to customcell
             
@@ -185,7 +164,7 @@ BOOL isup2 = NO;
             picell.requestid = pRequest.requestid;
             picell.requestoremail = pRequest.requestoremail;
             picell.requesttext.text = pRequest.requesttext;
-            picell.requeststats.text = [pLAppUtils calculaterequeststats:pRequest.praycount commentcount:[NSNumber numberWithInt:0]];
+            picell.requeststats.text = [pLAppUtils calculaterequeststats:pRequest.praycount commentcount:pRequest.commentcount totalpraycount:pRequest.totalpraycount];
             
             if([pRequest.iprayed isEqualToNumber:[NSNumber numberWithInt:1]]){
                 [picell.praybutton setTitle:@"Prayed" forState:UIControlStateNormal];
@@ -196,26 +175,62 @@ BOOL isup2 = NO;
             
             cell = picell;
             
+    }
+    
+    else if (indexPath.row == 1){
+        static NSString *CustomCellIdentifier = @"answercell";
+        pLViewPrayerAnswerCell *pfcell = (pLViewPrayerAnswerCell *)[tableView dequeueReusableCellWithIdentifier: CustomCellIdentifier];
+        
+
+            pfcell.answertext.text = prayerrequestlistitem.answer;
+            [pfcell.answertext setAlpha:1];
+        
+        if(([pfcell.answertext.text isEqualToString:@""])||(pfcell.answertext.text==nil)){
+            pfcell.answertext.text = @"Prayer request not answered yet";
+            [pfcell.answertext setAlpha:0.5];
         }
+        cell = pfcell;
         
     }
+    
+    else if (indexPath.row == 3){
+        static NSString *CustomCellIdentifier = @"prayerbuttonscell";
+        pLViewPrayerButtonCell *pfcell = (pLViewPrayerButtonCell *)[tableView dequeueReusableCellWithIdentifier: CustomCellIdentifier];
+        
+        if(prayerrequestlistitem){
+            
+            pfcell.listitem=prayerrequestlistitem;
+            pfcell.vc = self;
+            if([prayerrequestlistitem.iprayed isEqualToNumber:[NSNumber numberWithInt:1]]){
+                [pfcell.praybutton setHighlighted:YES];
+            }
+            else{
+                [pfcell.praybutton setHighlighted:NO];
+            }
+            
+        }
+        
+        cell = pfcell;
+        
+    }
+    
     else if (indexPath.row == 2){
         static NSString *CustomCellIdentifier = @"prayedforcell";
         pLViewPrayerStatsCell *pfcell = (pLViewPrayerStatsCell *)[tableView dequeueReusableCellWithIdentifier: CustomCellIdentifier];
-    
+        
         NSString*prayedname;
         NSInteger*praycount;
         pfcell.statlabel.text =@"";
         if(prayerrequest){
             if([prayerrequest.peopleprayed count]>0){
-            prayedname = [pLAppUtils fullnamefromEmail:[prayerrequest.peopleprayed objectAtIndex:0]];
-            praycount = [prayerrequest.praycount integerValue]-1;
-            if(praycount>0){
-                pfcell.statlabel.text = [[[prayedname stringByAppendingString:@" and "] stringByAppendingString:[[NSNumber numberWithInt:praycount] stringValue]] stringByAppendingString:@" other people prayed"];
-            }
-            else{
-                pfcell.statlabel.text = [prayedname stringByAppendingString:@" prayed for you"];
-            }
+                prayedname = [pLAppUtils fullnamefromEmail:[prayerrequest.peopleprayed objectAtIndex:0]];
+                praycount = [prayerrequest.praycount integerValue]-1;
+                if(praycount>0){
+                    pfcell.statlabel.text = [[[prayedname stringByAppendingString:@" and "] stringByAppendingString:[[NSNumber numberWithInt:praycount] stringValue]] stringByAppendingString:@" other people prayed"];
+                }
+                else{
+                    pfcell.statlabel.text = [prayedname stringByAppendingString:@" prayed for you"];
+                }
             }
         }
         else{
@@ -231,43 +246,24 @@ BOOL isup2 = NO;
                     pfcell.statlabel.text = [[[NSNumber numberWithInt:praycount]stringValue] stringByAppendingString:@" people prayed"];
                 }
             }
-    else{
-        pfcell.statlabel.text = @"No one has prayed yet.";
-    }
+            else{
+                pfcell.statlabel.text = @"No one has prayed yet.";
+                [pfcell.statlabel setAlpha:0.5];
+            }
         }
-
+        
         cell = pfcell;
-    
-    }
-else if (indexPath.row == 1){
-    static NSString *CustomCellIdentifier = @"prayerbuttonscell";
-    pLViewPrayerButtonCell *pfcell = (pLViewPrayerButtonCell *)[tableView dequeueReusableCellWithIdentifier: CustomCellIdentifier];
-    
-    if(prayerrequestlistitem){
-        
-        pfcell.listitem=prayerrequestlistitem;
-        
-        if([prayerrequestlistitem.iprayed isEqualToNumber:[NSNumber numberWithInt:1]]){
-            [pfcell.praybutton setHighlighted:YES];
-        }
-        else{
-            [pfcell.praybutton setHighlighted:NO];
-        }
         
     }
     
-    cell = pfcell;
     
-}
-
-
     else
     {
         
         static NSString *CustomCellIdentifier = @"CommentCell";
         pLCommentCell *ccell = (pLCommentCell *)[tableView dequeueReusableCellWithIdentifier: CustomCellIdentifier]; // typecast to customcell
         
-        pLComment *comment = [comments objectAtIndex:indexPath.row-3];
+        pLComment *comment = [comments objectAtIndex:indexPath.row-4];
         
         //[cell configureView:pRequest inTableViewController:self];
         
@@ -291,22 +287,34 @@ else if (indexPath.row == 1){
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath;
 {
-    if( indexPath.row > 2 ) {
-        pLComment *comment = [comments objectAtIndex:indexPath.row-3];
+    if( indexPath.row > 3 ) {
+        pLComment *comment = [comments objectAtIndex:indexPath.row-4];
         NSString *text = comment.commenttext;
         
         CGSize constraint = CGSizeMake(CELL_CONTENT_WIDTH - (CELL_CONTENT_MARGIN * 2), 20000.0f);
         
-        CGSize size = [text sizeWithFont:[UIFont systemFontOfSize:FONT_SIZE] constrainedToSize:constraint lineBreakMode:UILineBreakModeWordWrap];
+        CGSize size = [text sizeWithFont:[UIFont systemFontOfSize:FONT_SIZE] constrainedToSize:constraint lineBreakMode:NSLineBreakByWordWrapping];
         
         CGFloat height = MAX(size.height, 19.0f);
         
         return height + 80;
     }
     else if (indexPath.row ==1){
-        return 44;
+        NSString *text = prayerrequestlistitem.answer;
+        
+        CGSize constraint = CGSizeMake(CELL_CONTENT_WIDTH - (CELL_CONTENT_MARGIN * 2), 20000.0f);
+        
+        CGSize size = [text sizeWithFont:[UIFont systemFontOfSize:FONT_SIZE] constrainedToSize:constraint lineBreakMode:NSLineBreakByWordWrapping];
+        
+        CGFloat height = MAX(size.height, 19.0f);
+        
+        return height + 40;
+
     }
     else if (indexPath.row ==2){
+        return 40;
+    }
+    else if (indexPath.row ==3){
         return 30;
     }
     else
@@ -317,11 +325,11 @@ else if (indexPath.row == 1){
             
             CGSize constraint = CGSizeMake(CELL_CONTENT_WIDTH - (CELL_CONTENT_MARGIN * 2), 20000.0f);
             
-            CGSize size = [text sizeWithFont:[UIFont systemFontOfSize:FONT_SIZE] constrainedToSize:constraint lineBreakMode:UILineBreakModeWordWrap];
+            CGSize size = [text sizeWithFont:[UIFont systemFontOfSize:FONT_SIZE] constrainedToSize:constraint lineBreakMode:NSLineBreakByWordWrapping];
             
             CGFloat height = MAX(size.height, 19.0f);
             
-            return height + 130;
+            return height + 120;
         }
         else
         {
@@ -330,11 +338,11 @@ else if (indexPath.row == 1){
             
             CGSize constraint = CGSizeMake(CELL_CONTENT_WIDTH - (CELL_CONTENT_MARGIN * 2), 20000.0f);
             
-            CGSize size = [text sizeWithFont:[UIFont systemFontOfSize:FONT_SIZE] constrainedToSize:constraint lineBreakMode:UILineBreakModeWordWrap];
+            CGSize size = [text sizeWithFont:[UIFont systemFontOfSize:FONT_SIZE] constrainedToSize:constraint lineBreakMode:NSLineBreakByWordWrapping];
             
             CGFloat height = MAX(size.height, 19.0f);
             
-            return height + 130;
+            return height + 120;
             
         }
     }
@@ -344,7 +352,7 @@ else if (indexPath.row == 1){
     
     BOOL retval=NO;
     
-    if(indexPath.row>2){retval=YES;}
+    if(indexPath.row>3){retval=YES;}
     
     return retval;
     
@@ -352,7 +360,7 @@ else if (indexPath.row == 1){
 
 
 -(IBAction)backButton:(id)sender{
-    [self dismissModalViewControllerAnimated:YES];
+    [self.navigationController popViewControllerAnimated:YES];
 }
 
 -(void)handleTap:(UITapGestureRecognizer*)tapRecognizer
@@ -421,9 +429,15 @@ else if (indexPath.row == 1){
                 prayerrequest.commentcount = [NSNumber numberWithFloat:([prayerrequest.commentcount floatValue] + [[NSNumber numberWithInt:1] floatValue])];
             }
             
-
-            [self loadData:YES];
+            [comments addObject:comm];
             
+            
+            [tableView insertRowsAtIndexPaths:[NSArray arrayWithObject:[NSIndexPath indexPathForRow:comments.count+3 inSection:0]] withRowAnimation:UITableViewRowAnimationTop];
+            
+            NSIndexPath* ipath = [NSIndexPath indexPathForRow: comments.count+3 inSection: 0];
+            [tableView scrollToRowAtIndexPath: ipath atScrollPosition: UITableViewScrollPositionBottom animated: YES];
+            commentfield.text = NULL;
+            [pLAppUtils hideActivityIndicatorWithMessage:@"Done"];
             
         }
         
@@ -443,14 +457,14 @@ else if (indexPath.row == 1){
     if (editingStyle == UITableViewCellEditingStyleDelete)
     {
         [pLAppUtils showActivityIndicatorWithMessage:@"Deleting"];
-        pLComment *comm = [comments objectAtIndex:indexPath.row-3];
+        pLComment *comm = [comments objectAtIndex:indexPath.row-4];
         
         [[RKObjectManager sharedManager] deleteObject:comm path: nil parameters: nil success:^( RKObjectRequestOperation *operation , RKMappingResult *mappingResult){
             
             if(mappingResult.array.count>0){
                 
                 [pLAppUtils hideActivityIndicatorWithMessage:@"Done"];
-                [comments removeObjectAtIndex:indexPath.row-3];
+                [comments removeObjectAtIndex:indexPath.row-4];
                 [tableView deleteRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationFade];
                 
             }
@@ -463,28 +477,74 @@ else if (indexPath.row == 1){
     }
 }
 
+- (BOOL)shouldPerformSegueWithIdentifier:(NSString *)identifier sender:(id)sender{
+    
+    BOOL retval=NO;
+    
+    if([identifier isEqualToString:@"postanswer"]){
+        if([prayerrequestlistitem.email isEqualToString:prayerrequestlistitem.requestoremail]){
+            retval = YES;
+        }
+        
+    }
+    else if([identifier isEqualToString:@"viewprayed"]){
+        if([prayerrequestlistitem.peopleprayed count]>0){
+            retval = YES;
+        }
+    }
+    
+    return retval;
+}
+
+
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
+{
+    if ([[segue identifier] isEqualToString:@"postanswer"])
+    {
+        pLPostAnswerViewController *vc = [segue destinationViewController];
+        vc.prayerrequestlistitem = prayerrequestlistitem;
+    }
+    
+    else if ([[segue identifier] isEqualToString:@"viewprayed"])
+    {
+        pLViewPeopleViewController *vc = [segue destinationViewController];
+        vc.peoplelist = prayerrequestlistitem.peopleprayed;
+        
+    }
+
+}
+
+
+-(void)didDismissPostAnswerController{
+    [tableView reloadData];
+}
 
 
 - (void)keyboardWillHide:(NSNotification *)notif {
     [self setViewMoveUp:NO];
+    stayup2 = NO;
 }
 
 
 - (void)keyboardWillShow:(NSNotification *)notif{
     [self setViewMoveUp:YES];
-}
-
-
-- (void)textFieldDidBeginEditing:(UITextField *)textField {
     stayup2 = YES;
-    [self setViewMoveUp:YES];
+    UITapGestureRecognizer* tapGestureRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(handleTap:)];
+    [tableView addGestureRecognizer:tapGestureRecognizer];
+
 }
 
-
-- (void)textFieldDidEndEditing:(UITextField *)textField {
-    stayup2 = NO;
-    [self setViewMoveUp:NO];
-}
+//
+//- (void)textFieldDidBeginEditing:(UITextField *)textField {
+//    stayup2 = YES;
+//    [self setViewMoveUp:YES];
+//}
+//
+//
+//- (void)textFieldDidEndEditing:(UITextField *)textField {
+//    stayup2 = NO;
+//    [self setViewMoveUp:NO];
+//}
 
 //method to move the view up/down whenever the keyboard is shown/dismissed
 -(void)setViewMoveUp:(BOOL)moveUp
@@ -514,12 +574,14 @@ else if (indexPath.row == 1){
                 rect.size.height -= kOFFSET_FOR_KEYBOARD_PORTRAIT;
             }
             isup2 = YES;
+            NSIndexPath* ipath = [NSIndexPath indexPathForRow: comments.count+3 inSection: 0];
+            [tableView scrollToRowAtIndexPath: ipath atScrollPosition: UITableViewScrollPositionBottom animated: YES];
         }
         
     }
     else
     {
-        if (stayup2 == NO) {
+        if (stayup2 == YES) {
             if(self.interfaceOrientation == UIInterfaceOrientationLandscapeLeft){
                 rect.size.width += kOFFSET_FOR_KEYBOARD_LANDSCAPE;
             }

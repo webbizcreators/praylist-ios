@@ -19,6 +19,7 @@
     UILabel *requestdate;
     UIImageView *img;
     UIButton*praybutton;
+    IBOutlet UIButton*editbutton;
     
 }
 
@@ -28,6 +29,7 @@
 @property (nonatomic, retain) IBOutlet UILabel *groupnames;
 @property (nonatomic, retain) IBOutlet UIImageView *img;
 @property (nonatomic, retain) IBOutlet UIButton *praybutton;
+@property (nonatomic, retain) IBOutlet UIButton *planbutton;
 @property (nonatomic, retain) IBOutlet UIButton *commentbutton;
 @property (nonatomic, retain) IBOutlet UILabel *requeststats;
 @property (nonatomic, retain) NSString *requestoremail;

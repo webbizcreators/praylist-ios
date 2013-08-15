@@ -42,16 +42,6 @@ KeychainItemWrapper *keychainItem;
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(keyboardWillBeHidden:)
                                                  name:UIKeyboardWillHideNotification object:nil];
-    
-
-     keychainItem = [[KeychainItemWrapper alloc] initWithIdentifier:@"PrayListLogin" accessGroup:nil];
-    
-    NSString*test = [keychainItem objectForKey:(__bridge id)kSecAttrAccount];
-    if([keychainItem objectForKey:(__bridge id)kSecAttrAccount]){
-        [self autologin];
-    }
-    
-    
 }
 
 - (void)didReceiveMemoryWarning
@@ -60,91 +50,11 @@ KeychainItemWrapper *keychainItem;
     // Dispose of any resources that can be recreated.
 }
 
--(void)autologin{
-    
-    [pLAppUtils showActivityIndicatorWithMessage:@"Logging In"];
-    pLLoginRequest *lr = [[pLLoginRequest alloc] init];
-    
-    lr.email = [keychainItem objectForKey:(__bridge id)kSecAttrAccount];
-    lr.password = [keychainItem objectForKey:(__bridge id)kSecValueData];
-    lr.devicetoken = [pLAppUtils devicetoken];
-    
-    
-    [[RKObjectManager sharedManager] postObject:lr path: nil parameters: nil success:^( RKObjectRequestOperation *operation , RKMappingResult *mappingResult){
-        
-        if(mappingResult.array.count>0){
-            
-            pLLoginResponse *lr = (pLLoginResponse*)mappingResult.firstObject;
-            
-            [pLAppUtils setSecurityToken: lr.securitytoken];
-            NSDictionary *headers = [RKObjectManager sharedManager].defaultHeaders;
-            [headers setValue:[pLAppUtils securitytoken].tokenId forKey:@"securitytoken"];
-            [headers setValue:[pLAppUtils securitytoken].email forKey:@"securityemail"];
-            
-            [pLAppUtils loadmycontacts];
-            [pLAppUtils loadnotifcount];
-            [pLAppUtils loadgroups];
-            [pLAppUtils hideActivityIndicator];
-            [self performSegueWithIdentifier: @"loginMainSegue" sender: self];
-            
-            
-        }
-        
-    }
-                                        failure:^( RKObjectRequestOperation *operation , NSError *error ){
-                                            
-                                            
-                                            [keychainItem resetKeychainItem];
-                                            [pLAppUtils hideActivityIndicatorWithMessage:@"Failed"];
-                                            
-                                        }];
-    
-    
-    
-    
-}
+
 
 -(IBAction)loginbutton:(id)sender
 {
-    [pLAppUtils showActivityIndicatorWithMessage:@"Logging In"];
-    pLLoginRequest *lr = [[pLLoginRequest alloc] init];
-    
-    lr.email = emailfield.text;
-    lr.password = passwordfield.text;
-    lr.devicetoken = [pLAppUtils devicetoken];
-    
-    [[RKObjectManager sharedManager] postObject:lr path: nil parameters: nil success:^( RKObjectRequestOperation *operation , RKMappingResult *mappingResult){
-        
-        if(mappingResult.array.count>0){
-            
-            pLLoginResponse *lr = (pLLoginResponse*)mappingResult.firstObject;
-            
-            [pLAppUtils setSecurityToken: lr.securitytoken];
-            NSDictionary *headers = [RKObjectManager sharedManager].defaultHeaders;
-            [headers setValue:[pLAppUtils securitytoken].tokenId forKey:@"securitytoken"];
-            [headers setValue:[pLAppUtils securitytoken].email forKey:@"securityemail"];
-            
-            if(autologinsw.on){
-                [keychainItem setObject:passwordfield.text forKey:(__bridge id)kSecValueData];
-                [keychainItem setObject:emailfield.text forKey:(__bridge id)kSecAttrAccount];
-            }
-            
-            [pLAppUtils loadmycontacts];
-            [pLAppUtils loadnotifcount];
-            [pLAppUtils loadgroups];
-            [pLAppUtils hideActivityIndicator];
-            [self performSegueWithIdentifier: @"loginMainSegue" sender: self];
-            
-        }
-        
-    }
-    failure:^( RKObjectRequestOperation *operation , NSError *error ){
-    
-        [pLAppUtils hideActivityIndicatorWithMessage:@"Failed"];
-
-    }];
-    
-    
+    [pLAppUtils performloginwithEmail:emailfield.text password:passwordfield.text savelogin:autologinsw fromauto:NO];
         
 }
 

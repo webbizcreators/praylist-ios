@@ -14,6 +14,7 @@
 #import "NSArray+sortBy.h"
 #import "pLAppDelegate.h"
 #import "pLViewGroupMembersViewController.h"
+#import "pLGroupNotifSettingsViewController.h"
 
 @interface pLEditGroupViewController ()
 
@@ -40,6 +41,15 @@
 {
     [super viewDidLoad];
     
+    
+    
+    UIImage *image = [UIImage imageNamed:@"background_iPhone5"];
+    UIImageView *imageView = [[UIImageView alloc] initWithImage:image];
+    
+    UITableView *tableView = (UITableView*)self.view;
+    tableView.backgroundView = imageView;
+    
+    self.view.backgroundColor = [UIColor colorWithPatternImage:image];
     
     if(group){
         groupname.text = group.groupname;
@@ -114,6 +124,8 @@
         {retval =0;
          requestorcell.hidden="YES";
         }
+    }else if(indexPath.row==6){
+        retval=44;
     }
     
     return retval;
@@ -220,6 +232,10 @@
         pLViewGroupMembersViewController *vc = [segue destinationViewController];
         vc.mode = @"member";
         vc.group = group;
+    }else if ([[segue identifier] isEqualToString:@"editgroupnotifsettings"]){
+        
+        pLGroupNotifSettingsViewController *vc = [segue destinationViewController];
+        vc.group = group;
     }
     
     
@@ -264,7 +280,7 @@
     
     UIActionSheet *popupQuery = [[UIActionSheet alloc] initWithTitle:@"Do you want to delete this group?" delegate:self cancelButtonTitle:@"Cancel Button" destructiveButtonTitle:@"Delete Group" otherButtonTitles:nil];
     popupQuery.actionSheetStyle = UIActionSheetStyleDefault;
-    [popupQuery showFromTabBar:self.tabBarController.tabBar];
+    [popupQuery showInView:self.view];
     
     
 }

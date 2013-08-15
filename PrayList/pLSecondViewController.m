@@ -17,6 +17,9 @@
 #import "pLNotificationsPopupViewController.h"
 #import "FPPopoverController.h"
 #import "pLAppDelegate.h"
+#import "ECSlidingViewController.h"
+#import "pLSideMenuViewController.h"
+#import "pLPlanPrayerRequestViewController.h"
 
 #define FONT_SIZE 13.0f
 #define CELL_CONTENT_WIDTH 297.0f
@@ -33,7 +36,7 @@
 @implementation pLSecondViewController
 
 NSDate *lastdataload;
-NSArray *prayerrequests2;
+NSMutableArray *prayerrequests2;
 UIActivityIndicatorView *spinner;
 
 
@@ -84,6 +87,16 @@ UIActivityIndicatorView *spinner;
 
 - (void)viewWillAppear:(BOOL)animated {
     
+    [super viewWillAppear:animated];
+
+    if (![self.slidingViewController.underLeftViewController isKindOfClass:[pLSideMenuViewController class]]) {
+        self.slidingViewController.underLeftViewController  = [self.storyboard instantiateViewControllerWithIdentifier:@"Menu"];
+    }
+    
+    [self.view addGestureRecognizer:self.slidingViewController.panGesture];
+    [self.slidingViewController setAnchorRightPeekAmount:80.0f];
+    
+    
     NSDate*now=[[NSDate alloc]init];
     double intervalInSeconds = [now timeIntervalSinceDate:lastdataload];
     
@@ -109,25 +122,25 @@ UIActivityIndicatorView *spinner;
     [pLAppUtils clearnotifs];
     [[UIApplication sharedApplication] setApplicationIconBadgeNumber:0];
     
-    NSArray *nib = [[NSBundle mainBundle] loadNibNamed:@"NotificationsPopupView" owner:self options:nil];
-    pLNotificationsPopupViewController*controller;
+//    NSArray *nib = [[NSBundle mainBundle] loadNibNamed:@"NotificationsPopupView" owner:self options:nil];
+//    pLNotificationsPopupViewController*controller;
+//    
+//    for (id oneObject in nib)
+//        if ([oneObject isKindOfClass:[pLNotificationsPopupViewController class]])
+//            
+//            controller = (pLNotificationsPopupViewController *)oneObject;
+//    
+//    controller.title = @"Notifications";
+//    //our popover
+//    FPPopoverController *popover = [[FPPopoverController alloc] initWithViewController:controller];
+//    
+//    popover.contentSizeForViewInPopover = CGSizeMake(280,350);
+//    popover.contentSize = CGSizeMake(280,350);
+//    
+//    //the popover will be presented from the okButton view
+//    [popover presentPopoverFromView:notifbutton.subviews[0]];
     
-    for (id oneObject in nib)
-        if ([oneObject isKindOfClass:[pLNotificationsPopupViewController class]])
-            
-            controller = (pLNotificationsPopupViewController *)oneObject;
-    
-    controller.title = @"Notifications";
-    //our popover
-    FPPopoverController *popover = [[FPPopoverController alloc] initWithViewController:controller];
-    
-    popover.contentSizeForViewInPopover = CGSizeMake(280,350);
-    popover.contentSize = CGSizeMake(280,350);
-    
-    //the popover will be presented from the okButton view
-    [popover presentPopoverFromView:notifbutton.subviews[0]];
-    
-    
+    [pLAppUtils shownotifsfromview:notifbutton.subviews[0]];
     
     
 }
@@ -146,7 +159,7 @@ UIActivityIndicatorView *spinner;
                                            parameters:nil
                                               success:^(RKObjectRequestOperation *operation, RKMappingResult *mappingResult) {
                                                   
-                                                  prayerrequests2 = mappingResult.array;
+                                                  prayerrequests2 = [NSMutableArray arrayWithArray:mappingResult.array];
                                                   
                                                   if(prayerrequests2.count>0){
                                                       
@@ -154,7 +167,7 @@ UIActivityIndicatorView *spinner;
                                                       sortDescriptor = [[NSSortDescriptor alloc] initWithKey:@"requestdate"
                                                                                                    ascending:NO];
                                                       NSArray *sortDescriptors = [NSArray arrayWithObject:sortDescriptor];
-                                                      prayerrequests2 = [prayerrequests2 sortedArrayUsingDescriptors:sortDescriptors];
+                                                      prayerrequests2 = [NSMutableArray arrayWithArray:[prayerrequests2 sortedArrayUsingDescriptors:sortDescriptors]];
                                                       
                                                   }
                                                   lastdataload = [[NSDate alloc]init];
@@ -170,6 +183,43 @@ UIActivityIndicatorView *spinner;
     
 
     
+}
+
+
+
+-(void)loadmoreDatawithIndicator:(BOOL)withindicator{
+    
+    if(withindicator)[pLAppUtils showActivityIndicatorWithMessage:@"Loading"];
+    
+    NSString *objectpath = @"lists/myprayerlist/";
+    NSString *path = [objectpath stringByAppendingString: [pLAppUtils securitytoken].email];
+    
+    pLPrayerRequestListItem*pr = [prayerrequests2 lastObject];
+
+    [[RKObjectManager sharedManager] putObject:pr path: path parameters: nil success:^( RKObjectRequestOperation *operation , RKMappingResult *mappingResult2){
+    
+        NSArray*moreprayerrequests = mappingResult2.array;
+        
+    if(mappingResult2.array.count>0){
+        
+        if(moreprayerrequests.count>0){
+            
+            [prayerrequests2 addObjectsFromArray:moreprayerrequests];
+            
+            [tableView reloadData];
+            
+        }
+
+        
+        
+    }
+    
+        if(withindicator)[pLAppUtils hideActivityIndicator];
+        
+}
+                                   failure:^( RKObjectRequestOperation *operation , NSError *error ){
+                                       
+                                   }];
 }
 
 
@@ -215,16 +265,35 @@ UIActivityIndicatorView *spinner;
 
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return [prayerrequests2 count];
+    return [prayerrequests2 count]+1;
 }
 
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     
-    static NSString *CustomCellIdentifier = @"PrayerRequestListItemCell";
-    pLPrayerListItemCell *cell = (pLPrayerListItemCell *)[tableView dequeueReusableCellWithIdentifier: CustomCellIdentifier]; // typecast to customcell
+    UITableViewCell*returncell;
     
-    [cell setSelectionStyle:UITableViewCellSelectionStyleBlue];
+    if(indexPath.row==0){
+        
+        UITableViewCell *cell = (UITableViewCell *)[tableView dequeueReusableCellWithIdentifier: @"requestfeedheadercell"];
+        
+        if (cell == nil)
+        {
+            NSArray *nib = [[NSBundle mainBundle] loadNibNamed:@"pLRequestFeedHeaderCellView" owner:self options:nil];
+            
+            for (id oneObject in nib)
+                if ([oneObject isKindOfClass:[UITableViewCell class]])
+                    
+                    cell = (UITableViewCell *)oneObject;
+        }
+        
+        returncell = cell;
+        
+        
+    }
+    else if(indexPath.row>0){
+
+    pLPrayerListItemCell *cell = (pLPrayerListItemCell *)[tableView dequeueReusableCellWithIdentifier: @"PrayerRequestListItemCell"];
     
     if (cell == nil)
     {
@@ -233,13 +302,10 @@ UIActivityIndicatorView *spinner;
         for (id oneObject in nib)
             if ([oneObject isKindOfClass:[pLPrayerListItemCell class]])
                 
-                cell = (pLPrayerListItemCell *)oneObject;
-        
-        [cell setSelectionStyle:UITableViewCellSelectionStyleBlue];
-        
+                cell = (pLPrayerListItemCell *)oneObject; 
     }
     
-    pLPrayerRequestListItem *pRequest = [prayerrequests2 objectAtIndex:indexPath.row];
+    pLPrayerRequestListItem *pRequest = [prayerrequests2 objectAtIndex:indexPath.row-1];
     
     [cell configureView:pRequest inTableViewController:self];
     
@@ -248,56 +314,69 @@ UIActivityIndicatorView *spinner;
     cell.requestid = pRequest.requestid;
     cell.requestoremail = pRequest.requestoremail;
     cell.requesttext.text = pRequest.requesttext;
-    cell.requeststats.text = [pLAppUtils calculaterequeststats:pRequest.praycount commentcount:pRequest.commentcount];
+    cell.requeststats.text = [pLAppUtils calculaterequeststats:pRequest.praycount commentcount:pRequest.commentcount totalpraycount:pRequest.totalpraycount];
     
     NSString*groupnames=@"";
     
-    //for(NSString*s in pRequest.groupids){
+    for(NSString*s in pRequest.senttoemails){
         
-    //    [[groupnames stringByAppendingString:[pLAppUtils groupnamefromID:s]] stringByAppendingString:@", "];
+        groupnames = [[groupnames stringByAppendingString:[pLAppUtils fullnamefromEmail:s]] stringByAppendingString:@", "];
         
-    //}
+    }
+    
+    for(NSString*s in pRequest.groupids){
+        
+        groupnames = [[groupnames stringByAppendingString:[pLAppUtils groupnamefromID:s]] stringByAppendingString:@", "];
+         
+        
+    }
+    
+    groupnames = [groupnames substringToIndex:[groupnames length] - 2];
+    
     cell.groupnames.text = groupnames;
     
-    if([pRequest.iprayed isEqualToNumber:[NSNumber numberWithInt:1]]){
+    if([pRequest.iprayed intValue]>0){
         [cell.praybutton setHighlighted:YES];
     }
     else{
         [cell.praybutton setHighlighted:NO];
     }
     
+    if(pRequest.prayinterval!=nil){
+        [cell.planbutton setHighlighted:YES];
+    }
+    else{
+        [cell.planbutton setHighlighted:NO];
+    }
+
     
     cell.img.image = [pLAppUtils userimgFromEmail: pRequest.requestoremail];
+        
+        returncell = cell;
+        
+    }
     
-    //NSString *text = pRequest.requesttext;
-    
-    //CGSize constraint = CGSizeMake(CELL_CONTENT_WIDTH - (CELL_CONTENT_MARGIN * 2), 20000.0f);
-    
-    //CGSize size = [text sizeWithFont:[UIFont systemFontOfSize:FONT_SIZE] constrainedToSize:constraint lineBreakMode:UILineBreakModeWordWrap];
-    
-    //if (!cell.requesttext)
-    //    cell.requesttext = (UILabel*)[cell viewWithTag:1];
-    
-    //[cell.requesttext setText:pRequest.requesttext];
-    //[cell.requesttext setFrame:CGRectMake(CELL_CONTENT_MARGIN, CELL_CONTENT_MARGIN, CELL_CONTENT_WIDTH - (CELL_CONTENT_MARGIN * 2), MAX(size.height, 44.0f))];
-    
-    
-    return cell;
+    return returncell;
     
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath;
 {
-    pLPrayerRequestListItem *pRequest = [prayerrequests2 objectAtIndex:[indexPath row]];
+    if(indexPath.row==0){
+        return 43;
+    }
+    else{
+    pLPrayerRequestListItem *pRequest = [prayerrequests2 objectAtIndex:[indexPath row]-1];
     NSString *text = pRequest.requesttext;
     
     CGSize constraint = CGSizeMake(CELL_CONTENT_WIDTH - (CELL_CONTENT_MARGIN * 2), 20000.0f);
     
-    CGSize size = [text sizeWithFont:[UIFont systemFontOfSize:FONT_SIZE] constrainedToSize:constraint lineBreakMode:UILineBreakModeWordWrap];
+    CGSize size = [text sizeWithFont:[UIFont systemFontOfSize:FONT_SIZE] constrainedToSize:constraint lineBreakMode:NSLineBreakByWordWrapping];
     
     CGFloat height = MAX(size.height, 19.0f);
     
-    return height + 130;
+    return height + 150;
+    }
 }
 
 
@@ -330,6 +409,12 @@ UIActivityIndicatorView *spinner;
 			
 		}
 	}
+    
+    
+    if (scrollView.contentOffset.y == scrollView.contentSize.height - scrollView.frame.size.height) {
+        [self loadmoreDatawithIndicator:YES];
+    }
+    
 }
 
 - (void)scrollViewDidEndDragging:(UIScrollView *)scrollView
@@ -353,28 +438,93 @@ UIActivityIndicatorView *spinner;
     [self opencommentsfromsender:[tableView cellForRowAtIndexPath:indexPath]];
 }
 
--(void)opencommentsfromsender:(id)sender{
-    
-    pLPrayerListItemCell * lic = (pLPrayerListItemCell*)sender;
-    
-    [pLAppUtils showActivityIndicatorWithMessage:@"Loading"];
-    
-    
-    UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"MainStoryboard" bundle: nil];
-    pLViewRequestViewController *lvc = [storyboard instantiateViewControllerWithIdentifier:@"postDetail"];
-    lvc.prayerrequestlistitem = lic.listitem;
-    lvc.prayerrequest = NULL;
-    
-    pLAppDelegate *appDelegate = (pLAppDelegate *)[[UIApplication sharedApplication] delegate];
-    
-    UIViewController*pv=appDelegate.window.rootViewController.presentedViewController;
-    
-    [pv presentViewController:lvc animated:YES completion:nil];
-    
-    [pLAppUtils hideActivityIndicator];
 
+-(IBAction)addbutton:(id)sender
+{
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(didDismissPostViewController)
+                                                 name:@"PostViewControllerDismissed"
+                                               object:nil];
+    
+    [self performSegueWithIdentifier: @"addRequestSegue" sender: self];
     
 }
+
+
+-(void)didDismissPostViewController {
+    [pLAppUtils hideActivityIndicatorWithMessage:@"Saved"];
+    [self loadDatawithIndicator:YES];
+    
+}
+
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
+{
+    // Make sure your segue name in storyboard is the same as this line
+    if ([[segue identifier] isEqualToString:@"requestdetails"])
+    {
+        pLPrayerListItemCell * lic = (pLPrayerListItemCell*)sender;
+        // Get reference to the destination view controller
+        pLViewRequestViewController *vc = [segue destinationViewController];
+        
+        // Pass any objects to the view controller here, like...
+        vc.prayerrequestlistitem = lic.listitem;
+        vc.prayerrequest = NULL;
+        
+
+    }else if([[segue identifier] isEqualToString:@"planrequest"]){
+        
+        pLPrayerListItemCell * lic = (pLPrayerListItemCell*)sender;
+        // Get reference to the destination view controller
+        pLPlanPrayerRequestViewController *vc = [segue destinationViewController];
+        vc.prayerrequestlistitem = lic.listitem;
+        vc.isedit=NO;
+        
+        if(lic.listitem.prayinterval!=nil)vc.isedit=YES;
+
+    }
+}
+
+-(void)opencommentsfromsender:(id)sender{
+    
+    [self performSegueWithIdentifier:@"requestdetails" sender:sender];
+    
+}
+
+-(void)planrequestfromsender:(id)sender{
+    
+    [self performSegueWithIdentifier:@"planrequest" sender:sender];
+    
+}
+
+-(void)deleterequestfromsender:(id)sender{
+    
+    pLPrayerListItemCell*cell=(pLPrayerListItemCell*)sender;
+    
+    NSIndexPath*indexPath = [tableView indexPathForCell:cell];
+    
+    [pLAppUtils showActivityIndicatorWithMessage:@"Deleting"];
+    pLPrayerRequestListItem *pr = [prayerrequests2 objectAtIndex:indexPath.row-1];
+    
+    [[RKObjectManager sharedManager] deleteObject:pr path: nil parameters: nil success:^( RKObjectRequestOperation *operation , RKMappingResult *mappingResult){
+        
+        if(mappingResult.array.count>0){
+            
+            [pLAppUtils hideActivityIndicatorWithMessage:@"Done"];
+            [prayerrequests2 removeObjectAtIndex:indexPath.row-1];
+            [tableView deleteRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationFade];
+            
+        }
+        
+    }
+                                          failure:^( RKObjectRequestOperation *operation , NSError *error ){
+                                              
+                                              [pLAppUtils hideActivityIndicatorWithMessage:@"Failed"];
+                                          }];
+    
+}
+
+
 
 - (void)didReceiveMemoryWarning
 {

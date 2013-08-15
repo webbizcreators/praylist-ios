@@ -13,5 +13,6 @@
 @synthesize email;
 @synthesize fullname;
 @synthesize orgid;
+@synthesize description;
 
 @end

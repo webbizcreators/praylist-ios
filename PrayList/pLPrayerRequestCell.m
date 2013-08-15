@@ -8,6 +8,7 @@
 
 #import "pLPrayerRequestCell.h"
 #import "pLFirstViewController.h"
+#import "pLAppUtils.h"
 
 @implementation pLPrayerRequestCell
 
@@ -20,6 +21,7 @@
 @synthesize img;
 @synthesize listitem;
 @synthesize groupnames;
+@synthesize praybutton;
 
 pLFirstViewController*tvc;
 
@@ -51,5 +53,67 @@ pLFirstViewController*tvc;
     [tvc opencommentsfromsender:self];
 }
 
+-(IBAction)deleterequest:(UIButton*)sender{
+    [tvc deleterequestfromsender:self];
+}
+
+-(IBAction)prayFor:(id)sender{
+    
+    
+    if([listitem.iprayed intValue]==0){
+        
+        [pLAppUtils showActivityIndicatorWithMessage:@"Saving"];
+        
+        NSString *objectpath = @"prayerrequests/prayfor/";
+        NSString *path = [objectpath stringByAppendingString: [listitem.requestoremail stringByAppendingString:[@"/" stringByAppendingString:listitem.requestid]]];
+        
+        
+        [[RKObjectManager sharedManager] getObjectsAtPath:path
+                                               parameters:nil
+                                                  success:^(RKObjectRequestOperation *operation, RKMappingResult *mappingResult) {
+                                                      
+                                                      
+                                                      [praybutton setHighlighted:YES];
+                                                      listitem.iprayed = [NSNumber numberWithInt:1];
+                                                      listitem.praycount = [NSNumber numberWithFloat:([listitem.praycount floatValue] + [[NSNumber numberWithInt:1] floatValue])];
+                                                      [pLAppUtils hideActivityIndicatorWithMessage:@"Done"];
+                                                      
+                                                  }
+                                                  failure:^(RKObjectRequestOperation *operation, NSError *error) {
+                                                      NSLog(@"Encountered an error: %@", error);
+                                                      [pLAppUtils hideActivityIndicatorWithMessage:@"Failed"];
+                                                  }];
+        
+    }
+    else
+    {
+        
+        [pLAppUtils showActivityIndicatorWithMessage:@"Saving"];
+        
+        NSString *objectpath = @"prayerrequests/unprayfor/";
+        NSString *path = [objectpath stringByAppendingString: [listitem.requestoremail stringByAppendingString:[@"/" stringByAppendingString:listitem.requestid]]];
+        
+        
+        [[RKObjectManager sharedManager] getObjectsAtPath:path
+                                               parameters:nil
+                                                  success:^(RKObjectRequestOperation *operation, RKMappingResult *mappingResult) {
+                                                      
+                                                      
+                                                      [praybutton setHighlighted:NO];
+                                                      listitem.iprayed = [NSNumber numberWithInt:0];
+                                                      listitem.praycount = [NSNumber numberWithFloat:([listitem.praycount floatValue] - [[NSNumber numberWithInt:1] floatValue])];
+                                                      [pLAppUtils hideActivityIndicatorWithMessage:@"Done"];
+                                                      
+                                                      
+                                                  }
+                                                  failure:^(RKObjectRequestOperation *operation, NSError *error) {
+                                                      NSLog(@"Encountered an error: %@", error);
+                                                      [pLAppUtils hideActivityIndicatorWithMessage:@"Failed"];
+                                                  }];
+    }
+    
+    
+    
+}
 
 @end

@@ -24,6 +24,7 @@
 - (void)dataSourceDidFinishLoadingNewData;
 - (void) showReloadAnimationAnimated:(BOOL)animated;
 -(void)opencommentsfromsender:(id)sender;
-
+-(void)planrequestfromsender:(id)sender;
+-(void)deleterequestfromsender:(id)sender;
 
 @end

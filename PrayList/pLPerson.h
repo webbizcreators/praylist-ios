@@ -13,5 +13,6 @@
 @property (nonatomic, retain) NSString* email;
 @property (nonatomic, retain) NSString* fullname;
 @property (nonatomic, retain) NSString* orgid;
+@property (nonatomic, retain) NSString* description;
 
 @end

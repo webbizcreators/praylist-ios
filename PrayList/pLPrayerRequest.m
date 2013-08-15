@@ -22,7 +22,10 @@
 @synthesize peopleprayed;
 @synthesize answer;
 @synthesize commentcount;
-
+@synthesize startplanon;
+@synthesize iprayed;
+@synthesize prayinterval;
+@synthesize senttoemails;
 
 -(NSDate *) requestdate
 {
